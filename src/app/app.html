@@ -1,0 +1,34 @@
+
+  <!-- Menus before scaning order barcode -->
+  <ion-menu id="beforeScanOrderMenu" [content]="content" persistent="true">
+    <ion-header center>
+      <ion-toolbar color="headerColor" >
+          <img src="../assets/img/logo.png" alt="logo" height="40">
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <button ion-item menuClose *ngFor="let p of beforeScanPages" (click)="openPage(p)">
+            {{p.title}}
+          </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <!-- Menus After scaning order barcode -->
+  <ion-menu id="afterScanOrderMenu" [content]="content" persistent="true">
+    <ion-header center>
+      <ion-toolbar color="headerColor" >
+          <img src="../assets/img/logo.png" alt="logo" height="40">
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-list>
+        <button ion-item menuClose *ngFor="let p of ScanedPages" (click)="openPage(p)">
+            {{p.title}}
+          </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-nav #content [root]="rootPage"></ion-nav>

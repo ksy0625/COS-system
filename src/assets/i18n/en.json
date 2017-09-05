@@ -1,0 +1,43 @@
+{
+  "BACK_BUTTON_TEXT" : "Back",
+
+  "NAME": "Name",
+  "EMAIL": "Email",
+  "USERNAME": "Username",
+  "PASSWORD": "Password",
+  "LOGIN": "Sign in",
+  "SIGNUP": "Sign up",
+
+  
+  "SEARCH_PLACEHOLDER" : "Search the items list, e.g. \"Donald Duck\"",
+
+  "APP_NAME": "COS",
+  "LOGIN_TITLE" : "COS Ops App Login v1.12",
+  "HOMESCREEN_TITLE": "Home Menu",
+  "SCANORDER_TITLE" : "Scan Order Barcode",
+  "ORDERSTATUS_TITLE" : "Order Pick Status",
+  "PLACEINTOTE_TITLE" : "Place In Tote",
+  "ABOUT_TITLE" : "About",
+  "TOTE_TITLE" : "Tote",
+  "SCANPRODUCT_TITLE" : "Scan Product Barcode",
+
+
+  "GO_BUTTON" : "GO",  
+  "CONVEYORPICK_BUTTON": "Conveyor Pick",
+  "P2LBULK_BUTTON": "P2L Bulk",
+  "1LINERPICK_BUTTON": "1 Liner  Pick",
+  "PLACEINTOTE_BUTTON" : "Place in Tote",
+  
+  "SCANORDER_LABEL" : "To Start, Scan OR Enter Order/Tote Barcode",
+  "ZONE_LABEL" : "Zone : ",
+  "PLACEINTOTE_LABEL" : "Scan Tote barcode to confirm below products are the Tote",
+  "BINLOCAION_LABEL" : "Bin Location",
+  "STOCK_LABEL" : "Stock",
+  "BIN_LABEL" : "Bin",
+  "ORDER_LABEL" : "Order",
+  "PICKUNIT_LABEL" : "Pick Unit",
+  "PICKQTY_LABEL" : "Pick Qty",
+  "CONFIRMQTY_LABEL" : "Confirm Qty",
+  "STATUS_LABEL" : "Status",
+  "SCANPRODUCT_LABEL" : "To Start, Scan Product Barcode"
+}
