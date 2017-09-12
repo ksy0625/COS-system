@@ -14,23 +14,25 @@
 
 
 <ion-content padding>
-	<ion-grid class="container">
-    <ion-row >
-      <ion-col col-7 offset-2>
-        <ion-item>
-          <ion-input type="text" placeholder="Username"></ion-input>
-        </ion-item>
-      </ion-col>
-    </ion-row>
-    <ion-row >
-      <ion-col col-7 offset-2>
-        <ion-item>
-          <ion-input type="password" placeholder="Password"></ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col col-1>
-        <button ion-button color="secondary" (click)="doLogin()">{{ 'GO_BUTTON' | translate }}</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <form> 
+  	<ion-grid class="container">
+      <ion-row >
+        <ion-col col-7 offset-2>
+          <ion-item>
+            <ion-input type="text" placeholder="Username" [value]="username" [(ngModel)]="username" name="username"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row >
+        <ion-col col-7 offset-2>
+          <ion-item>
+            <ion-input type="password" placeholder="Password" [value]="password" [(ngModel)]="password" name="password"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-1>
+          <button ion-button color="secondary" (click)="doLogin()">{{ 'GO_BUTTON' | translate }}</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

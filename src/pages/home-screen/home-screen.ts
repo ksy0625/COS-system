@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
+import { ServiceApi } from '../../providers/api/api'
+import {User} from '../../providers/user'
+
 /**
  * Generated class for the HomeScreenPage page.
  *
@@ -18,7 +21,9 @@ export class HomeScreenPage {
   constructor(
   	public navCtrl: NavController, 
   	public navParams: NavParams,
-  	public menu: MenuController) {
+  	public menu: MenuController,
+    public serverApi: ServiceApi,
+    public user:User ) {
   }
 
   ionViewDidLoad() {
@@ -30,6 +35,7 @@ export class HomeScreenPage {
   }
 
   openPage() {
+
   	this.navCtrl.push('ScanOrderPage');
   }
 }

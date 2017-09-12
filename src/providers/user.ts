@@ -27,7 +27,11 @@ import 'rxjs/add/operator/toPromise';
 export class User {
   _user: any;
 
+  public sessionId: string='';
+  public warehouse: string='';
+
   constructor(public http: Http, public api: Api) {
+    this.sessionId = '';
   }
 
   /**
