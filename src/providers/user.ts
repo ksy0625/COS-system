@@ -23,15 +23,41 @@ import 'rxjs/add/operator/toPromise';
  *
  * If the `status` field is not `success`, then an error is detected and returned.
  */
+
+export class SessionInfo{
+  sessionId:string;
+  status:string;
+  userDepartment:string;
+  userFullName:string;
+  userName:string;
+  userWarehouse:string;
+}
+
+export class OrderModel{
+  orderBarcode:string;
+  warehouse:string;
+  zone:string;
+  binLocations:string[];
+  countProductScaned:number;
+  countTotalProducts:number;
+  toteNumber:string;
+}
+
+
+
 @Injectable()
 export class User {
   _user: any;
 
-  public sessionId: string='';
-  public warehouse: string='';
+  public sessionInfo: SessionInfo;
+
+  public allowableProductsNotInTote:number;
+  public orderInfo : OrderModel
 
   constructor(public http: Http, public api: Api) {
-    this.sessionId = '';
+    this.sessionInfo = new SessionInfo();
+    this.orderInfo = new OrderModel();
+    this.allowableProductsNotInTote = 0;
   }
 
   /**

@@ -5,10 +5,10 @@ import { AppState } from './app.global';
 import { User } from '../providers/user';
 import { Api } from '../providers/api';
 import { AppData } from '../providers/app';
-import {LoginService} from '../providers/login/login'
-import {CoreService} from '../providers/core/core'
-import {AlertService} from '../providers/util/alert.service'
-import { ServiceApi } from '../providers/api/api'
+import {MobileAppSystem} from '../providers/mobile.app.system'
+import {AlertService} from '../providers/alert.service'
+import {UtilService} from '../providers/util.service'
+import {ModalService} from '../providers/modal.service'
 
 
 // Ionic native providers
@@ -43,10 +43,10 @@ export const PROVIDERS = [
   AppData,
   StatusBar,
   SplashScreen,
-  CoreService,
-  LoginService,
-  ServiceApi,
+  MobileAppSystem,
   AlertService,
+  UtilService,
+  ModalService
 ];
 
 export const COMPONENTS = [

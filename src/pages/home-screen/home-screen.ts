@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
-import { ServiceApi } from '../../providers/api/api'
 import {User} from '../../providers/user'
 
 /**
@@ -22,7 +21,6 @@ export class HomeScreenPage {
   	public navCtrl: NavController, 
   	public navParams: NavParams,
   	public menu: MenuController,
-    public serverApi: ServiceApi,
     public user:User ) {
   }
 

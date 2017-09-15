@@ -3,9 +3,11 @@ import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 
-import {LoginService} from '../../providers/login/login'
-import {AlertService} from '../../providers/util/alert.service'
+import {MobileAppSystem} from '../../providers/mobile.app.system'
+import {AlertService} from '../../providers/alert.service'
 import {User} from '../../providers/user'
+import {ModalService} from '../../providers/modal.service'
+
 
 
 /**
@@ -29,12 +31,13 @@ export class LoginPage{
   constructor(public navCtrl: NavController, 
    	public navParams: NavParams,
   	public menu: MenuController,
-    public loginService: LoginService,
+    public mobileAppSystem: MobileAppSystem,
     private alertApi: AlertService,
+    private modalService:ModalService,
     private user:User) 
   {
     this.username = 'testuser';
-    this.password = 'LoginMobile';
+    this.password = 'testpass123';
   }
 
   ionViewDidLoad() {
@@ -45,10 +48,16 @@ export class LoginPage{
   	this.menu.swipeEnable(false);
   }
   doLogin() {
-    this.loginService.login(this.username, this.password, this.onLoginSucced, true);
+
+     
+     // this.modalService.doModal('Error', 'aaaaaaa', 'OK', 'secondary', null);
+     // return;     
+    let svc = this;
+    this.mobileAppSystem.loginOPsApp(this.username, this.password, function(res:any){
+      svc.user.sessionInfo = res.result.loginResult;      
+      svc.navCtrl.setRoot('HomeScreenPage', {}, {animate: true, direction: 'forward'});
+    }, true);
+
   }
 
-  onLoginSucced(res:any){
-      this.navCtrl.setRoot('HomeScreenPage', {}, {animate: true, direction: 'forward'});
-  }
 }

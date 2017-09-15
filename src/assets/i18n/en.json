@@ -37,7 +37,7 @@
   "ORDER_LABEL" : "Order",
   "PICKUNIT_LABEL" : "Pick Unit",
   "PICKQTY_LABEL" : "Pick Qty",
-  "CONFIRMQTY_LABEL" : "Confirm Qty",
+  "CONFIRMQTY_LABEL" : "Confirm Picked",
   "STATUS_LABEL" : "Status",
   "SCANPRODUCT_LABEL" : "To Start, Scan Product Barcode"
 }

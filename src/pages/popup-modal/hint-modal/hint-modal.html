@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+      <ion-icon [name]="icon"></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>  
+  <h3>{{message}}</h3>
+</ion-content>
+<ion-footer>
+  <button ion-button full [color]="color" (click)="dismiss()">{{okTxt}}</button>
+</ion-footer>
+

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
-import { OrderBarcodeRequest } from '../../providers/api/message'
-
-import { ServiceApi } from '../../providers/api/api';
+import {MobileAppSystem} from '../../providers/mobile.app.system'
+import {AlertService} from '../../providers/alert.service'
 import {User} from '../../providers/user'
 
 /**
@@ -22,32 +21,59 @@ import {User} from '../../providers/user'
 
 export class ScanOrderPage {
 
-  public zoneCodes:string[] = ['zone-1','zone-2'];
+  public zoneCodes:string[];
   public zoneCode:string = '';
+  public orderBarCode:string = '';
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    public events: Events, public user:User, public serviceApi:ServiceApi) 
+    public events: Events, public user:User, public mobileAppSystem:MobileAppSystem, public alertService:AlertService) 
   {
-    
-    console.log(this.user.sessionId);
-    this.serviceApi.initialiseConveyorPick(this.user.warehouse, this.onSuccessInitializeConveyOrPick);
-    //let req:OrderBarcodeRequest = {};
-    ///get ConveyorPick
-    // this.serverApi    
 
-  }
+    this.orderBarCode = '16445324';
 
-  onSuccessInitializeConveyOrPick(result:any){
+    //init zone list
+    let svc = this;
+    this.mobileAppSystem.initialiseConveyorPick(this.user.sessionInfo.userWarehouse, function(res:any){
+      if(res==null)return;
 
+      svc.user.allowableProductsNotInTote = res.result.allowableProductsNotInTote;
+      svc.zoneCodes = res.result.pickZonesList; 
+    });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanOrderPage');
   }
+
   openPage() {
-    this.events.publish('scan:order');
-  	this.navCtrl.push('ScanProductPage');
+
+    if(this.orderBarCode == '' || this.zoneCode=='')
+      return;
+
+    let svc = this;    
+    this.mobileAppSystem.scanOrderBarcode(this.orderBarCode, this.user.sessionInfo.userWarehouse,this.zoneCode, function(res:any){
+      if(res==null)return;
+      if(res.result.binLocationList == null)
+      {
+        if(res.result.statusMsg != null && res.result.statusMsg != '')
+          svc.alertService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK');
+        return;
+      }
+
+      svc.user.orderInfo.zone = svc.zoneCode;
+      svc.user.orderInfo.binLocations = res.result.binLocationList;
+      svc.user.orderInfo.countProductScaned = res.result.countProductScanned;
+      svc.user.orderInfo.countTotalProducts = res.result.countTotalProducts;
+      svc.user.orderInfo.orderBarcode = res.result.orderNumber;
+      svc.user.orderInfo.toteNumber = res.result.toteNumber;
+      svc.user.orderInfo.warehouse = svc.user.sessionInfo.userWarehouse;
+
+
+      svc.events.publish('scan:order');
+      svc.navCtrl.push('ScanProductPage');
+    });
+
   }
 }

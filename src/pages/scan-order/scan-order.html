@@ -21,7 +21,7 @@
 	 <ion-row padding-top>
 	 	<ion-col col-7 offset-2>
 	        <ion-item>
-	          <ion-input type="text" placeholder="Barcode Here"></ion-input>
+	          <ion-input type="text" placeholder="Barcode Here" [value]="orderBarCode" [(ngModel)]="orderBarCode" name="orderBarCode"></ion-input>
 	        </ion-item>
 	    </ion-col>
         <ion-col col-1>
