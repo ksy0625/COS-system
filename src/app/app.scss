@@ -27,3 +27,19 @@ ion-title {
 .font3 {
 	font-size: 3em;
 }
+
+
+ion-modal.inset-modal {
+  // transparent black background overlay
+  background-color: rgba(0, 0, 0, .5) !important;
+  transition: opacity .25s ease-in-out;
+  padding: 20vh 25vw;
+}
+
+
+ion-modal.inset-modal_2{
+  // transparent black background overlay
+  background-color: rgba(0, 0, 0, .5) !important;
+  transition: opacity .25s ease-in-out;
+  padding: 10vh 15vw;
+}

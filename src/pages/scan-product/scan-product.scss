@@ -9,4 +9,12 @@ page-scan-product {
 		color: white;
 		font-size: 1.2em;
 	}
+
+	ion-item.item-content {
+	    padding-top: 1px;
+	    padding-bottom: 1px;
+	    height: 12px;
+	    line-height:12px
+	}
 }
+

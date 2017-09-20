@@ -17,15 +17,18 @@ export class UtilService {
 
     this.loading = this.loadingCtrl.create({
       content: "Please wait...",
-      duration: 3000
+      duration:  6000
     });
     this.loading.present();
   }
 
   hideLoading()
   {
+    if(this.loading != null)
+    {
       this.loading.dismiss();
       this.loading = null;    
+    }
   }
 
 

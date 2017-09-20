@@ -4,8 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 
 
 import {MobileAppSystem} from '../../providers/mobile.app.system'
-import {AlertService} from '../../providers/alert.service'
 import {User} from '../../providers/user'
+import {AlertService} from '../../providers/alert.service'
+import {ModalService} from '../../providers/modal.service'
 
 
 
@@ -17,7 +18,7 @@ import {User} from '../../providers/user'
  */
 
 export class SurplusBin{
-    binLocation :string;
+    bin_code :string;
     qty:number; 
 }
 
@@ -50,8 +51,8 @@ export class ScanProductPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               public mobileAppSystem:MobileAppSystem,
-              public alertService:AlertService,
-              public translateService:TranslateService, public user:User) {
+              private modalService:ModalService,
+              public translateService:TranslateService, public user:User, private alertService:AlertService) {
     this.scanStarted = false;
     this.title = '';
     this.titleDefault = '';
@@ -72,7 +73,7 @@ export class ScanProductPage {
   }
 
   openPage() {
-  	this.navCtrl.push('PlaceInTotePage');
+    this.navCtrl.push('PlaceInTotePage');
   }
 
 
@@ -180,7 +181,8 @@ private checkProductBarcode(productBarcode:string){
   onChangeConfirmQty(val:any)
   {    
     let svc = this;
-    this.alertService.doConfirm('You\'ve amended the Picked Qty!', 'confirm this', 'YES', 'NO').then(function(yes){
+    let data={productInfo: this.productInfo, entered:val};
+    this.modalService.showConfirmModal('ConfirmQtyPage', 'inset-modal_2', data).then(function(yes){
       if(yes)
         svc.updateProductConfirmQty(val);
       else

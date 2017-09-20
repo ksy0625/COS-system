@@ -28,7 +28,8 @@ export class ScanOrderPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
-    public events: Events, public user:User, public mobileAppSystem:MobileAppSystem, public alertService:AlertService) 
+    public events: Events, public user:User, public mobileAppSystem:MobileAppSystem, 
+    private alertService:AlertService) 
   {
 
     this.orderBarCode = '16445324';
@@ -58,7 +59,8 @@ export class ScanOrderPage {
       if(res.result.binLocationList == null)
       {
         if(res.result.statusMsg != null && res.result.statusMsg != '')
-          svc.alertService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK');
+          // svc.modalService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK', 'default', 'barcode');
+        svc.alertService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK');        
         return;
       }
 

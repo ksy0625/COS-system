@@ -35,6 +35,14 @@ $colors: (
 );
 
 
+ion-modal.inset-modal {
+  // transparent black background overlay
+  background-color: rgba(0, 0, 0, .5) !important;
+  transition: opacity .25s ease-in-out;
+  padding: 20vh 25vw;
+}
+
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

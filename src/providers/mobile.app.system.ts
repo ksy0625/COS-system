@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, RequestOptions} from '@angular/http';
+import {Headers} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { AlertService} from './alert.service';
@@ -20,7 +21,8 @@ export class MobileAppSystem {
   private notificationConnectionId:string;
 
 
-  public constructor(public http: Http, private alertService:AlertService,
+  public constructor(public http: Http,
+    private alertService:AlertService,
     private utilService:UtilService) 
   {
     console.log('Hello CoreService Provider');
@@ -72,6 +74,12 @@ export class MobileAppSystem {
 
     this.utilService.presentLoading();
 
+    // let headers = new Headers();
+    // headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    // headers.append("Accept", 'application/x-www-form-urlencoded');
+    // let options = new RequestOptions({ headers: headers });
+
+    // let res = this.http.post(this.baseUrl, body, options);
     let res = this.http.post(this.baseUrl, body);
     res.map(res => res.json()).subscribe(
       res => {        
@@ -130,9 +138,15 @@ export class MobileAppSystem {
           ];
 
       let svc = this;
-      this._doServerSideOp(requests, true, false, function (res:any) {
-        if(res==null)
+      this._doServerSideOp(requests, false, false, function (res:any) {
+        if(res==null)return;
+
+        if(res.isError==true)
+        {
+          svc.alertService.doAlert('Login failed', res.errorMessage, 'OK');   
           return;
+        }
+
         if(res.isError==false)
         {
           svc.sessionId = res.result.loginResult.sessionId;

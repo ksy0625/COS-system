@@ -3,8 +3,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
 import {MobileAppSystem} from '../../providers/mobile.app.system'
-import {AlertService} from '../../providers/alert.service'
 import {User} from '../../providers/user'
+import {ModalService} from '../../providers/modal.service'
+import {AlertService} from '../../providers/alert.service'
+
 /**
  * Generated class for the PlacInTotePage page.
  *
@@ -31,12 +33,13 @@ export class ProductOrder extends Product{
 })
 export class PlaceInTotePage {
 
-  productOrderList:ProductOrder[];
+  productOrderList:ProductOrder[] = [];
   toteBarcode:string;  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  			  public mobileAppSystem:MobileAppSystem, 
-  			  public alertService:AlertService,
+  			  public mobileAppSystem:MobileAppSystem,
+  	    	private modalService:ModalService,
+  	    	private alertService:AlertService, 
   			  public user:User) {
   	this.toteBarcode = '';
   }
@@ -56,13 +59,18 @@ export class PlaceInTotePage {
   	let svc = this;
   	let productList: Product[] = [];
 
-	for(var productOrder of this.productOrderList) {
-		productList.push({rowId: productOrder.rowId, binLocation: productOrder.binLocation, stockCode: productOrder.stockCode});
-	}
+  	if(this.productOrderList != null)
+  	{
+		for(var productOrder of this.productOrderList) {
+			productList.push({rowId: productOrder.rowId, binLocation: productOrder.binLocation, stockCode: productOrder.stockCode});
+		}  		
+  	}
 
   	//let productList;
 	this.mobileAppSystem.placeInTote(this.user.orderInfo.orderBarcode, 
 		this.toteBarcode, this.user.orderInfo.zone, productList, function(res:any){
+		if(res==null)
+			return;
 
 		if(res.result.orderComplete == 'Y')
 		{
@@ -70,7 +78,8 @@ export class PlaceInTotePage {
 		}
 		else if(res.result.orderComplete == 'N')
 		{
-			svc.alertService.doConfirm(res.result.statusMsg, '', 'YES', 'NO').then(function(yes:any){
+			svc.alertService.doConfirm('Error', res.result.statusMsg, 'YES', 'NO').then(function(yes:any){
+			// svc.al.doConfirm('Error', res.result.statusMsg, 'YES', 'NO', null).then(function(yes:any){
 				if(yes==true)
 				{
 					svc.allocateNewToteToOrder();	
@@ -111,7 +120,9 @@ export class PlaceInTotePage {
 
   private onOrderComplete()
   {
-	this.alertService.doAlert('Order Complete!', '', 'OK');
+
+  	this.alertService.doAlert('Order Complete!', '', 'OK');  	
+	//this.modalService.doAlert('Order Complete!', '', 'OK',  'secondary', 'checkmark-circle');
 	this.navCtrl.push('OrderStatusPage');
   } 
 

@@ -4,9 +4,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 
 import {MobileAppSystem} from '../../providers/mobile.app.system'
-import {AlertService} from '../../providers/alert.service'
 import {User} from '../../providers/user'
-import {ModalService} from '../../providers/modal.service'
+import {AlertService} from '../../providers/alert.service'
 
 
 
@@ -32,8 +31,7 @@ export class LoginPage{
    	public navParams: NavParams,
   	public menu: MenuController,
     public mobileAppSystem: MobileAppSystem,
-    private alertApi: AlertService,
-    private modalService:ModalService,
+    private alertService:AlertService,
     private user:User) 
   {
     this.username = 'testuser';
@@ -48,10 +46,6 @@ export class LoginPage{
   	this.menu.swipeEnable(false);
   }
   doLogin() {
-
-     
-     // this.modalService.doModal('Error', 'aaaaaaa', 'OK', 'secondary', null);
-     // return;     
     let svc = this;
     this.mobileAppSystem.loginOPsApp(this.username, this.password, function(res:any){
       svc.user.sessionInfo = res.result.loginResult;      

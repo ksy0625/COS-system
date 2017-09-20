@@ -4,5 +4,11 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "proxies": [
+    {
+      "path": "/ProcessRequest",
+      "proxyUrl": "http://inttest.cos.net.au/ProcessRequest"
+    }
+  ]
 }
