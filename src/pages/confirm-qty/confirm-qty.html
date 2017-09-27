@@ -8,29 +8,39 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding>  
-  <ion-row><h6>Suplus Locations.</h6></ion-row>
+
+<ion-content padding overflow-scroll="true">
+  <h6>Suplus Locations.</h6>
   <ion-row>
     <ion-col *ngFor="let suplineLocation of data.productInfo.surplusBins">
-      <ion-label>{{suplineLocation.bin_code}}</ion-label>
-      <ion-label>qty {{suplineLocation.qty}}</ion-label>
+      <p>{{suplineLocation.bin_code}}</p>
+      <p>qty {{suplineLocation.qty}}</p>
+    </ion-col>
+  </ion-row>  
+
+  <ion-row>
+    <ion-col col-6>
+      <ion-row>
+        <ion-col>Pick Qty</ion-col>
+        <ion-col><h5>{{data.productInfo.pickQty}}</h5></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>You've Entered</ion-col>
+        <ion-col><h5>{{data.entered}}</h5></ion-col>
+      </ion-row>
+      <h5>Are you sure?</h5>        
+    </ion-col>
+
+    <ion-col col-6>
+      <ion-row>
+        <ion-col>Pick Unit</ion-col>
+        <ion-col><h5>{{data.productInfo.pickUnit}}</h5></ion-col>
+      </ion-row>      
     </ion-col>
   </ion-row>
 
-  <ion-row>
-    <ion-col>Pick Qty</ion-col>
-    <ion-col><h5>{{data.productInfo.pickQty}}</h5></ion-col>
-    <ion-col>Pick Unit</ion-col>
-    <ion-col><h5>{{data.productInfo.pickUnit}}</h5></ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col col-3>You've Entered</ion-col>
-    <ion-col col-3><h5>{{data.entered}}</h5></ion-col>
-    <ion-col col-6><h5>Are you sure?</h5></ion-col>
-  </ion-row>
-
 </ion-content>
+
 <ion-footer>
   <ion-row >
     <ion-col></ion-col>

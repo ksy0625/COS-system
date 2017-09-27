@@ -20,19 +20,49 @@
 
 	<ion-grid *ngIf="scanStarted">
  		<ion-row>
-			<ion-col col-2>{{'STOCK_LABEL'|translate }}:</ion-col>
-			<ion-col col-3><h6>{{productInfo.stockCode}}</h6></ion-col>
-			<ion-col col-7>{{productInfo.description}}</ion-col>
-		</ion-row>
-		<ion-row>
-			<ion-col col-2>{{'BIN_LABEL'|translate }}:</ion-col>
-			<ion-col col-3><h6>{{productInfo.binLocation}}</h6></ion-col>
-			<ion-col col-2>{{'ORDER_LABEL'|translate }}:</ion-col>
-			<ion-col col-5><h6>{{productInfo.orderNumber}}</h6></ion-col>
+ 			<ion-col col-5>	
+ 				<ion-row>
+					<ion-col col-5>{{'STOCK_LABEL'|translate }}:</ion-col>
+					<ion-col col-7><h6>{{productInfo.stockCode}}</h6></ion-col>					
+ 				</ion-row>
+ 				<ion-row>
+					<ion-col col-5>{{'BIN_LABEL'|translate }}:</ion-col>
+					<ion-col col-7><h6>{{productInfo.binLocation}}</h6></ion-col>
+ 				</ion-row>
+ 				<ion-row>
+					<ion-col col-5>{{'PICKUNIT_LABEL'|translate}}:</ion-col>
+					<ion-col col-5><h6>{{productInfo.pickUnit}}</h6></ion-col>
+					<ion-col col-2><ion-checkbox color="danger" ></ion-checkbox></ion-col>
+				</ion-row>
+ 				<ion-row>
+					<ion-col col-5>{{'PICKQTY_LABEL'|translate }}:</ion-col>
+					<ion-col col-7><h6> {{productInfo.pickQty}}</h6></ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col text-wrap col-5>{{'CONFIRMQTY_LABEL'|translate}}:</ion-col>
+					<ion-col col-7><h6><ion-input type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)'></ion-input></h6></ion-col>
+				</ion-row>
+
+ 			</ion-col>
+
+ 			<ion-col col-7>	
+ 				<ion-row>
+ 					<ion-col col-12>{{productInfo.description}}</ion-col>
+ 				</ion-row>
+ 				<ion-row>
+					<ion-col col-4>{{'ORDER_LABEL'|translate }}:</ion-col>
+					<ion-col col-8><h6>{{productInfo.orderNumber}}</h6></ion-col>
+ 				</ion-row>
+ 				<ion-row>
+					<ion-col col-12 text-center><img [src]="productInfo.img_url"></ion-col>
+ 				</ion-row>
+ 			</ion-col>
 		</ion-row>
 
-		<ion-row>
+<!-- 		<ion-row>
 			<ion-col col-5>
+
 				<ion-item no-lines>
 						<ion-label fixed>{{'PICKUNIT_LABEL'|translate}}:</ion-label>
 						<ion-label style ="font-size:20px;">{{productInfo.pickUnit}}</ion-label>
@@ -51,7 +81,7 @@
 				<img [src]="productInfo.img_url">
 			</ion-col>
 		</ion-row>
-
+ -->
  	</ion-grid>
 </ion-content>
 
