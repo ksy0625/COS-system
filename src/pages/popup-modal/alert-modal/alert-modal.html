@@ -1,0 +1,28 @@
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-buttons front>
+      <button ion-button icon-only>
+      <ion-icon [color]="color" [name]="icon"></ion-icon>
+    </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>  
+  <h5>{{message}}</h5>
+</ion-content>
+<ion-footer>
+  <button ion-button full [color]="color" (click)="dismiss()">{{okTxt}}</button>
+</ion-footer> -->
+
+<ion-content  class="round">
+<!-- <ion-content [style.background-color]="color" class="round"> -->
+<!-- <ion-icon class="left-icon" [name]="icon"></ion-icon> -->
+<ion-icon class="left-icon" name="close-circle" color="danger"></ion-icon>
+<ion-label color="danger" class="title">{{title}}</ion-label>
+
+<button ion-button item-end outline color="danger" class="right-button" (click)="dismiss()">Outline</button>
+
+<!-- <button ion-button end class="footer-button" (click)="dismiss()">Let's get started!</button> -->
+  
+</ion-content>

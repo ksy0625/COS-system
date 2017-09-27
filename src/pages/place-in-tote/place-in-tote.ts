@@ -106,6 +106,7 @@ export class PlaceInTotePage {
 	this.mobileAppSystem.allocateNewToteToOrder(this.user.orderInfo.orderBarcode, 
 		this.toteBarcode, this.user.orderInfo.zone, productList, function(res:any){
 		if(res==null)return;
+		if(res.result==null)return;
 			
 		if(res.result.orderComplete == 'Y')
 		{
@@ -113,6 +114,7 @@ export class PlaceInTotePage {
 		}
 		else if(res.result.orderComplete == 'N')
 		{
+			//svc.onOrderComplete();
 			svc.navCtrl.push('ScanProductPage');
 		}
 	});  	

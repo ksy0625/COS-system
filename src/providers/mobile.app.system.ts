@@ -443,6 +443,37 @@ public allocateNewToteToOrder(orderNumber:string, toteNumber:string, pickZone:st
   });
 }
 
+public getOrderPickStatus(orderNumber:string, pickZone:string, success_cb:(result:any)=>void){
+
+    let svc = this;
+    let requests =
+        [
+            {
+                requestCounter: 1, //$rootScope.requestConveyorCounter,
+                command: 'getOrderPickStatus',
+                data: {
+                    userSessionId: this.sessionId,
+                    orderNumber:orderNumber,
+                    pickZone:pickZone
+                }
+            }
+        ];
+    
+    this._doServerSideOp(requests, false, false, function (res:any) {
+      if(res.isError==true)
+      {
+        if(success_cb != null)  
+          success_cb(null);
+      }  
+      else
+      {
+        if(success_cb != null)
+          success_cb(res);
+      }
+  });
+}
+
+
 
 
 }

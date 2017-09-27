@@ -35,59 +35,24 @@
 				<div class="tblHeader">{{ 'STATUS_LABEL' | translate }}</div>
 			</ion-col>
 		</ion-row>
-		<ion-row>
+		
+		<ion-row *ngFor="let productOrder of orderedProducts">
 			<ion-col col-3>
-				<div > 11­22­54­61 </div>
+				<div > {{productOrder.binLocation}} </div>
 			</ion-col>
 			<ion-col col-3>
-				<div > PENC2101 </div>
+				<div > {{productOrder.stockCode}} </div>
 			</ion-col>
 			<ion-col col-2>
-				<div > 15 </div>
+				<div > {{productOrder.pickQty}} </div>
 			</ion-col>
 			<ion-col col-2>
-				<div > 11 </div>
+				<div > {{productOrder.confirmQty}} </div>
 			</ion-col>
 			<ion-col col-2>
 				<div > 
-					 <ion-icon name="checkbox" color="secondary"></ion-icon>
+					<ion-icon [name]="(productOrder.status=='Y') ? 'checkbox': 'warning'" [color]="(productOrder.status=='Y') ? 'secondary':'warning'"></ion-icon>
 				</div>
-			</ion-col>
-		</ion-row>
-		<ion-row>
-			<ion-col col-3>
-				<div > 11­22­54­61 </div>
-			</ion-col>
-			<ion-col col-3>
-				<div > PENC2101 </div>
-			</ion-col>
-			<ion-col col-2>
-				<div > 15 </div>
-			</ion-col>
-			<ion-col col-2>
-				<div > 11 </div>
-			</ion-col>
-			<ion-col col-2>
-				<div > 
-					 <ion-icon name="warning" color="warning"></ion-icon>
-				</div>
-			</ion-col>
-		</ion-row>
-		<ion-row>
-			<ion-col col-3>
-				<div > 11­22­54­61 </div>
-			</ion-col>
-			<ion-col col-3>
-				<div > PENC2101 </div>
-			</ion-col>
-			<ion-col col-2>
-				<div > 15 </div>
-			</ion-col>
-			<ion-col col-2>
-				<div > 11 </div>
-			</ion-col>
-			<ion-col col-2>
-				<div > </div>
 			</ion-col>
 		</ion-row>
 	</ion-grid>

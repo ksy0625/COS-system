@@ -1,0 +1,26 @@
+page-alert-modal {
+  .round {
+    border-radius: 4px;
+    background-color: #ffdad8;
+  }
+ 
+  ion-label.title{
+  	left: 50px;
+  	top:  30px;
+  	position: absolute;
+  }
+
+  ion-icon.left-icon{
+  	left: 20px;
+  	top:  20px;
+  	position: absolute;  	
+  }
+
+  button.right-button{
+  	bottom: 6px;
+  	right:  6px;
+  	position: absolute;
+  }
+
+
+}

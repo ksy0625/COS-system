@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+      <ion-icon [color]="default" [name]="icon"></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>  
+  <h5>{{message}}</h5>
+</ion-content>
+<ion-footer>
+  <ion-row >
+    <ion-col></ion-col>
+    <ion-col><button ion-button  full color="danger" (click)="onCancel()">{{cancelTxt}}</button></ion-col>    
+    <ion-col></ion-col>
+    <ion-col><button ion-button  full color="secondary" (click)="onOK()">{{okTxt}}</button></ion-col>
+    <ion-col></ion-col>
+  </ion-row>    
+</ion-footer>
+
