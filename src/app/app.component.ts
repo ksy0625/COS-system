@@ -4,8 +4,9 @@ import { Platform, Nav, Config, MenuController, Events } from 'ionic-angular';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { TranslateService } from '@ngx-translate/core'
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
 
 export interface PageInterface {
   title: string;
@@ -44,11 +45,26 @@ export class MyApp {
     private config: Config, 
     public menu: MenuController,
     private statusBar: StatusBar, 
-    private splashScreen: SplashScreen) {
+    private splashScreen: SplashScreen,
+    private screenOrientation: ScreenOrientation) {
 
-    this.initTranslate();
-    
+    this.initTranslate();    
     this.listenToEvents();
+
+    //this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+
+  // if (this.platform.is('android')) {        
+  //     this.screenOrientation.onChange().subscribe(() => {
+
+  //       if (this.platform.isPortrait) {
+  //         this.screenOrientation.unlock()
+  //       }
+  //       else {            
+  //         this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT_PRIMARY)
+  //       }
+  //     });
+  //   }
+
   }
 
   ionViewDidLoad() {

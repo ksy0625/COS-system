@@ -14,6 +14,7 @@ import {ModalService} from '../providers/modal.service'
 // Ionic native providers
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 // Directives
 
@@ -43,6 +44,7 @@ export const PROVIDERS = [
   AppData,
   StatusBar,
   SplashScreen,
+  ScreenOrientation,
   MobileAppSystem,
   AlertService,
   UtilService,
