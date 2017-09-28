@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
+import { HostListener } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -41,12 +42,39 @@ export class ProductInfo{
   templateUrl: 'scan-product.html',
 })
 export class ScanProductPage {
-  private titleDefault :string 
-  private title :string 
+
+  private productBarCode:string = '';
+  private titleDefault :string; 
+  private title :string;
   private scanStarted:boolean = false;
+  private bLastPressReturnKey:boolean = true;
+  private bBinLocationScaning:boolean = false;
   private productInfo: ProductInfo;
   private confirmedPick :number;
 
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+
+    if(this.bBinLocationScaning==true)
+      return;
+
+    if(event.keyCode ==13)
+    {
+      this.bLastPressReturnKey = true;
+      this.startScanBarcode();
+    }
+    else
+    {
+      if(this.bLastPressReturnKey==true)
+      {
+        this.productBarCode = '';  
+        this.bLastPressReturnKey = false;
+      }
+
+      this.productBarCode += event.key;
+    }    
+  }
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -65,7 +93,7 @@ export class ScanProductPage {
         svc.titleDefault = value;
         svc.title = value + " : " + svc.user.orderInfo.countProductScaned + " of " + svc.user.orderInfo.countTotalProducts + " done";
       }
-    );
+    );    
   }
 
   ionViewDidLoad() {
@@ -94,6 +122,9 @@ private setQtyInformation(res:any)
     this.productInfo.surplusBins = res.surplusBins;
 
     this.confirmedPick = this.productInfo.pickQty;
+    this.title = this.titleDefault + " : " + this.user.orderInfo.countProductScaned + " of " + this.user.orderInfo.countTotalProducts + " done";
+
+
     this.updateProductConfirmQty(this.confirmedPick);
 }
 
@@ -108,25 +139,27 @@ private updateProductConfirmQty(confirmedQty:number)
 private inputBinLocationCode()
 {
     let svc = this;
+
+    this.bBinLocationScaning = true;
     this.alertService.doPrompt ('Product Barcode Not Found!', 
         'Scan or Enter Bin Location', 'YES', 'NO', 'BinLocation').then(function(binLocationCode){
         if(binLocationCode == '')
         {
-            svc.inputBinLocationCode();
+            svc.inputBinLocationCode();            
             return;
-        }
+        }        
+        svc.bBinLocationScaning = false;
 
         svc.mobileAppSystem.getProductInfoBinBarcode(binLocationCode, svc.user.orderInfo.orderBarcode,
           svc.user.orderInfo.toteNumber, svc.user.orderInfo.warehouse, svc.user.orderInfo.zone, function(res:any){
-          if(res==null)
-          {
+          if(res==null || res.result==null)
+          {              
               svc.alertService.doAlert('Bin Location Not Found!', '', 'OK');
               svc.navCtrl.push('PlaceInTotePage');
-              return;
           }
           else
           {
-              svc.setQtyInformation(res.result);              
+              svc.setQtyInformation(res.result);
           }
         });                  
     });
@@ -152,7 +185,9 @@ private checkProductBarcode(productBarcode:string){
 
   startScanBarcode(){
    this.scanStarted = true; 
-   let productBarcode = '3934237023075';
+   if(this.productBarCode =='')
+     return;
+   let productBarcode = this.productBarCode;
 
    let svc = this;
    this.mobileAppSystem.checkProductNotInToteLimit(this.user.orderInfo.orderBarcode, this.user.allowableProductsNotInTote,
@@ -174,7 +209,6 @@ private checkProductBarcode(productBarcode:string){
         }
         else
           svc.checkProductBarcode(productBarcode);
-
      });
   }
 
@@ -190,6 +224,6 @@ private checkProductBarcode(productBarcode:string){
     });
   }
 
-
+ 
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams, Events } from 'ionic-angular';
 
 import {MobileAppSystem} from '../../providers/mobile.app.system'
@@ -20,6 +20,9 @@ import {User} from '../../providers/user'
 
 
 export class ScanOrderPage {
+  @ViewChild('orderBarCodeInputBox') orderBarCodeInput ;
+  @ViewChild('zoneSelector') zoneSelector ;
+  
 
   public zoneCodes:string[];
   public zoneCode:string = '';
@@ -41,11 +44,13 @@ export class ScanOrderPage {
 
       svc.user.allowableProductsNotInTote = res.result.allowableProductsNotInTote;
       svc.zoneCodes = res.result.pickZonesList; 
+      svc.orderBarCodeInput.setFocus();
     });
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanOrderPage');
+    this.orderBarCodeInput.setFocus();
   }
 
   openPage() {
@@ -78,4 +83,26 @@ export class ScanOrderPage {
     });
 
   }
+
+  onChangedOrderBarcode(val:any)
+  {    
+    let svc = this;
+    if(val==null || val=='')
+      return;
+    this.openPage();
+  }
+
+  onChangeZone()
+  {
+    this.selectOrderBarcodeInput();
+  }
+
+  selectOrderBarcodeInput()
+  {
+    setTimeout(() => {
+      this.orderBarCodeInput.setFocus();
+    },300); //a least 150ms.
+  }
+
+
 }

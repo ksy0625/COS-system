@@ -16,7 +16,9 @@
 
 
 <ion-content padding>	
-	<ion-label *ngIf="!scanStarted" class="font2" text-center padding-top>{{ 'SCANPRODUCT_LABEL' | translate }}</ion-label>
+	<ion-grid *ngIf="!scanStarted">
+		<ion-label class="font2" text-center padding-top>{{ 'SCANPRODUCT_LABEL' | translate }}</ion-label>
+	</ion-grid>
 
 	<ion-grid *ngIf="scanStarted">
  		<ion-row>
@@ -94,7 +96,10 @@
 				</ion-row>
 			</ion-col>
  			<ion-col col-3>
-				<button ion-button block  color="secondary" (click)="startScanBarcode()">Scan</button>
+<!-- 			    <ion-item >
+		          <ion-input #barCodeInputBox type="text" placeholder="Barcode Here" [value]="productBarCode" [(ngModel)]="productBarCode" name="productBarCode" (change)='onChangedProductBarCode($event.target.value)'></ion-input>
+		        </ion-item>        
+ --><!-- 				<button ion-button block  color="secondary" (click)="startScanBarcode()">Scan</button> -->
 			</ion-col>
  			<ion-col col-3>
 				<button ion-button block  color="secondary" (click)="openPage()">{{ 'PLACEINTOTE_BUTTON' | translate }}</button>

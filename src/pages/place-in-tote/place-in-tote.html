@@ -60,8 +60,8 @@
 				<ion-label class="font2" text-right> {{ 'TOTE_TITLE' | translate }} : </ion-label>
 			</ion-col>
 			<ion-col col-8>
-				<ion-item>					
-          			<ion-input type="text" placeholder="Barcode" [value]="toteBarcode" [(ngModel)]="toteBarcode" name="toteBarcode"></ion-input>
+				<ion-item>			
+          			<ion-input #toteBarCodeInputBox type="text" placeholder="Barcode" [value]="toteBarcode" [(ngModel)]="toteBarcode" name="toteBarcode" (change)='onChangedToteBarcode($event.target.value)'></ion-input>
         		</ion-item>
 			</ion-col>
 			<ion-col col-2>

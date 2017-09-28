@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 
@@ -33,6 +33,8 @@ export class ProductOrder extends Product{
 })
 export class PlaceInTotePage {
 
+  @ViewChild('toteBarCodeInputBox') toteBarCodeInput ;
+
   productOrderList:ProductOrder[] = [];
   toteBarcode:string;  
 
@@ -48,8 +50,10 @@ export class PlaceInTotePage {
     console.log('ionViewDidLoad PlacInTotePage');
     let svc = this;
     this.mobileAppSystem.getProductListNotInTote(this.user.orderInfo.orderBarcode, this.user.orderInfo.zone, function(res:any){
-    	if(res==null)return;
-    	svc.productOrderList = res.result.productList;
+    	if(res!=null)
+    		svc.productOrderList = res.result.productList;
+    	
+    	svc.selectToteBarcodeInput();
     });
   }
 
@@ -127,6 +131,20 @@ export class PlaceInTotePage {
 	//this.modalService.doAlert('Order Complete!', '', 'OK',  'secondary', 'checkmark-circle');
 	this.navCtrl.push('OrderStatusPage');
   } 
+
+  selectToteBarcodeInput()
+  {
+    setTimeout(() => {
+      this.toteBarCodeInput.setFocus();
+    },500); //a least 150ms.
+  }
+  onChangedToteBarcode(val:any)
+  {    
+    let svc = this;
+    if(val==null || val=='')
+      return;
+    this.openPage();
+  }
 
 
 }

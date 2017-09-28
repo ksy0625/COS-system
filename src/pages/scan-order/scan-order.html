@@ -21,7 +21,8 @@
 	 <ion-row padding-top>
 	 	<ion-col col-7 offset-2>
 	        <ion-item class="font2">
-	          <ion-input type="text" placeholder="Barcode Here" [value]="orderBarCode" [(ngModel)]="orderBarCode" name="orderBarCode"></ion-input>
+	        	
+	          <ion-input #orderBarCodeInputBox type="text" placeholder="Barcode Here" [value]="orderBarCode" [(ngModel)]="orderBarCode" name="orderBarCode" (change)='onChangedOrderBarcode($event.target.value)'></ion-input>
 	        </ion-item>
 	    </ion-col>
         <ion-col col-1>
@@ -32,7 +33,7 @@
 		<ion-col col-6 offset-3>
 			<ion-item class="font2">				
 				<ion-label>{{ 'ZONE_LABEL' | translate }}</ion-label>
-				<ion-select item-end [(ngModel)]="zoneCode" name="zoneCode">
+				<ion-select item-end [(ngModel)]="zoneCode" name="zoneCode" (ionChange)='onChangeZone()' #zoneSelector>
 					<ion-option *ngFor="let zone of zoneCodes" [value]="zone">{{zone}}</ion-option>
 					<!-- <ion-option ></ion-option> -->
 				</ion-select>				
