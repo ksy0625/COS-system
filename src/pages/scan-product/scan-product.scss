@@ -16,5 +16,57 @@ page-scan-product {
 	    height: 12px;
 	    line-height:12px
 	}
+
+    hr {
+	    border: 0;
+	    height: 1px;
+	    background: #444;
+	    background: -webkit-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, rgb(188, 198, 214) 50%, hsla(0, 0%, 0%, 0) 100%);
+ 	}
+
+ 	ion-content {
+ 		height: 100%;
+ 	}
+
+ 	.order-info-head {
+ 		height: 26px;
+	    p {
+	      color: #444;
+	      font-size: medium;      
+	      margin-top: 0px;
+	    }
+	    span {
+	      font-weight: bold;
+	      font-size: medium;
+	      color: #34354c;
+	    }
+	    input {
+	      font-weight: bold;
+	      font-size: medium;
+	      color: #34354c;
+	      margin-top: 0px;
+	    }	    
+  	}
+
+ 	.order-info {
+ 		height: 36px;
+	    p {
+	      color: #444;
+	      font-size: medium;      
+	      margin-top: 5px;
+	    }
+	    span {
+	      font-weight: bold;
+	      font-size: 2.4rem;
+	      color: #34354c;      
+	    }
+
+	    input {
+	      font-weight: bold;
+	      font-size: 2.4rem;
+	      color: #34354c;      
+	    }
+  	}
+
 }
 

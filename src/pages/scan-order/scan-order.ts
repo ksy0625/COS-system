@@ -101,7 +101,7 @@ export class ScanOrderPage {
   {
     setTimeout(() => {
       this.orderBarCodeInput.setFocus();
-    },300); //a least 150ms.
+    },500); //a least 150ms.
   }
 
 

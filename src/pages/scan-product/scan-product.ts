@@ -1,5 +1,4 @@
-import { Component , ViewChild} from '@angular/core';
-import { HostListener } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -8,8 +7,6 @@ import {MobileAppSystem} from '../../providers/mobile.app.system'
 import {User} from '../../providers/user'
 import {AlertService} from '../../providers/alert.service'
 import {ModalService} from '../../providers/modal.service'
-
-
 
 /**
  * Generated class for the ScanProductPage page.
@@ -39,11 +36,14 @@ export class ProductInfo{
 @IonicPage()
 @Component({
   selector: 'page-scan-product',
-  templateUrl: 'scan-product.html',
+  templateUrl: 'scan-product.html'
 })
 export class ScanProductPage {
+  @ViewChild('barCodeInputBox') barCodeInput;
+  @ViewChild('barCodeInputBox1') barCodeInput1;  
 
   private productBarCode:string = '';
+  private productBarCode1:string = '';  
   private titleDefault :string; 
   private title :string;
   private scanStarted:boolean = false;
@@ -53,28 +53,6 @@ export class ScanProductPage {
   private confirmedPick :number;
 
 
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
-
-    if(this.bBinLocationScaning==true)
-      return;
-
-    if(event.keyCode ==13)
-    {
-      this.bLastPressReturnKey = true;
-      this.startScanBarcode();
-    }
-    else
-    {
-      if(this.bLastPressReturnKey==true)
-      {
-        this.productBarCode = '';  
-        this.bLastPressReturnKey = false;
-      }
-
-      this.productBarCode += event.key;
-    }    
-  }
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -93,12 +71,17 @@ export class ScanProductPage {
         svc.titleDefault = value;
         svc.title = value + " : " + svc.user.orderInfo.countProductScaned + " of " + svc.user.orderInfo.countTotalProducts + " done";
       }
-    );    
+    ); 
+
+    this.selectBarcodeScan();   
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
+
   }
+
 
   openPage() {
     this.navCtrl.push('PlaceInTotePage');
@@ -125,7 +108,8 @@ private setQtyInformation(res:any)
     this.title = this.titleDefault + " : " + this.user.orderInfo.countProductScaned + " of " + this.user.orderInfo.countTotalProducts + " done";
 
 
-    this.updateProductConfirmQty(this.confirmedPick);
+    this.updateProductConfirmQty(this.confirmedPick); 
+    this.selectBarcodeScan1();  
 }
 
 private updateProductConfirmQty(confirmedQty:number)
@@ -159,7 +143,7 @@ private inputBinLocationCode()
           }
           else
           {
-              svc.setQtyInformation(res.result);
+              svc.setQtyInformation(res.result);              
           }
         });                  
     });
@@ -221,9 +205,49 @@ private checkProductBarcode(productBarcode:string){
         svc.updateProductConfirmQty(val);
       else
         svc.confirmedPick = svc.productInfo.pickQty;
+
+        svc.selectBarcodeScan1();
     });
   }
 
- 
+  onChangedProductBarCode(val:any)
+  {
+    if(this.scanStarted==true)
+      return;    
+    if(val =='')return;
+    this.startScanBarcode();    
+  }
+  onChangedProductBarCode1(val:any)
+  {
+    if(this.scanStarted==false)
+      return;    
+
+    if(val =='')return;
+    this.productBarCode =  val;
+    this.startScanBarcode();    
+  }
+
+
+  selectBarcodeScan()
+  {
+    this.productBarCode = '';    
+    setTimeout(() => {
+      this.barCodeInput.setFocus();
+    },500); //a least 150ms.       
+  }
+
+  selectBarcodeScan1()
+  {
+    this.productBarCode1 = '';    
+    setTimeout(() => {
+      this.barCodeInput1.setFocus();
+    },3000); //a least 150ms.       
+  }
+
+  onBlurConfirmQty(event:any)
+  {
+    this.selectBarcodeScan1(); 
+  }
+
 
 }

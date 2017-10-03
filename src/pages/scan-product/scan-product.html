@@ -9,83 +9,74 @@
 		<button ion-button menuToggle >
       		<ion-icon name="menu"></ion-icon>
   		</button>
-
 	    <ion-title>{{title}}</ion-title>	    
 	</ion-navbar>
 </ion-header>
 
-
-<ion-content padding>	
-	<ion-grid *ngIf="!scanStarted">
+<ion-content padding >
+	<!-- <div (window:keypress)="onKeyDown($event)"> -->
+	<div *ngIf="!scanStarted">
 		<ion-label class="font2" text-center padding-top>{{ 'SCANPRODUCT_LABEL' | translate }}</ion-label>
-	</ion-grid>
+		<ion-row>
+			<ion-col col-3></ion-col>
+			<ion-col col-6>
+				<ion-item >
+		          <ion-input #barCodeInputBox type="text" placeholder="Barcode Here" [value]="productBarCode" [(ngModel)]="productBarCode" name="productBarCode" (change)='onChangedProductBarCode($event.target.value)'></ion-input>
+		        </ion-item>        		
+			</ion-col>		        
+    	</ion-row>
+	</div>
 
-	<ion-grid *ngIf="scanStarted">
+	<div *ngIf="scanStarted">
+	    <ion-row class="order-info-head">
+	      <ion-col col-1 text-right><p>Scan:</p></ion-col>
+	      <ion-col col-3>
+      		<ion-input text-center #barCodeInputBox1 type="text" [value]="productBarCode1" [(ngModel)]="productBarCode1" name="productBarCode1" (change)='onChangedProductBarCode1($event.target.value)'>
+      		</ion-input>
+	      </ion-col>
+
+		  <ion-col col-2 text-right><p>{{'BIN_LABEL'|translate }}:</p></ion-col>
+	      <ion-col col-2><span>{{productInfo.binLocation}}</span></ion-col>
+
+	      <ion-col col-2 text-right><p>{{'ORDER_LABEL'|translate }}:</p></ion-col>
+	      <ion-col col-2><span>{{productInfo.orderNumber}}</span></ion-col>
+
+	    </ion-row>
+		<hr/>
+
+		<ion-row class="order-info-head">
+			<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+			<ion-col col-2><span>{{productInfo.stockCode}}</span></ion-col>
+			<ion-col col-8><p>{{productInfo.description}}</p></ion-col>
+		</ion-row>
+		
  		<ion-row>
- 			<ion-col col-5>	
- 				<ion-row>
-					<ion-col col-5>{{'STOCK_LABEL'|translate }}:</ion-col>
-					<ion-col col-7><h6>{{productInfo.stockCode}}</h6></ion-col>					
- 				</ion-row>
- 				<ion-row>
-					<ion-col col-5>{{'BIN_LABEL'|translate }}:</ion-col>
-					<ion-col col-7><h6>{{productInfo.binLocation}}</h6></ion-col>
- 				</ion-row>
- 				<ion-row>
-					<ion-col col-5>{{'PICKUNIT_LABEL'|translate}}:</ion-col>
-					<ion-col col-5><h6>{{productInfo.pickUnit}}</h6></ion-col>
-					<ion-col col-2><ion-checkbox color="danger" ></ion-checkbox></ion-col>
+ 			<ion-col col-6>	
+ 				<ion-row class="order-info">
+					<ion-col col-4 text-right><p>{{'PICKUNIT_LABEL'|translate}}:</p></ion-col>
+					<ion-col col-4><span>{{productInfo.pickUnit}}</span></ion-col>
+					<ion-col col-4><ion-checkbox color="danger" ></ion-checkbox></ion-col>
 				</ion-row>
- 				<ion-row>
-					<ion-col col-5>{{'PICKQTY_LABEL'|translate }}:</ion-col>
-					<ion-col col-7><h6> {{productInfo.pickQty}}</h6></ion-col>
+ 				<ion-row class="order-info">
+					<ion-col col-4 text-right><p>{{'PICKQTY_LABEL'|translate }}:</p></ion-col>
+					<ion-col col-8><span> {{productInfo.pickQty}}</span></ion-col>
 				</ion-row>
-
-				<ion-row>
-					<ion-col text-wrap col-5>{{'CONFIRMQTY_LABEL'|translate}}:</ion-col>
-					<ion-col col-7><h6><ion-input type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)'></ion-input></h6></ion-col>
+				<ion-row class="order-info">
+					<ion-col col-1></ion-col>
+					<ion-col text-wrap text-right col-3><p>{{'CONFIRMQTY_LABEL'|translate}}:</p></ion-col>
+					<ion-col col-8><ion-input type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)' (blur)="onBlurConfirmQty($event)" ></ion-input></ion-col>
 				</ion-row>
-
  			</ion-col>
 
- 			<ion-col col-7>	
- 				<ion-row>
- 					<ion-col col-12>{{productInfo.description}}</ion-col>
- 				</ion-row>
- 				<ion-row>
-					<ion-col col-4>{{'ORDER_LABEL'|translate }}:</ion-col>
-					<ion-col col-8><h6>{{productInfo.orderNumber}}</h6></ion-col>
- 				</ion-row>
- 				<ion-row>
-					<ion-col col-12 text-center><img [src]="productInfo.img_url"></ion-col>
- 				</ion-row>
+ 			<ion-col col-6>	
+ 				<!-- <div style="height:75px; width:auto;"> -->
+			      <img [src]="productInfo.img_url">
+				<!-- </div> -->
  			</ion-col>
 		</ion-row>
-
-<!-- 		<ion-row>
-			<ion-col col-5>
-
-				<ion-item no-lines>
-						<ion-label fixed>{{'PICKUNIT_LABEL'|translate}}:</ion-label>
-						<ion-label style ="font-size:20px;">{{productInfo.pickUnit}}</ion-label>
-						<ion-checkbox item-end color="danger" ></ion-checkbox>
-				</ion-item>
-				<ion-item no-lines>
-					<ion-label fixed>{{'PICKQTY_LABEL'|translate }}:</ion-label>
-					<ion-input readonly style ="font-size:20px;" [value]="productInfo.pickQty">{{productInfo.pickQty}}</ion-input>
-				</ion-item>
-				<ion-item no-lines>
-					<ion-label fixed text-wrap>{{'CONFIRMQTY_LABEL'|translate}}:</ion-label>
-					<ion-input item-first style ="font-size:20px;" type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)'></ion-input>
-				</ion-item>
-			</ion-col>
-			<ion-col col-7 text-center>
-				<img [src]="productInfo.img_url">
-			</ion-col>
-		</ion-row>
- -->
- 	</ion-grid>
+ 	</div>
 </ion-content>
+
 
 <ion-footer>
 	<ion-toolbar>
@@ -96,13 +87,10 @@
 				</ion-row>
 			</ion-col>
  			<ion-col col-3>
-<!-- 			    <ion-item >
-		          <ion-input #barCodeInputBox type="text" placeholder="Barcode Here" [value]="productBarCode" [(ngModel)]="productBarCode" name="productBarCode" (change)='onChangedProductBarCode($event.target.value)'></ion-input>
-		        </ion-item>        
- --><!-- 				<button ion-button block  color="secondary" (click)="startScanBarcode()">Scan</button> -->
+ <!-- 				<button ion-button block  color="secondary" (click)="startScanBarcode()">Scan</button> -->
 			</ion-col>
  			<ion-col col-3>
-				<button ion-button block  color="secondary" (click)="openPage()">{{ 'PLACEINTOTE_BUTTON' | translate }}</button>
+				<button *ngIf="scanStarted" ion-button block  color="secondary" (click)="openPage()">{{ 'PLACEINTOTE_BUTTON' | translate }}</button>
 			</ion-col>
 		</ion-row>
 	</ion-toolbar>
