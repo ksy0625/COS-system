@@ -27,7 +27,17 @@ page-scan-product {
  	ion-content {
  		height: 100%;
  	}
+ 	.border{
+		border:1px solid #d0d6df; 		
+ 	}
+ 	.w100 {
+ 		width:100px;
+ 	}
+ 	.border .text-input-md {
 
+ 		    margin: -35px 8px 3px 8px;
+    		padding-top: 40px;
+ 	}
  	.order-info-head {
  		height: 26px;
 	    p {
@@ -40,12 +50,7 @@ page-scan-product {
 	      font-size: medium;
 	      color: #34354c;
 	    }
-	    input {
-	      font-weight: bold;
-	      font-size: medium;
-	      color: #34354c;
-	      margin-top: 0px;
-	    }	    
+   
   	}
 
  	.order-info {
