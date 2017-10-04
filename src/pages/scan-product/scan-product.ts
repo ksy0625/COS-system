@@ -126,7 +126,7 @@ private inputBinLocationCode()
 
     this.bBinLocationScaning = true;
     this.alertService.doPrompt ('Product Barcode Not Found!', 
-        'Scan or Enter Bin Location', 'YES', 'NO', 'BinLocation').then(function(binLocationCode){
+        'Scan or Enter Bin Location', 'Go', 'Cancel', 'BinLocation').then(function(binLocationCode){
         if(binLocationCode == '')
         {
             svc.inputBinLocationCode();            

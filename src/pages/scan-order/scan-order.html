@@ -33,7 +33,8 @@
 		<ion-col col-6 offset-3>
 			<ion-item class="font2">				
 				<ion-label>{{ 'ZONE_LABEL' | translate }}</ion-label>
-				<ion-select item-end [(ngModel)]="zoneCode" name="zoneCode" (ionChange)='onChangeZone()' #zoneSelector>
+				<!-- interface="popover" -->
+				<ion-select item-end [(ngModel)]="zoneCode" name="zoneCode" (ionChange)='onChangeZone()' #zoneSelector interface="popover">
 					<ion-option *ngFor="let zone of zoneCodes" [value]="zone">{{zone}}</ion-option>
 					<!-- <ion-option ></ion-option> -->
 				</ion-select>				

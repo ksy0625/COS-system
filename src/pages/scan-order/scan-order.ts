@@ -35,7 +35,7 @@ export class ScanOrderPage {
     private alertService:AlertService) 
   {
 
-    this.orderBarCode = '16515903';
+    this.orderBarCode = '';
 
     //init zone list
     let svc = this;
