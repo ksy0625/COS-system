@@ -52,7 +52,7 @@ export class AlertService {
         inputs: [
           {
             name: 'promptValue',
-            placeholder: placeHold
+            placeholder: placeHold,
           },
         ],        
         buttons: [{

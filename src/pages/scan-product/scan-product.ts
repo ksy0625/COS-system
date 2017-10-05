@@ -129,9 +129,8 @@ private inputBinLocationCode()
         'Scan or Enter Bin Location', 'Go', 'Cancel', 'BinLocation').then(function(binLocationCode){
         if(binLocationCode == '')
         {
-            svc.inputBinLocationCode();            
             return;
-        }        
+        }
         svc.bBinLocationScaning = false;
 
         svc.mobileAppSystem.getProductInfoBinBarcode(binLocationCode, svc.user.orderInfo.orderBarcode,
@@ -243,11 +242,5 @@ private checkProductBarcode(productBarcode:string){
       this.barCodeInput1.setFocus();
     },3000); //a least 150ms.       
   }
-
-  onBlurConfirmQty(event:any)
-  {
-    this.selectBarcodeScan1(); 
-  }
-
 
 }
