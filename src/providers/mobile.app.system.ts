@@ -454,7 +454,7 @@ public getOrderPickStatus(orderNumber:string, pickZone:string, success_cb:(resul
                 data: {
                     userSessionId: this.sessionId,
                     orderNumber:orderNumber,
-                    pickZone:pickZone
+                    pickzone:pickZone
                 }
             }
         ];
