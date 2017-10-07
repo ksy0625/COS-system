@@ -357,7 +357,7 @@ public getProductListNotInTote(orderNumber:string, pickZone:string, success_cb:(
                 data: {
                     userSessionId: this.sessionId,
                     orderNumber:orderNumber,
-                    pickZone:pickZone
+                    pickzone:pickZone
                 }
             }
         ];
@@ -390,7 +390,7 @@ public placeInTote(orderNumber:string, toteNumber:string, pickZone:string, produ
                     orderNumber:orderNumber,
                     toteNumber:toteNumber,                    
                     productList:productList,
-                    pickZone:pickZone
+                    pickzone:pickZone
                 }
             }
         ];
@@ -423,7 +423,7 @@ public allocateNewToteToOrder(orderNumber:string, toteNumber:string, pickZone:st
                     orderNumber:orderNumber,
                     toteNumber:toteNumber,                    
                     productList:productList,
-                    pickZone:pickZone
+                    pickzone:pickZone
                 }
             }
         ];
