@@ -84,6 +84,8 @@ export class MobileAppSystem {
     res.map(res => res.json()).subscribe(
       res => {        
         console.log(res);
+
+        
         this.utilService.hideLoading();
 
         let result = res[0];
