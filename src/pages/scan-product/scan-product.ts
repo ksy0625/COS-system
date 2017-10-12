@@ -129,12 +129,10 @@ private updateProductConfirmQty(confirmedQty:number)
 
      svc.mobileAppSystem.checkProductNotInToteLimit(svc.user.orderInfo.orderBarcode, svc.user.allowableProductsNotInTote,
        function(res:any){
-          if(res==null)return;
+          if(res==null || res.result==null)return;
           if(res.result.overLimit=='Y')
           {
-            svc.alertService.doConfirm('Your OverLoaded!', 
-              svc.user.orderInfo.countTotalProducts + ' Products Picked but not scanned into Tote. Do that now?',
-              'YES', 'NO').then(function(yes)
+            svc.alertService.doConfirm('Your OverLoaded!', res.result.statusMsg, 'YES', 'NO').then(function(yes)
               {
                 if(yes)
                 {
