@@ -127,6 +127,7 @@ private updateProductConfirmQty(confirmedQty:number)
       }
 
 
+
      svc.mobileAppSystem.checkProductNotInToteLimit(svc.user.orderInfo.orderBarcode, svc.user.allowableProductsNotInTote,
        function(res:any){
           if(res==null || res.result==null)return;
