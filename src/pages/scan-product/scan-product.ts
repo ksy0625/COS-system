@@ -114,8 +114,35 @@ private setQtyInformation(res:any)
 
 private updateProductConfirmQty(confirmedQty:number)
 {
+  let svc = this;
   this.mobileAppSystem.updateProductConfirmQty(this.productInfo.orderNumber, this.productInfo.stockCode,
-    this.productInfo.binLocation, confirmedQty, function(res:any){
+    this.productInfo.binLocation, confirmedQty, this.user.orderInfo.toteNumber, this.user.orderInfo.zone, function(res:any){
+
+      if(res!=null && res.result!=null)
+      {
+        svc.user.orderInfo.binLocations = res.result.binLocationList;
+        svc.user.orderInfo.countProductScaned = res.result.countProductScanned;
+        svc.user.orderInfo.countTotalProducts = res.result.countTotalProducts;
+        svc.title = svc.titleDefault + " : " + svc.user.orderInfo.countProductScaned + " of " + svc.user.orderInfo.countTotalProducts + " done";
+      }
+
+
+     svc.mobileAppSystem.checkProductNotInToteLimit(svc.user.orderInfo.orderBarcode, svc.user.allowableProductsNotInTote,
+       function(res:any){
+          if(res==null)return;
+          if(res.result.overLimit=='Y')
+          {
+            svc.alertService.doConfirm('Your OverLoaded!', 
+              svc.user.orderInfo.countTotalProducts + ' Products Picked but not scanned into Tote. Do that now?',
+              'YES', 'NO').then(function(yes)
+              {
+                if(yes)
+                {
+                   svc.navCtrl.push('PlaceInTotePage');
+                }
+            });
+          }
+       });
 
     });
 }

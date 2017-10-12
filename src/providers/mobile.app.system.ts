@@ -315,7 +315,7 @@ public getProductInfoBinBarcode(barcode:string, orderNumber:string, toteNumber:s
 
 
 public updateProductConfirmQty(orderNumber:string, stockCode:string, binLocation:string, 
-    confirmQty:number,  success_cb:(result:any)=>void){
+    confirmQty:number, toteNumber:string, pickzone:string,  success_cb:(result:any)=>void){
 
     let svc = this;
     let requests =
@@ -329,6 +329,8 @@ public updateProductConfirmQty(orderNumber:string, stockCode:string, binLocation
                     stockCode:stockCode,
                     binLocation:binLocation,
                     confirmQty:confirmQty,
+                    toteNumber:toteNumber,
+                    pickzone:pickzone
                 }
             }
         ];

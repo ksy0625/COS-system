@@ -43,7 +43,7 @@ export class PlaceInTotePage {
   	    	private modalService:ModalService,
   	    	private alertService:AlertService, 
   			  public user:User) {
-  	this.toteBarcode = '';
+  	this.toteBarcode = this.user.orderInfo.toteNumber;
   }
 
   ionViewDidLoad() {
