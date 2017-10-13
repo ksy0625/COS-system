@@ -2,7 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
 
-
 import {MobileAppSystem} from '../../providers/mobile.app.system'
 import {User} from '../../providers/user'
 import {AlertService} from '../../providers/alert.service'
@@ -41,6 +40,7 @@ export class ProductInfo{
 export class ScanProductPage {
   @ViewChild('barCodeInputBox') barCodeInput;
   @ViewChild('barCodeInputBox1') barCodeInput1;  
+  @ViewChild('confirmedInputBox') confirmInput;    
 
   private productBarCode:string = '';
   private productBarCode1:string = '';  
@@ -73,7 +73,25 @@ export class ScanProductPage {
       }
     ); 
 
-    this.selectBarcodeScan();   
+
+    setInterval(function(){ 
+      if(svc.scanStarted ==false)
+      {
+        if(svc.barCodeInput._isFocus ==false)
+          svc.barCodeInput.setFocus();
+      }
+      else
+      {
+        if(svc.bBinLocationScaning ==false)
+        {
+          if(svc.confirmInput._isFocus ==false)
+          {
+            if(svc.barCodeInput1._isFocus ==false)
+              svc.barCodeInput1.setFocus();
+          }          
+        }
+      }
+    }, 1000);
   }
 
 
@@ -109,7 +127,7 @@ private setQtyInformation(res:any)
 
 
     this.updateProductConfirmQty(this.confirmedPick); 
-    this.selectBarcodeScan1();  
+    this.clearBarcodeScan();  
 }
 
 private updateProductConfirmQty(confirmedQty:number)
@@ -179,8 +197,9 @@ private checkProductBarcode(productBarcode:string){
     let svc = this;    
     this.mobileAppSystem.getProductInfoProductBarcode(productBarcode, this.user.orderInfo.orderBarcode,
       this.user.orderInfo.toteNumber, this.user.orderInfo.warehouse, this.user.orderInfo.zone, function(res:any){
+          svc.clearBarcodeScan();
           if(res==null)
-          {
+          {              
               svc.inputBinLocationCode();
               return;
           }
@@ -199,26 +218,7 @@ private checkProductBarcode(productBarcode:string){
    let productBarcode = this.productBarCode;
 
    let svc = this;
-   this.mobileAppSystem.checkProductNotInToteLimit(this.user.orderInfo.orderBarcode, this.user.allowableProductsNotInTote,
-     function(res:any){
-        if(res==null)return;
-        if(res.result.overLimit=='Y')
-        {
-          svc.alertService.doConfirm('Your OverLoaded!', 
-            svc.user.orderInfo.countTotalProducts + ' Products Picked but not scanned into Tote. Do that now?',
-            'YES', 'NO').then(function(yes)
-            {
-              if(yes)
-              {
-                 svc.navCtrl.push('PlaceInTotePage');
-              }
-              else
-                svc.checkProductBarcode(productBarcode);
-          });
-        }
-        else
-          svc.checkProductBarcode(productBarcode);
-     });
+   this.checkProductBarcode(productBarcode);
   }
 
   onChangeConfirmQty(val:any)
@@ -230,8 +230,6 @@ private checkProductBarcode(productBarcode:string){
         svc.updateProductConfirmQty(val);
       else
         svc.confirmedPick = svc.productInfo.pickQty;
-
-        svc.selectBarcodeScan1();
     });
   }
 
@@ -253,20 +251,9 @@ private checkProductBarcode(productBarcode:string){
   }
 
 
-  selectBarcodeScan()
+  clearBarcodeScan()
   {
     this.productBarCode = '';    
-    setTimeout(() => {
-      this.barCodeInput.setFocus();
-    },500); //a least 150ms.       
-  }
-
-  selectBarcodeScan1()
-  {
     this.productBarCode1 = '';    
-    setTimeout(() => {
-      this.barCodeInput1.setFocus();
-    },3000); //a least 150ms.       
-  }
-
+  }  
 }

@@ -82,7 +82,7 @@
 					<ion-col col-1></ion-col>
 					<ion-col text-wrap text-right col-3><p>{{'CONFIRMQTY_LABEL'|translate}}:</p></ion-col>
 					<ion-col col-8 style="position: initial;">
-						<ion-input class="border w100" type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)' ></ion-input>
+						<ion-input #confirmedInputBox class="border w100" type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)' ></ion-input>
 					</ion-col>
 				</ion-row>
  			</ion-col>
