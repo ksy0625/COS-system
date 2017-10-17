@@ -32,3 +32,9 @@
   </ion-menu>
 
   <ion-nav #content [root]="rootPage"></ion-nav>
+  
+  
+<custom-keyboard [keysTab]="keysTab"
+                 (keyClick)="keyClick($event)"
+                 class="kb-light">
+</custom-keyboard>

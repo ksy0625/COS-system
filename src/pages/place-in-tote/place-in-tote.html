@@ -59,11 +59,13 @@
 			<ion-col col-2 >
 				<ion-label class="font2" text-right> {{ 'TOTE_TITLE' | translate }} : </ion-label>
 			</ion-col>
-			<ion-col col-8>
+			<button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon color="primary" name="keypad"> </ion-icon> </button>
+			<ion-col col-7>
 				<ion-item>			
           			<ion-input #toteBarCodeInputBox type="text" placeholder="Barcode" [value]="toteBarcode" [(ngModel)]="toteBarcode" name="toteBarcode" (change)='onChangedToteBarcode($event.target.value)'></ion-input>
         		</ion-item>
 			</ion-col>
+
 			<ion-col col-2>
 				<button ion-button color="secondary" (click)="openPage()">{{ 'GO_BUTTON' | translate }}</button>
 			</ion-col>

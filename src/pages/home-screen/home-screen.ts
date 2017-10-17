@@ -33,7 +33,6 @@ export class HomeScreenPage {
   }
 
   openPage() {
-
-  	this.navCtrl.push('ScanOrderPage');
+  	this.navCtrl.push('ScanOrderPage');   
   }
 }

@@ -5,6 +5,9 @@ import {MobileAppSystem} from '../../providers/mobile.app.system'
 import {AlertService} from '../../providers/alert.service'
 import {User} from '../../providers/user'
 
+import { Keyboard } from '@ionic-native/keyboard';
+import { CustomKeyBoard } from '../../components/customKeyBoard/custom-keyboard';
+
 /**
  * Generated class for the ScanOrderPage page.
  *
@@ -21,9 +24,8 @@ import {User} from '../../providers/user'
 
 export class ScanOrderPage {
   @ViewChild('orderBarCodeInputBox') orderBarCodeInput ;
-  @ViewChild('zoneSelector') zoneSelector ;
+  @ViewChild('zoneSelector') zoneSelector ;  
   
-
   public zoneCodes:string[];
   public zoneCode:string = '';
   public orderBarCode:string = '';
@@ -31,6 +33,7 @@ export class ScanOrderPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams, 
+    private keyboard:Keyboard,
     public events: Events, public user:User, public mobileAppSystem:MobileAppSystem, 
     private alertService:AlertService) 
   {
@@ -44,8 +47,47 @@ export class ScanOrderPage {
 
       svc.user.allowableProductsNotInTote = res.result.allowableProductsNotInTote;
       svc.zoneCodes = res.result.pickZonesList; 
-      svc.orderBarCodeInput.setFocus();
+      console.log(svc.orderBarCodeInput);      
     });
+
+    // CustomKeyBoard.onCKClick.subscribe((key) => {
+    //   if(this.navCtrl.getActive().component.name =="ScanOrderPage" )
+    //     if(key=="GO")
+    //     {
+    //        this.onChangedOrderBarcode(this.orderBarCode); 
+    //     }
+    //     else
+    //       this.orderBarCode += key;
+    // })
+
+    // // Subscribe to the delete event observable 
+    // // Here we delete the last character of the string   
+    // CustomKeyBoard.onDeleteClick.subscribe(() => {
+    //   if(this.navCtrl.getActive().component.name =="ScanOrderPage" )
+    //     this.orderBarCode = this.orderBarCode.slice(0, this.orderBarCode.length -1);
+    // })
+
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }
+
+  timerTick()
+  {
+    setTimeout(() => {
+      if(this.navCtrl.getActive().component.name =="ScanOrderPage" && this.mobileAppSystem.isBusy()==false)
+      {
+        if(this.keyboard)
+          this.keyboard.close();
+
+        if(CustomKeyBoard.isVisible() ==false && this.zoneSelector._isFocus ==false)
+        {
+          if(this.orderBarCodeInput._isFocus ==false)
+            this.orderBarCodeInput.setFocus();
+        }
+
+      }      
+      this.timerTick();
+    },100); //a least 150ms.
   }
 
   ionViewDidLoad() {
@@ -101,8 +143,20 @@ export class ScanOrderPage {
   {
     setTimeout(() => {
       this.orderBarCodeInput.setFocus();
-    },500); //a least 150ms.
+    },300); //a least 150ms.
   }
 
-
+  onShowKeyPad()
+  {
+    let svc = this;
+    if(CustomKeyBoard.isVisible())
+       CustomKeyBoard.hide();
+    else
+    {
+      CustomKeyBoard.show();
+      CustomKeyBoard.setTarget(this.orderBarCodeInput, function(val:string){
+         svc.onChangedOrderBarcode(val);
+      });
+    }
+  }
 }

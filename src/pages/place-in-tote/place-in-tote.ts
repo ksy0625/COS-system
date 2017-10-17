@@ -7,6 +7,9 @@ import {User} from '../../providers/user'
 import {ModalService} from '../../providers/modal.service'
 import {AlertService} from '../../providers/alert.service'
 
+import { Keyboard } from '@ionic-native/keyboard';
+import { CustomKeyBoard } from '../../components/customKeyBoard/custom-keyboard';
+
 /**
  * Generated class for the PlacInTotePage page.
  *
@@ -36,15 +39,22 @@ export class PlaceInTotePage {
   @ViewChild('toteBarCodeInputBox') toteBarCodeInput ;
 
   productOrderList:ProductOrder[] = [];
-  toteBarcode:string;  
+  toteBarcode:string = '';  
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   			  public mobileAppSystem:MobileAppSystem,
+          private keyboard:Keyboard,
   	    	private modalService:ModalService,
   	    	private alertService:AlertService, 
   			  public user:User) {
-  	this.toteBarcode = this.user.orderInfo.toteNumber;
+    
+    if(this.user.orderInfo.toteNumber)
+  	  this.toteBarcode = this.user.orderInfo.toteNumber;
+    CustomKeyBoard.hide();
+    this.timerTick();
   }
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PlacInTotePage');
@@ -146,5 +156,39 @@ export class PlaceInTotePage {
     this.openPage();
   }
 
+
+  timerTick()
+  {
+    let svc = this;
+    setTimeout(() => {
+      if(this.navCtrl.getActive().component.name !="PlaceInTotePage" ||  this.mobileAppSystem.isBusy()==true)
+      {
+        this.timerTick();
+        return;
+      }  
+
+      this.keyboard.close();
+
+      if(this.toteBarCodeInput._isFocus ==false)          
+         this.toteBarCodeInput.setFocus(); 
+
+      svc.timerTick();
+
+    },100); //a least 150ms.
+  }
+
+  onShowKeyPad()
+  {
+    let svc = this;
+    if(CustomKeyBoard.isVisible())
+       CustomKeyBoard.hide();
+    else
+    {
+      CustomKeyBoard.show();    
+      CustomKeyBoard.setTarget(this.toteBarCodeInput, function(val:string){
+        svc.onChangedToteBarcode(val);
+      });      
+    }
+  }
 
 }

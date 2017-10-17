@@ -20,10 +20,14 @@
 	<ion-label padding-top text-center class="font2">{{ 'SCANORDER_LABEL' | translate }}</ion-label>
 	<ion-grid>
 	    <ion-row padding-top>
-		 	<ion-col col-7 offset-2 style="position: initial;">
-		        <ion-item class="font2">
-		        	
-		          <ion-input #orderBarCodeInputBox type="text" placeholder="Barcode Here" [value]="orderBarCode" [(ngModel)]="orderBarCode" name="orderBarCode" (change)='onChangedOrderBarcode($event.target.value)'></ion-input>
+
+			<ion-col col-1 offset-2>
+			  <button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon name="keypad"> </ion-icon> </button>		        	
+		 	</ion-col>
+
+		 	<ion-col col-7 style="position: initial;">		 		
+		        <ion-item class="font2">		          
+		          <ion-input #orderBarCodeInputBox type="text" placeholder="Barcode Here" [value]="orderBarCode" [(ngModel)]="orderBarCode" name="orderBarCode" pattern="[0-9A-F]*" (change)='onChangedOrderBarcode($event.target.value)'></ion-input>
 		        </ion-item>
 		    </ion-col>
 	        <ion-col col-1>

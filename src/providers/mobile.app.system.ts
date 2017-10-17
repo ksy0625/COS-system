@@ -31,6 +31,13 @@ export class MobileAppSystem {
     this.sessionId = '';
   }
 
+  public  isBusy(): boolean
+  {
+    if(this.utilService.loading !=null)
+      return true;
+    return false;
+  }
+  
   private setSessionId(sessId:string)
   {
     this.sessionId = sessId;

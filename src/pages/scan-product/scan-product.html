@@ -18,12 +18,17 @@
 	<ion-grid *ngIf="!scanStarted">		
 		<ion-label class="font2" text-center padding-top>{{ 'SCANPRODUCT_LABEL' | translate }}</ion-label>
 		<ion-row  padding-top>
-			<ion-col col-3></ion-col>
+			<ion-col col-1 offset-2 text-right>
+			  <button ion-button clear color="primary" type="button" (click)="onShowKeyPad()"> <ion-icon color="primary" name="keypad"> </ion-icon> </button>		        	
+		 	</ion-col>			
 			<ion-col col-6 style="position: initial;">
 				<ion-item class="font2">
 		          <ion-input #barCodeInputBox type="text" placeholder="Barcode Here" [value]="productBarCode" [(ngModel)]="productBarCode" name="productBarCode" (change)='onChangedProductBarCode($event.target.value)'></ion-input>
 		        </ion-item>        		
-			</ion-col>		        
+			</ion-col>	
+	        <ion-col col-1>
+		        <button ion-button color="secondary" (click)="firstScan()">{{ 'GO_BUTTON' | translate }}</button>
+		    </ion-col>				        
     	</ion-row>
 
     	<hr/>
@@ -46,8 +51,14 @@
 	<ion-grid *ngIf="scanStarted">
 
 	    <ion-row class="order-info-head">
-	      <ion-col col-2 text-right><p>Scan:</p></ion-col>
-	      <ion-col col-3>
+	      <ion-col col-2 text-right><p>Scan:</p>
+		  </ion-col>
+
+		  <ion-col col-1 text-right>
+			<button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon color="primary" name="keypad"> </ion-icon> </button>
+		  </ion-col>
+
+	      <ion-col col-2>
   			<ion-input class="border"  text-center placeholder="Barcode Here" #barCodeInputBox1 type="text" [value]="productBarCode1" [(ngModel)]="productBarCode1" name="productBarCode1" (change)='onChangedProductBarCode1($event.target.value)'>
    			</ion-input>
 	      </ion-col>
@@ -82,7 +93,7 @@
 					<ion-col col-1></ion-col>
 					<ion-col text-wrap text-right col-3><p>{{'CONFIRMQTY_LABEL'|translate}}:</p></ion-col>
 					<ion-col col-8 style="position: initial;">
-						<ion-input #confirmedInputBox class="border w100" type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)' ></ion-input>
+						<ion-input #confirmedInputBox class="border w100" type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)' (focus)="onConfirmQtyFocused()" ></ion-input>
 					</ion-col>
 				</ion-row>
  			</ion-col>

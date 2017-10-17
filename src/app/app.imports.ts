@@ -1,5 +1,6 @@
 // Global state (used for theming)
 import { AppState } from './app.global';
+import { Keyboard } from '@ionic-native/keyboard';
 
 // Providers
 import { User } from '../providers/user';
@@ -15,6 +16,8 @@ import {ModalService} from '../providers/modal.service'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
+import { CustomKeyBoard } from '../components/customKeyBoard/custom-keyboard';
 
 // Directives
 
@@ -35,10 +38,11 @@ export const MODULES = [
 ];
 
 export const PIPES = [
-  
+
 ];
 
 export const PROVIDERS = [
+  Keyboard,
   User,
   Api,
   AppData,
@@ -52,7 +56,7 @@ export const PROVIDERS = [
 ];
 
 export const COMPONENTS = [
-  
+  CustomKeyBoard
 ];
 
 export const DIRECTIVES = [

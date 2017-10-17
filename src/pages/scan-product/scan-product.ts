@@ -1,11 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import {MobileAppSystem} from '../../providers/mobile.app.system'
 import {User} from '../../providers/user'
 import {AlertService} from '../../providers/alert.service'
 import {ModalService} from '../../providers/modal.service'
+import { CustomKeyBoard } from '../../components/customKeyBoard/custom-keyboard';
 
 /**
  * Generated class for the ScanProductPage page.
@@ -39,8 +41,8 @@ export class ProductInfo{
 })
 export class ScanProductPage {
   @ViewChild('barCodeInputBox') barCodeInput;
-  @ViewChild('barCodeInputBox1') barCodeInput1;  
-  @ViewChild('confirmedInputBox') confirmInput;    
+  @ViewChild('barCodeInputBox1') barCodeInput1;    
+  @ViewChild('confirmedInputBox') confirmInput;
 
   private productBarCode:string = '';
   private productBarCode1:string = '';  
@@ -51,11 +53,13 @@ export class ScanProductPage {
   private bBinLocationScaning:boolean = false;
   private productInfo: ProductInfo;
   private confirmedPick :number;
+  private confirmedPickFocused :boolean = false;
 
 
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
+              private keyboard:Keyboard,
               public mobileAppSystem:MobileAppSystem,
               private modalService:ModalService,
               public translateService:TranslateService, public user:User, private alertService:AlertService) {
@@ -73,31 +77,13 @@ export class ScanProductPage {
       }
     ); 
 
-
-    setInterval(function(){ 
-      if(svc.scanStarted ==false)
-      {
-        if(svc.barCodeInput._isFocus ==false)
-          svc.barCodeInput.setFocus();
-      }
-      else
-      {
-        if(svc.bBinLocationScaning ==false)
-        {
-          if(svc.confirmInput._isFocus ==false)
-          {
-            if(svc.barCodeInput1._isFocus ==false)
-              svc.barCodeInput1.setFocus();
-          }          
-        }
-      }
-    }, 1000);
+    CustomKeyBoard.hide();
+    this.timerTick();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
-
   }
 
 
@@ -171,11 +157,12 @@ private inputBinLocationCode()
     this.bBinLocationScaning = true;
     this.alertService.doPrompt ('Product Barcode Not Found!', 
         'Scan or Enter Bin Location', 'Go', 'Cancel', 'BinLocation').then(function(binLocationCode){
+        svc.bBinLocationScaning = false;
+
         if(binLocationCode == '')
         {
             return;
-        }
-        svc.bBinLocationScaning = false;
+        }      
 
         svc.mobileAppSystem.getProductInfoBinBarcode(binLocationCode, svc.user.orderInfo.orderBarcode,
           svc.user.orderInfo.toteNumber, svc.user.orderInfo.warehouse, svc.user.orderInfo.zone, function(res:any){
@@ -233,6 +220,11 @@ private checkProductBarcode(productBarcode:string){
     });
   }
 
+  firstScan()
+  {    
+    this.onChangedProductBarCode(this.productBarCode);
+    CustomKeyBoard.hide();
+  }
   onChangedProductBarCode(val:any)
   {
     if(this.scanStarted==true)
@@ -256,4 +248,81 @@ private checkProductBarcode(productBarcode:string){
     this.productBarCode = '';    
     this.productBarCode1 = '';    
   }  
+
+  timerTick()
+  {
+    let svc = this;
+    setTimeout(() => {
+
+      if(this.navCtrl.getActive().component.name !="ScanProductPage"  || this.mobileAppSystem.isBusy()==true)
+      {
+        this.timerTick();
+        return;
+      }
+
+      let visibleKeypad = CustomKeyBoard.isVisible();            
+
+      if(svc.scanStarted ==false)
+      {
+        svc.keyboard.close();
+        if(visibleKeypad==false && svc.barCodeInput._isFocus ==false)
+          svc.barCodeInput.setFocus();        
+      }
+      else
+      {
+        if(svc.bBinLocationScaning ==false)
+        {
+           svc.keyboard.close();
+           if(svc.confirmedPickFocused ==false)
+           {
+             if(visibleKeypad==false && svc.barCodeInput1._isFocus ==false)
+               svc.barCodeInput1.setFocus();
+           }
+        }        
+      }
+      svc.timerTick();
+
+    },100); //a least 150ms.
+  }
+
+
+  onShowKeyPad()
+  {
+    let svc = this;
+    if(CustomKeyBoard.isVisible())
+       CustomKeyBoard.hide();
+    else
+    {
+      CustomKeyBoard.show();    
+      if(this.scanStarted==false)
+      {
+        CustomKeyBoard.setTarget(this.barCodeInput, function(val:string){
+          svc.onChangedProductBarCode(val);
+        });
+      }
+      else        
+      {
+        CustomKeyBoard.setTarget(this.barCodeInput1, function(val:string){
+          svc.onChangedProductBarCode1(val);
+        });
+      }
+    }
+  }
+
+  hideKeyboard()
+  {    
+    CustomKeyBoard.hide();
+  }
+
+  onConfirmQtyFocused()
+  {
+    let svc = this;
+    this.confirmedPickFocused = true;    
+    CustomKeyBoard.show();
+    CustomKeyBoard.setTarget(this.confirmInput, function(val:string){
+          svc.onChangeConfirmQty(val);
+          svc.confirmedPickFocused = false;
+    });
+  }  
+    
 }

@@ -2,6 +2,7 @@ import { AppState } from './app.global';
 import { Component, ViewChild } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { Platform, Nav, Config, MenuController, Events } from 'ionic-angular';
+import { Keyboard } from '@ionic-native/keyboard';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -9,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core'
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import {AlertService} from '../providers/alert.service'
+import { CustomKeyBoard } from '../components/customKeyBoard/custom-keyboard';
 
 
 export interface PageInterface {
@@ -23,6 +25,7 @@ export interface PageInterface {
 })
 export class MyApp {
   rootPage = 'LoginPage';
+  keysTab: string[];
 
   @ViewChild(Nav) nav: Nav;
 
@@ -46,6 +49,7 @@ export class MyApp {
     public translate: TranslateService, 
     private platform: Platform, 
     private config: Config, 
+    private keyboard: Keyboard, 
     public menu: MenuController,
     private statusBar: StatusBar, 
     private splashScreen: SplashScreen,
@@ -54,6 +58,12 @@ export class MyApp {
 
     this.initTranslate();    
     this.listenToEvents();
+
+    // Keyboard key tab (used in the app.html template)
+    this.keysTab = [ "1", "2", "3", "4", "5", "6","7", "8", "9","0",
+                     "A", "B", "C", "D", "E", "F","",  "", "", "GO"];
+
+    this.keyboard.disableScroll(true);
   }
 
 
@@ -106,4 +116,14 @@ export class MyApp {
     });
   }
 
+  ngOnInit()
+  {
+    console.log("=============");
+    CustomKeyBoard.hide();
+  }
+  
+  // Event emitter
+  keyClick(k: string) {
+    //console.log('Event emitter - key: ', k);
+  }
 }
