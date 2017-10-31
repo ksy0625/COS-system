@@ -24,11 +24,11 @@
 			<ion-col col-1 offset-2>
 			  <button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon name="keypad"> </ion-icon> </button>		        	
 		 	</ion-col>
-
 		 	<ion-col col-7 style="position: initial;">		 		
-		        <ion-item class="font2">		          
-		          <ion-input #orderBarCodeInputBox type="text" placeholder="Barcode Here" [value]="orderBarCode" [(ngModel)]="orderBarCode" name="orderBarCode" pattern="[0-9A-F]*" (change)='onChangedOrderBarcode($event.target.value)'></ion-input>
-		        </ion-item>
+		        <ion-item class="font2">
+ 		          <ion-input #orderBarCodeInputBox barcode-input type="text" placeholder="Barcode Here" [value]="orderBarCode" [(ngModel)]="orderBarCode" name="orderBarCode" (change)='onChangedOrderBarcode($event.target.value)'>
+		          </ion-input>
+ 			</ion-item>
 		    </ion-col>
 	        <ion-col col-1>
 		        <button ion-button color="secondary" (click)="openPage()">{{ 'GO_BUTTON' | translate }}</button>

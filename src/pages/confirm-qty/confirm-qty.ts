@@ -14,6 +14,8 @@ export class ConfirmQtyPage {
   {
     this.resolve = params.data.resolve;
     this.data = params.data;
+
+    console.log(this.data);
   }
 
   onOK() {

@@ -18,6 +18,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { CustomKeyBoard } from '../components/customKeyBoard/custom-keyboard';
+import { BarcodeInputComponent } from '../components/barcode-input/barcode-input';
+
+import { BarcodeInputDirective } from '../directives/barcode-input/barcode-input';
 
 // Directives
 
@@ -56,9 +59,10 @@ export const PROVIDERS = [
 ];
 
 export const COMPONENTS = [
-  CustomKeyBoard
+  CustomKeyBoard,
+  BarcodeInputComponent
 ];
 
 export const DIRECTIVES = [
-  
+  BarcodeInputDirective,
 ];

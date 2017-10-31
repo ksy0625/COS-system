@@ -52,7 +52,7 @@ export class ScanProductPage {
   private bLastPressReturnKey:boolean = true;
   private bBinLocationScaning:boolean = false;
   private productInfo: ProductInfo;
-  private confirmedPick :number;
+  private confirmedPick :string;
   private confirmedPickFocused :boolean = false;
 
 
@@ -67,7 +67,7 @@ export class ScanProductPage {
     this.title = '';
     this.titleDefault = '';
     this.productInfo = new  ProductInfo();
-    this.confirmedPick = 0;
+    this.confirmedPick = '';
 
     let svc = this;
     translateService.get('SCANPRODUCT_TITLE').subscribe(
@@ -108,11 +108,11 @@ private setQtyInformation(res:any)
     this.productInfo.stockCode = res.stockCode;
     this.productInfo.surplusBins = res.surplusBins;
 
-    this.confirmedPick = this.productInfo.pickQty;
+    this.confirmedPick = String(this.productInfo.pickQty);
     this.title = this.titleDefault + " : " + this.user.orderInfo.countProductScaned + " of " + this.user.orderInfo.countTotalProducts + " done";
 
 
-    this.updateProductConfirmQty(this.confirmedPick); 
+    this.updateProductConfirmQty(Number(this.confirmedPick)); 
     this.clearBarcodeScan();  
 }
 
@@ -216,7 +216,7 @@ private checkProductBarcode(productBarcode:string){
       if(yes)
         svc.updateProductConfirmQty(val);
       else
-        svc.confirmedPick = svc.productInfo.pickQty;
+        svc.confirmedPick = String(svc.productInfo.pickQty);
     });
   }
 
@@ -264,19 +264,37 @@ private checkProductBarcode(productBarcode:string){
 
       if(svc.scanStarted ==false)
       {
-        svc.keyboard.close();
-        if(visibleKeypad==false && svc.barCodeInput._isFocus ==false)
-          svc.barCodeInput.setFocus();        
+        if(svc.keyboard.close != null)        
+          svc.keyboard.close();
+        if(visibleKeypad==false)
+        {
+          if(svc.barCodeInput._isFocus ==false)
+          {
+            svc.barCodeInput._readonly = true;
+            svc.barCodeInput.setFocus();            
+            svc.barCodeInput._readonly = false;
+          }
+        }       
+
       }
       else
       {
         if(svc.bBinLocationScaning ==false)
         {
-           svc.keyboard.close();
+          if(svc.keyboard.close != null)
+             svc.keyboard.close();
+
            if(svc.confirmedPickFocused ==false)
            {
-             if(visibleKeypad==false && svc.barCodeInput1._isFocus ==false)
-               svc.barCodeInput1.setFocus();
+             if(visibleKeypad==false )
+             {
+               if(svc.barCodeInput1._isFocus ==false)
+               {
+                 svc.barCodeInput1._readonly = true;
+                 svc.barCodeInput1.setFocus();
+                 svc.barCodeInput1._readonly = false;                 
+               }               
+             }
            }
         }        
       }
@@ -324,5 +342,14 @@ private checkProductBarcode(productBarcode:string){
           svc.confirmedPickFocused = false;
     });
   }  
+
+  onClickBarcode1()
+  {
+    if(this.confirmedPickFocused ==true)
+    {
+      CustomKeyBoard.hide();
+      this.confirmedPickFocused = false;
+    }
+  }
     
 }

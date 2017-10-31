@@ -59,7 +59,7 @@
 		  </ion-col>
 
 	      <ion-col col-2>
-  			<ion-input class="border"  text-center placeholder="Barcode Here" #barCodeInputBox1 type="text" [value]="productBarCode1" [(ngModel)]="productBarCode1" name="productBarCode1" (change)='onChangedProductBarCode1($event.target.value)'>
+  			<ion-input class="border"  text-center placeholder="Barcode Here" #barCodeInputBox1 type="text" [value]="productBarCode1" [(ngModel)]="productBarCode1" name="productBarCode1" (click)="onClickBarcode1()" (focus)="onClickBarcode1()" (change)='onChangedProductBarCode1($event.target.value)'>
    			</ion-input>
 	      </ion-col>
 
@@ -93,7 +93,7 @@
 					<ion-col col-1></ion-col>
 					<ion-col text-wrap text-right col-3><p>{{'CONFIRMQTY_LABEL'|translate}}:</p></ion-col>
 					<ion-col col-8 style="position: initial;">
-						<ion-input #confirmedInputBox class="border w100" type="number" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)' (focus)="onConfirmQtyFocused()" ></ion-input>
+						<ion-input #confirmedInputBox class="border w100" type="text" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)' (focus)="onConfirmQtyFocused()" ></ion-input>
 					</ion-col>
 				</ion-row>
  			</ion-col>

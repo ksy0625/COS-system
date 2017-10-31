@@ -13,7 +13,8 @@ import { IonicModule } from 'ionic-angular';
   ],
   exports: [
     PIPES,
-    COMPONENTS
+    DIRECTIVES,    
+    COMPONENTS,
   ]
 })
 

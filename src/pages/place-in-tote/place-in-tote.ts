@@ -167,10 +167,16 @@ export class PlaceInTotePage {
         return;
       }  
 
-      this.keyboard.close();
+      if(this.keyboard.close != null)
+        this.keyboard.close();
 
       if(this.toteBarCodeInput._isFocus ==false)          
+      {
+         this.toteBarCodeInput._readonly = true;
          this.toteBarCodeInput.setFocus(); 
+         this.toteBarCodeInput._readonly = false;
+      }
+        
 
       svc.timerTick();
 

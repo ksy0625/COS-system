@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 import {User} from '../../providers/user'
@@ -16,6 +16,7 @@ import {User} from '../../providers/user'
   templateUrl: 'home-screen.html',
 })
 export class HomeScreenPage {
+//  @ViewChild('input1') input1 ;
 
   constructor(
   	public navCtrl: NavController, 
@@ -26,6 +27,7 @@ export class HomeScreenPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomeScreenPage');
+//    console.log(this.input1);
   }
 
   ionViewDidEnter() {
@@ -35,4 +37,7 @@ export class HomeScreenPage {
   openPage() {
   	this.navCtrl.push('ScanOrderPage');   
   }
+
+
+
 }

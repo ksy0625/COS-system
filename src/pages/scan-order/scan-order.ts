@@ -7,6 +7,7 @@ import {User} from '../../providers/user'
 
 import { Keyboard } from '@ionic-native/keyboard';
 import { CustomKeyBoard } from '../../components/customKeyBoard/custom-keyboard';
+import { BarcodeInputComponent } from '../../components/barcode-input/barcode-input';
 
 /**
  * Generated class for the ScanOrderPage page.
@@ -23,7 +24,7 @@ import { CustomKeyBoard } from '../../components/customKeyBoard/custom-keyboard'
 
 
 export class ScanOrderPage {
-  @ViewChild('orderBarCodeInputBox') orderBarCodeInput ;
+@ViewChild('orderBarCodeInputBox') orderBarCodeInput ;
   @ViewChild('zoneSelector') zoneSelector ;  
   
   public zoneCodes:string[];
@@ -47,28 +48,10 @@ export class ScanOrderPage {
 
       svc.user.allowableProductsNotInTote = res.result.allowableProductsNotInTote;
       svc.zoneCodes = res.result.pickZonesList; 
-      console.log(svc.orderBarCodeInput);      
     });
 
-    // CustomKeyBoard.onCKClick.subscribe((key) => {
-    //   if(this.navCtrl.getActive().component.name =="ScanOrderPage" )
-    //     if(key=="GO")
-    //     {
-    //        this.onChangedOrderBarcode(this.orderBarCode); 
-    //     }
-    //     else
-    //       this.orderBarCode += key;
-    // })
-
-    // // Subscribe to the delete event observable 
-    // // Here we delete the last character of the string   
-    // CustomKeyBoard.onDeleteClick.subscribe(() => {
-    //   if(this.navCtrl.getActive().component.name =="ScanOrderPage" )
-    //     this.orderBarCode = this.orderBarCode.slice(0, this.orderBarCode.length -1);
-    // })
-
     CustomKeyBoard.hide();
-    this.timerTick();
+    this.timerTick();    
   }
 
   timerTick()
@@ -76,13 +59,18 @@ export class ScanOrderPage {
     setTimeout(() => {
       if(this.navCtrl.getActive().component.name =="ScanOrderPage" && this.mobileAppSystem.isBusy()==false)
       {
-        if(this.keyboard)
+
+        if(this.keyboard.close != null)
           this.keyboard.close();
 
         if(CustomKeyBoard.isVisible() ==false && this.zoneSelector._isFocus ==false)
         {
           if(this.orderBarCodeInput._isFocus ==false)
+          {
+            this.orderBarCodeInput._readonly = true;
             this.orderBarCodeInput.setFocus();
+            this.orderBarCodeInput._readonly = false;
+          }
         }
 
       }      
@@ -142,7 +130,7 @@ export class ScanOrderPage {
   selectOrderBarcodeInput()
   {
     setTimeout(() => {
-      this.orderBarCodeInput.setFocus();
+    this.orderBarCodeInput.setFocus();
     },300); //a least 150ms.
   }
 
