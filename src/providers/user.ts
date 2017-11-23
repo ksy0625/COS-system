@@ -41,6 +41,22 @@ export class OrderModel{
   countProductScaned:number;
   countTotalProducts:number;
   toteNumber:string;
+
+  public clear():void{
+    this.orderBarcode = '';
+    this.warehouse = '';
+    this.zone = '';
+    this.binLocations = [];
+    this.countProductScaned = 0;
+    this.countTotalProducts = 0;
+    this.toteNumber = '';
+  }
+
+  public isCompleted():boolean{
+    if(this.countProductScaned == this.countTotalProducts)
+      return true;
+    return false;
+  }
 }
 
 
@@ -49,10 +65,15 @@ export class OrderModel{
 export class User {
   _user: any;
 
-  public sessionInfo: SessionInfo;
 
+  public workingRegion:String = '';  
+  public sessionInfo: SessionInfo;
   public allowableProductsNotInTote:number;
   public orderInfo : OrderModel
+
+
+
+
 
   constructor(public http: Http, public api: Api) {
     this.sessionInfo = new SessionInfo();

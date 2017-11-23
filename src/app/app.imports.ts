@@ -7,6 +7,7 @@ import { User } from '../providers/user';
 import { Api } from '../providers/api';
 import { AppData } from '../providers/app';
 import {MobileAppSystem} from '../providers/mobile.app.system'
+import {MobileAppSystemP2l} from '../providers/mobile.app.system.p2l'
 import {AlertService} from '../providers/alert.service'
 import {UtilService} from '../providers/util.service'
 import {ModalService} from '../providers/modal.service'
@@ -53,6 +54,7 @@ export const PROVIDERS = [
   SplashScreen,
   ScreenOrientation,
   MobileAppSystem,
+  MobileAppSystemP2l,
   AlertService,
   UtilService,
   ModalService

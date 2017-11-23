@@ -8,6 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core'
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
+import {User} from '../providers/user'
 
 import {AlertService} from '../providers/alert.service'
 import { CustomKeyBoard } from '../components/customKeyBoard/custom-keyboard';
@@ -26,16 +27,17 @@ export interface PageInterface {
 export class MyApp {
   rootPage = 'LoginPage';
   keysTab: string[];
-
   @ViewChild(Nav) nav: Nav;
 
-  beforeScanPages: PageInterface[] = [
+  menuPages: PageInterface[] =[];
+
+  homePages: PageInterface[] = [
     { title: 'Home', component: 'HomeScreenPage', active: true},
     { title: 'About', component: 'AboutPage', active: false},
     { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
   ];
 
-  ScanedPages : PageInterface[] = [
+  ConveyPages : PageInterface[] = [
     { title: 'Home', component: 'HomeScreenPage', active: true},
     { title: 'Scan Order Barcode', component: 'ScanOrderPage', active: true},
     { title: 'Scan Product Barcode', component: 'ScanProductPage', active: true},
@@ -44,6 +46,15 @@ export class MyApp {
     { title: 'About', component: 'AboutPage', active: false},
     { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
   ];
+
+  P2LPages : PageInterface[] = [
+    { title: 'Home', component: 'HomeScreenPage', active: true},
+    { title: 'P2L - Outstanding Jobs', component: 'P2lOutstandingPage', active: true},
+    { title: 'My Jobs in Progress', component: 'P2lJobInProgressPage', active: true},
+    { title: 'About', component: 'AboutPage', active: false},
+    { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
+  ];
+
   constructor(
     public events: Events,
     public translate: TranslateService, 
@@ -54,7 +65,10 @@ export class MyApp {
     private statusBar: StatusBar, 
     private splashScreen: SplashScreen,
     private alertService:AlertService,
+    public user:User,
     private screenOrientation: ScreenOrientation) {
+
+    this.menuPages = this.homePages;
 
     this.initTranslate();    
     this.listenToEvents();
@@ -93,26 +107,55 @@ export class MyApp {
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+
+    if(this.user.workingRegion =='convey')
+    {
+      if(page.component =='OrderStatusPage' || page.component =='PlaceInTotePage')
+      {
+        if(this.user.orderInfo.isCompleted()==true)
+        {
+          this.nav.popTo('ScanOrderPage');        
+        }
+        else 
+         this.nav.popTo('ScanProductPage');
+      }      
+    }
+    else if(this.user.workingRegion =='p2ljob')
+    {
+      if(page.component =='P2lOutstandingPage' || page.component =='P2lJobInProgressPage')
+        this.nav.popTo('HomeScreenPage');
+    }
+
+    this.nav.push(page.component);
+    //this.nav.setRoot(page.component);
     if (page.logsOut === true) {
         this.events.publish('user:logout');
     }
   }
 
-  enableMenu(scaned: boolean) {
-    this.menu.enable(!scaned, 'beforeScanOrderMenu');
-    this.menu.enable(scaned, 'afterScanOrderMenu');
+  enableMenu() {
+    if(this.user.workingRegion =='')
+      this.menuPages = this.homePages;
+    else if(this.user.workingRegion =='convey')
+      this.menuPages = this.ConveyPages;
+    else if(this.user.workingRegion =='p2ljob')    
+      this.menuPages = this.P2LPages;
   }
 
   listenToEvents() {
-    this.events.subscribe('scan:order', () => {
-      this.enableMenu(true);
+    this.events.subscribe('convey:startscan', () => {
+      this.user.workingRegion = 'convey';
+      this.enableMenu();
     });
 
+    this.events.subscribe('p2ljob:start', () => {
+      this.user.workingRegion = 'p2ljob';
+      this.enableMenu();
+    });
+
+
     this.events.subscribe('user:logout', () => {
-      this.enableMenu(false);
+      this.user.workingRegion = '';
     });
   }
 

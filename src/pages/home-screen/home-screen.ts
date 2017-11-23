@@ -1,5 +1,5 @@
 import { Component , ViewChild} from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams , Events} from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 import {User} from '../../providers/user'
 
@@ -21,6 +21,7 @@ export class HomeScreenPage {
   constructor(
   	public navCtrl: NavController, 
   	public navParams: NavParams,
+    public events: Events,
   	public menu: MenuController,
     public user:User ) {
   }
@@ -34,10 +35,18 @@ export class HomeScreenPage {
   	this.menu.swipeEnable(true);
   }
 
-  openPage() {
+  openConvey() {
   	this.navCtrl.push('ScanOrderPage');   
   }
 
+  openP2Job() {
+    this.events.publish('p2ljob:start');
+    this.navCtrl.push('P2lOutstandingPage');
+  }
+
+  openPage(){
+
+  }
 
 
 }

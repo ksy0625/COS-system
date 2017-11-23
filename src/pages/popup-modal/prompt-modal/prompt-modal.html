@@ -10,16 +10,36 @@
 </ion-header>
 <ion-content padding>  
   <p>{{message}}</p>
-  <ion-item>
-    <ion-input type="text" [placeholder]="placeholder" [value]="promptVal" [(ngModel)]="promptVal" name="promptVal"></ion-input>
-  </ion-item>  
+
+  <ion-row>
+    <ion-col col-1 offset-2>
+      <button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon name="keypad"> </ion-icon> </button>             
+    </ion-col>
+    <ion-col col-7 style="position: initial;">        
+      <ion-item>
+        <ion-input type="text" #promptInputBox [placeholder]="placeholder" [value]="promptVal" [(ngModel)]="promptVal" name="promptVal"></ion-input>
+      </ion-item>  
+    </ion-col>
+  </ion-row>
+
+<div class="center" *ngIf="bShowKb">
+  <!-- Keys -->
+  <div class="kb-row" [style.zoom]="zoom" *ngFor="let n of m_main_rows">
+    <div class="kb-key-cell" *ngFor="let m of m_main_cols">
+      <div class="kb-key" (click)="cKClick($event, keysTab[n + m])">
+        {{keysTab[n + m]}}
+      </div>
+    </div>
+  </div>  
+</div>  
+
 </ion-content>
 <ion-footer>
 	<ion-row>
 	    <ion-col></ion-col>
-	    <ion-col><button ion-button  full color="danger" (click)="onCancel()">{{cancelTxt}}</button></ion-col>    
+	    <ion-col><button ion-button  full color="default" (click)="onCancel()">{{cancelTxt}}</button></ion-col>    
 	    <ion-col></ion-col>
-	    <ion-col><button ion-button  full color="default" (click)="onOK()">{{okTxt}}</button></ion-col>
+	    <ion-col><button ion-button  full color="secondary" (click)="onOK()">{{okTxt}}</button></ion-col>
 	    <ion-col></ion-col>
-    </ion-row>
+  </ion-row>  
 </ion-footer>

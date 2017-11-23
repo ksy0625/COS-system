@@ -39,7 +39,7 @@ export class ModalService {
     let svc = this;
     return new Promise((resolve, reject) => {
       let data ={title:title, message:message, okTxt:okTxt, cancelTxt:cancelTxt, resolve:resolve, icon:icon, placeholder:placeholder};
-      const confirm = svc.modalCtrl.create('PromptModalPage', data, { cssClass: 'inset-modal' })
+      const confirm = svc.modalCtrl.create('PromptModalPage', data, { cssClass: 'inset-modal_prompt' })
       return confirm.present();
     });
   }  

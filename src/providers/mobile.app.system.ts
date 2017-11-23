@@ -15,8 +15,12 @@ import {UtilService} from './util.service'
 @Injectable()
 export class MobileAppSystem {
 
-  private requestConveyorCounter:number;
-  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';    
+  private requestConveyorCounter:number;  
+  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
+  //private baseUrl: string = 'http://int.cos.net.au/ProcessRequest';
+  //private baseUrl: string = 'http://cs01:8070/COS/PorocessRequest';
+  
+  
   private sessionId:string;
   private notificationConnectionId:string;
 
