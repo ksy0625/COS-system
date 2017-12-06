@@ -60,7 +60,6 @@ export class OrderModel{
 }
 
 
-
 @Injectable()
 export class User {
   _user: any;
@@ -68,12 +67,14 @@ export class User {
 
   public workingRegion:String = '';  
   public sessionInfo: SessionInfo;
+
+  //for convey region
+  public hasTotes:string='';
   public allowableProductsNotInTote:number;
   public orderInfo : OrderModel
 
-
-
-
+  //for P2l region
+  public p2lJobID:number = 0;
 
   constructor(public http: Http, public api: Api) {
     this.sessionInfo = new SessionInfo();

@@ -264,8 +264,8 @@ public getProductInfoProductBarcode(barcode:string, orderNumber:string, toteNumb
                     userSessionId: this.sessionId,
                     barcode:barcode,
                     orderNumber: orderNumber,
-                    //toteNumber:toteNumber,
-                    toteNumber:12,
+                    toteNumber:toteNumber,
+                    //toteNumber:12,
                     warehouse:warehouse,
                     pickzone:pickzone
                 }
@@ -273,17 +273,8 @@ public getProductInfoProductBarcode(barcode:string, orderNumber:string, toteNumb
         ];
     
     this._doServerSideOp(requests, false, false, function (res:any) {
-      if(res.isError==true)
-      {
-        //svc.alertService.doAlert('GetProductInfoProductBarcode', res.errorMessage, 'OK');
         if(success_cb != null)  
-          success_cb(null);
-      }  
-      else
-      {
-        if(success_cb != null)
           success_cb(res);
-      }
   });
 }
 
@@ -299,8 +290,7 @@ public getProductInfoBinBarcode(barcode:string, orderNumber:string, toteNumber:s
                     userSessionId: this.sessionId,                  
                     barcode:barcode,
                     orderNumber: orderNumber,
-                    //toteNumber:toteNumber,
-                    toteNumber:12,
+                    toteNumber:toteNumber,
                     warehouse:warehouse,
                     pickzone:pickzone
                 }
@@ -308,17 +298,8 @@ public getProductInfoBinBarcode(barcode:string, orderNumber:string, toteNumber:s
         ];
     
     this._doServerSideOp(requests, false, false, function (res:any) {
-      if(res.isError==true)
-      {
-        //svc.alertService.doAlert('GetProductInfoBinBarcode', res.errorMessage, 'OK');
         if(success_cb != null)  
-          success_cb(null);
-      }  
-      else
-      {
-        if(success_cb != null)
           success_cb(res);
-      }
   });
 }
 

@@ -1,4 +1,5 @@
 import { Component} from '@angular/core';
+import { AppData } from '../../providers/app';
 
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
@@ -27,11 +28,14 @@ export class LoginPage{
   username:string; 
   password:string; 
 
+  aboutData:any;
+
   constructor(public navCtrl: NavController, 
    	public navParams: NavParams,
   	public menu: MenuController,
     public mobileAppSystem: MobileAppSystem,
     private alertService:AlertService,
+    private appData:AppData,
     private user:User) 
   {
     this.username = 'testuser';
@@ -39,6 +43,9 @@ export class LoginPage{
   }
 
   ionViewDidLoad() {
+    this.appData.getAppAboutData().subscribe((data: any) => {
+        this.aboutData = data;
+      });        
     console.log('ionViewDidLoad LoginPage');
   }
 

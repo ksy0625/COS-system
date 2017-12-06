@@ -6,18 +6,34 @@ export class AlertService {
   constructor(public alertCtrl: AlertController) { 
   }
 
-  public doAlert(title: string, message: string, btnTxt:string ) {
-    const alert = this.alertCtrl.create(
-      {
+  public doAlert(title: string, message: string, btnTxt:string ): Promise<boolean>{
+    // const alert = this.alertCtrl.create(
+    //   {
+    //     title,
+    //     subTitle: message,
+    //     buttons: [
+    //       {
+    //         text: btnTxt
+    //       }
+    //     ]
+    //   });
+    // return alert.present();
+    return new Promise((resolve, reject) => {
+      const confirm = this.alertCtrl.create({
         title,
-        subTitle: message,
+        message,
         buttons: [
-          {
-            text: btnTxt
+        {
+          text: btnTxt,
+          handler: () => {
+            confirm.dismiss().then(() => resolve(true));
+            return false;
           }
-        ]
+        }]
       });
-    return alert.present();
+      return confirm.present();
+    });
+
   }
 
   doConfirm(title: string, message: string, okTxt:string, cancelTxt:string): Promise<boolean> {

@@ -22,18 +22,25 @@ ion-title {
 	font-size: 1em;
 }
 .font2 {
-	font-size: 2em;
+	font-size: 1.5em;
 }
 .font3 {
-	font-size: 3em;
+	font-size: 2em;
 }
 
 
-ion-modal.inset-modal_prompt {
+ion-modal.inset-modal_prompt_right_side {
   // transparent black background overlay
   background-color: rgba(0, 0, 0, .5) !important;
   transition: opacity .05s ease-in-out;
   padding: 2vh 10vw 2vh 30vw;
+}
+
+ion-modal.inset-modal_prompt_noraml {
+  // transparent black background overlay
+  background-color: rgba(0, 0, 0, .5) !important;
+  transition: opacity .05s ease-in-out;
+  padding: 2vh 20vw 2vh 20vw;
 }
 
 ion-modal.inset-modal {

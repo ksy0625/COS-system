@@ -12,7 +12,7 @@
   "SEARCH_PLACEHOLDER" : "Search the items list, e.g. \"Donald Duck\"",
 
   "APP_NAME": "COS",
-  "LOGIN_TITLE" : "COS Ops App Login v1.14",
+  "LOGIN_TITLE" : "COS Ops App Login",
   "HOMESCREEN_TITLE": "Home Menu",
   "SCANORDER_TITLE" : "Scan Order Barcode",
   "ORDERSTATUS_TITLE" : "Order Pick Status",
@@ -27,6 +27,7 @@
   "P2LBULK_BUTTON": "P2L Bulk",
   "1LINERPICK_BUTTON": "1 Liner  Pick",
   "PLACEINTOTE_BUTTON" : "Place in Tote",
+  "CONFIRM_BUTTON": "Confirm",
   
   "SCANORDER_LABEL" : "To Start, Scan OR Enter Order/Tote Barcode",
   "ZONE_LABEL" : "Zone : ",
@@ -37,8 +38,10 @@
   "ORDER_LABEL" : "Order",
   "PICKUNIT_LABEL" : "Pick Unit",
   "PICKQTY_LABEL" : "Pick Qty",
+  "CONFIRMQTY_HDR_LABEL" : "Confirm",
   "CONFIRMQTY_LABEL" : "Confirm Picked",
   "STATUS_LABEL" : "Status",
+  "ORDER_CONTINUE":"Continue",  
   "SCANPRODUCT_LABEL" : "To Start, Scan Product Barcode",
 
 
@@ -51,9 +54,8 @@
 
   "P2L_JOB_IN_PROGRESS_TITLE" : "My Jobs in Progress",
   "P2L_JOB_IN_PROGRESS_COMPLETED" : "#Completed",
-  "P2L_JOB_IN_PROGRESS_CONTINUE_JOB" : "CONTINUE JOB"
-
-  
+  "P2L_JOB_IN_PROGRESS_CONTINUE_JOB" : "CONTINUE JOB",
+  "P2L_PRODUCT_SCAN_JOBID" : "Job ID"
   
 
 }

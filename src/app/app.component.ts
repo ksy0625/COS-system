@@ -112,12 +112,13 @@ export class MyApp {
     {
       if(page.component =='OrderStatusPage' || page.component =='PlaceInTotePage')
       {
-        if(this.user.orderInfo.isCompleted()==true)
-        {
-          this.nav.popTo('ScanOrderPage');        
-        }
-        else 
-         this.nav.popTo('ScanProductPage');
+        //this.nav.push(page.component);
+        // if(this.user.orderInfo.isCompleted()==true)
+        // {
+        //   this.nav.popTo('ScanOrderPage');        
+        // }
+        // else 
+        //  this.nav.popTo('ScanProductPage');
       }      
     }
     else if(this.user.workingRegion =='p2ljob')
@@ -126,8 +127,7 @@ export class MyApp {
         this.nav.popTo('HomeScreenPage');
     }
 
-    this.nav.push(page.component);
-    //this.nav.setRoot(page.component);
+    this.nav.setRoot(page.component);
     if (page.logsOut === true) {
         this.events.publish('user:logout');
     }
@@ -143,6 +143,12 @@ export class MyApp {
   }
 
   listenToEvents() {
+
+    this.events.subscribe('home:entered', () => {
+      this.user.workingRegion = '';
+      this.enableMenu();
+    });
+
     this.events.subscribe('convey:startscan', () => {
       this.user.workingRegion = 'convey';
       this.enableMenu();
@@ -153,10 +159,11 @@ export class MyApp {
       this.enableMenu();
     });
 
-
     this.events.subscribe('user:logout', () => {
       this.user.workingRegion = '';
     });
+
+
   }
 
   ngOnInit()

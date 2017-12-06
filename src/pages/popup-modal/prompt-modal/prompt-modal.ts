@@ -1,6 +1,7 @@
 import { Component , ViewChild} from '@angular/core';
 import { NavParams, ViewController, IonicPage } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
+import { Platform } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -26,12 +27,14 @@ export class PromptModalPage {
   placeholder:string;
   promptVal:string;
 
+  dismissed:boolean = false;
+
   constructor(public viewCtrl: ViewController, 
+        private platform: Platform,
         private keyboard:Keyboard,
     params: NavParams) 
   {
     this.promptVal = '';
-
     this.resolve = params.data.resolve;
     this.title = params.data.title;
     this.message = params.data.message;
@@ -43,9 +46,8 @@ export class PromptModalPage {
     else
       this.icon = params.data.icon;  
 
-    this.keysTab = [ "A", "B", "C", "D", "E", "F",
-                     "1", "2", "3", "4", "5", "6",
-                     "7", "8", "9", "0", ".", "<Back"];
+    this.keysTab = [ "1", "2", "3", "4", "5", "6","7", "8", "9", 
+                     "0", "A", "B", "C", "D", "E", "F",".", "<Back"];
 
     this.m_main_rows = this.range(0, (this.keysTab.length - 1), this.m_main_column_nb);
     this.m_main_cols = this.range(0, this.m_main_column_nb - 1, 1);                     
@@ -62,25 +64,37 @@ export class PromptModalPage {
       return tab;
   }
 
+  onChangedVal(val:string)
+  {
+    if(val=='')
+      return;
+    this.promptVal = val;
+    this.onOK();    
+  }
+
   onOK() {
     let svc = this;
+    this.dismissed=true;
     this.viewCtrl.dismiss().then(() => svc.resolve(svc.promptVal));
   }
 
   onCancel() {
     let svc = this;
+    this.dismissed=true;
     this.viewCtrl.dismiss().then(() => svc.resolve(''));
   }
 
   dismiss() {
+    this.dismissed=true;
     this.viewCtrl.dismiss();
   }
 
   timerTick()
   {
+    let svc = this;
     setTimeout(() => {
 
-        if(this.keyboard.close != null)
+        if (svc.platform.is('cordova'))
           this.keyboard.close();        
         if(this.bShowKb ==false)
         {
@@ -88,10 +102,14 @@ export class PromptModalPage {
           {
             this.promptInput._readonly = true;
             this.promptInput.setFocus();
-            this.promptInput._readonly = false;
+            setTimeout(() =>{
+              svc.promptInput._readonly = false;
+            }, 40);            
           }
         }
-      this.timerTick();
+
+      if(this.dismissed==false)
+        this.timerTick();
     },100); //a least 150ms.
   }
 
