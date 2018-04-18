@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions} from '@angular/http';
-import {Headers} from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AlertService} from './alert.service';
 import {UtilService} from './util.service'
@@ -16,8 +14,9 @@ import {UtilService} from './util.service'
 export class MobileAppSystem {
 
   private requestConveyorCounter:number;  
-  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
+  //private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
   //private baseUrl: string = 'http://int.cos.net.au/ProcessRequest';
+  private baseUrl: string = 'http://staging.cos.net.au/ProcessRequest';
   //private baseUrl: string = 'http://cs01:8070/COS/PorocessRequest';
   
   
@@ -35,6 +34,16 @@ export class MobileAppSystem {
     this.sessionId = '';
   }
 
+  public setBaseUrl(newUrl :string)
+  {
+    this.baseUrl = newUrl;
+  }
+  public getBaseUrl():string
+  {
+    return this.baseUrl;
+  }
+
+
   public  isBusy(): boolean
   {
     if(this.utilService.loading !=null)
@@ -42,31 +51,6 @@ export class MobileAppSystem {
     return false;
   }
   
-  private setSessionId(sessId:string)
-  {
-    this.sessionId = sessId;
-  }
-
-  private doServerSideOp(command:string, parameters:any, callback:(result:any) => void, checkForErrors:boolean): void {
-      this.requestConveyorCounter++;
-      var requests = [
-          {
-              requestId: 1,
-              requestCounter: this.requestConveyorCounter,
-              command: command,
-              data: parameters
-          }
-      ];
-      if (checkForErrors == null) checkForErrors = true;
-
-      this._doServerSideOp(requests, checkForErrors, false, function (data) {
-          if (checkForErrors == true)
-              callback(data.result);
-          else
-              callback(data);
-      });
-  };
-
   private _doServerSideOp (requests:any, checkForErrors:boolean, isArrayRequest:boolean, callback:(result:any) => void): void 
   {
 
@@ -85,12 +69,6 @@ export class MobileAppSystem {
 
     this.utilService.presentLoading();
 
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    // headers.append("Accept", 'application/x-www-form-urlencoded');
-    // let options = new RequestOptions({ headers: headers });
-
-    // let res = this.http.post(this.baseUrl, body, options);
     let res = this.http.post(this.baseUrl, body);
     res.map(res => res.json()).subscribe(
       res => {        
@@ -171,7 +149,6 @@ export class MobileAppSystem {
 
 
   public initialiseConveyorPick(warehouse:string, success_cb:(result:any)=>void){
-    let svc = this;
     let requests =
         [
             {
@@ -254,7 +231,7 @@ public checkProductNotInToteLimit(orderBarcode:string, allowableProductsNotInTot
 
 public getProductInfoProductBarcode(barcode:string, orderNumber:string, toteNumber:string,
     warehouse:string, pickzone:string, success_cb:(result:any)=>void){
-    let svc = this;
+
     let requests =
         [
             {
@@ -280,7 +257,7 @@ public getProductInfoProductBarcode(barcode:string, orderNumber:string, toteNumb
 
 public getProductInfoBinBarcode(barcode:string, orderNumber:string, toteNumber:string,
     warehouse:string, pickzone:string, success_cb:(result:any)=>void){
-    let svc = this;
+    
     let requests =
         [
             {
@@ -309,7 +286,7 @@ public getProductInfoBinBarcode(barcode:string, orderNumber:string, toteNumber:s
 public updateProductConfirmQty(orderNumber:string, stockCode:string, binLocation:string, 
     confirmQty:number, toteNumber:string, pickzone:string,  success_cb:(result:any)=>void){
 
-    let svc = this;
+
     let requests =
         [
             {
@@ -342,9 +319,91 @@ public updateProductConfirmQty(orderNumber:string, stockCode:string, binLocation
   });
 }
 
+
+public confirmChangedProductQty(orderNumber:string,  warehouse:string, stockCode:string, binLocation:string, 
+    confirmQty:number, pickzone:string,  hasTotes:string, confirmAck:string, laneStockItem:string, success_cb:(result:any)=>void){
+
+
+    let requests =
+        [
+            {
+                requestCounter: 1, //$rootScope.requestConveyorCounter,
+                command: 'confirmChangedProductQty',
+                data: {
+                    userSessionId: this.sessionId,
+                    orderNumber:orderNumber,
+                    warehouse:warehouse,
+                    stockCode:stockCode,
+                    binLocation:binLocation,
+                    confirmQty:confirmQty,
+                    pickzone:pickzone,
+                    hasTotes:hasTotes,
+                    laneStockItem:laneStockItem
+                }
+            }
+        ];
+    
+    this._doServerSideOp(requests, false, false, function (res:any) {
+      if(res.isError==true)
+      {
+        //svc.alertService.doAlert('GetProductInfoBinBarcode', res.errorMessage, 'OK');
+        if(success_cb != null)  
+          success_cb(null);
+      }  
+      else
+      {
+        if(success_cb != null)
+          success_cb(res);
+      }
+  });
+}
+
+
+public confirmProductQty(orderNumber:string,stockCode:string, binLocation:string, 
+    confirmQty:number, barcode:string, pickzone:string,  hasTotes:string, confirmAck:string,checkForBin:string, laneStockItem:string, success_cb:(result:any)=>void){
+
+
+    let requests =
+        [
+            {
+                requestCounter: 1, //$rootScope.requestConveyorCounter,
+                command: 'confirmProductQty',
+                data: {
+                    userSessionId: this.sessionId,
+                    orderNumber:orderNumber,
+                    stockCode:stockCode,
+                    binLocation:binLocation,
+                    confirmQty:confirmQty,
+                    barcode:barcode,
+                    pickzone:pickzone,
+                    hasTotes:hasTotes,
+                    confirmAck:confirmAck,
+                    checkForBin:checkForBin,
+                    laneStockItem:laneStockItem
+                }
+            }
+        ];
+    
+    this._doServerSideOp(requests, false, false, function (res:any) {
+      if(res.isError==true)
+      {
+        //svc.alertService.doAlert('GetProductInfoBinBarcode', res.errorMessage, 'OK');
+        if(success_cb != null)  
+          success_cb(null);
+      }  
+      else
+      {
+        if(success_cb != null)
+          success_cb(res);
+      }
+  });
+}
+
+
+
 public getProductListNotInTote(orderNumber:string, pickZone:string, success_cb:(result:any)=>void){
 
-    let svc = this;
+
     let requests =
         [
             {
@@ -375,7 +434,7 @@ public getProductListNotInTote(orderNumber:string, pickZone:string, success_cb:(
 
 public placeInTote(orderNumber:string, toteNumber:string, pickZone:string, productList:any, success_cb:(result:any)=>void){
 
-    let svc = this;
+
     let requests =
         [
             {
@@ -408,7 +467,7 @@ public placeInTote(orderNumber:string, toteNumber:string, pickZone:string, produ
 
 public allocateNewToteToOrder(orderNumber:string, toteNumber:string, pickZone:string, productList:any, success_cb:(result:any)=>void){
 
-    let svc = this;
+
     let requests =
         [
             {
@@ -441,7 +500,7 @@ public allocateNewToteToOrder(orderNumber:string, toteNumber:string, pickZone:st
 
 public getOrderPickStatus(orderNumber:string, pickZone:string, success_cb:(result:any)=>void){
 
-    let svc = this;
+
     let requests =
         [
             {
@@ -469,7 +528,35 @@ public getOrderPickStatus(orderNumber:string, pickZone:string, success_cb:(resul
   });
 }
 
+public checkInToteStatus(orderNumber:string, pickZone:string, success_cb:(result:any)=>void){
 
+
+    let requests =
+        [
+            {
+                requestCounter: 1, //$rootScope.requestConveyorCounter,
+                command: 'checkInToteStatus',
+                data: {
+                    userSessionId: this.sessionId,
+                    orderNumber:orderNumber,
+                    pickzone:pickZone
+                }
+            }
+        ];
+    
+    this._doServerSideOp(requests, false, false, function (res:any) {
+      if(res.isError==true)
+      {
+        if(success_cb != null)  
+          success_cb(null);
+      }  
+      else
+      {
+        if(success_cb != null)
+          success_cb(res);
+      }
+  });
+}
 
 
 }

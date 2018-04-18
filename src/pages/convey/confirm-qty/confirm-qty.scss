@@ -1,0 +1,20 @@
+page-confirm-qty {
+	ion-footer button {
+	   margin: 0 !important;
+	}
+
+	ion-content h6{
+	    margin-top: 1px;
+	    margin-bottom: 1px;
+	}
+
+	ion-content ion-row {
+		padding: 1px !important;
+	}
+	ion-content ion-col {
+	    padding: 0px !important;
+	    margin-top:  2px !important;
+	    margin-left: 4px !important;
+	}
+
+}

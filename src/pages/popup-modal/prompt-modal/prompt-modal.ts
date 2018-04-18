@@ -104,7 +104,7 @@ export class PromptModalPage {
             this.promptInput.setFocus();
             setTimeout(() =>{
               svc.promptInput._readonly = false;
-            }, 40);            
+            }, 40);
           }
         }
 

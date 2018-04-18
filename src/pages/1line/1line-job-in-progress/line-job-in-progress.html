@@ -1,0 +1,64 @@
+<!--
+  Generated template for the PlacInTotePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="headerColor" >
+    <button ion-button menuToggle >
+      	<ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ title }}</ion-title>
+<!--     <img src="../assets/img/logo.png" alt="logo" height="40"> -->
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-grid>
+		<ion-row color='secondary'>
+			<ion-col col-4>
+			    <div class="tblHeader">{{ 'BINLOCAION_LABEL' | translate }}</div>
+			</ion-col>
+			<ion-col col-4>
+				<div class="tblHeader">{{ 'LINE_PROCESS_JOB_COL_ORDERS' | translate }}</div>
+			</ion-col>
+			<ion-col col-4>
+				<div class="tblHeader">{{ 'P2L_JOB_IN_PROGRESS_COMPLETED' | translate }}</div>
+			</ion-col>
+		</ion-row>
+		
+		<ion-row *ngFor="let job of productList" (click)="onClickRow(job.binLocation)">
+			<ion-col col-4>
+				<div [class]="selBinCode==job.binLocation? 'selectedRow':''"> {{job.binLocation}} </div>
+			</ion-col>
+			<ion-col col-4>
+				<div [class]="selBinCode==job.binLocation? 'selectedRow':''"> {{job.numOrders}} </div>
+			</ion-col>
+			<ion-col col-4>
+				<div [class]="selBinCode==job.binLocation? 'selectedRow':''"> {{job.numCompleted}} </div>
+			</ion-col>			
+		</ion-row>
+
+	</ion-grid>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+			<ion-col col-7 >
+			</ion-col>
+			<ion-col col-2 text-right>
+				<button ion-button clear color="secondary" type="button" item-left (click)="onRefreshJobList()"> 
+					<ion-icon name="refresh" style="font-size: 50px;"></ion-icon>
+				</button>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'P2L_JOB_IN_PROGRESS_CONTINUE_JOB' | translate }}</button>
+			</ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>

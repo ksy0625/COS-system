@@ -1,0 +1,70 @@
+
+  Generated template for the ScanProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle >
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{title}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+
+	    <ion-row class="order-info-head">
+		  <ion-col col-2 text-right><p>{{'BIN_LABEL'|translate }}:</p></ion-col>
+	      <ion-col col-4><span>{{productInfo.binLocation}}</span></ion-col>
+
+	      <ion-col col-2 text-right><p>{{'P2L_PRODUCT_SCAN_JOBID'|translate }}:</p></ion-col>
+	      <ion-col col-4><span>{{productInfo.jobID}}</span></ion-col>
+	    </ion-row>
+		<hr/>
+
+		<ion-row class="order-info-head">
+			<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+			<ion-col col-2><span>{{productInfo.stockCode}}</span></ion-col>
+			<ion-col col-8><p>{{productInfo.description}}</p></ion-col>
+		</ion-row>
+		
+ 		<ion-row>
+ 			<ion-col col-6>	
+ 				<ion-row class="order-info">
+ 					<ion-col>
+ 						<p>{{'SCAN_1ST_LABEL'|translate }}</p>
+ 					</ion-col>
+ 				</ion-row>	
+				<ion-row class="order-info">
+					<ion-col col-2 text-right>
+						<button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon color="primary" name="keypad"> </ion-icon> </button>						
+					</ion-col>
+					<ion-col col-7>
+						<ion-input class="border"  text-center placeholder="Barcode Here" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"   ng-focus="focus=false" ng-blur="focus=false"  name="productBarCode" (change)='onChangedProductBarCode($event.target.value)'>
+						</ion-input>
+					</ion-col>
+		 			<ion-col col-3>
+						<button  ion-button block full color="secondary" (click)="openPage()" >{{ 'GO_BUTTON' | translate }}</button>
+					</ion-col>
+				</ion-row>
+ 			</ion-col>
+ 			<ion-col col-6>	
+ 				<div style="height:75px; width:auto;">
+			      <img [src]="productInfo.img_url">
+				</div>
+ 			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+			<ion-col col-6 text-left><p>{{productInfo.statsLabelProgress}}</p></ion-col>
+			<ion-col col-6 text-right><p>{{productInfo.statsPickEfficiency}}</p></ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>

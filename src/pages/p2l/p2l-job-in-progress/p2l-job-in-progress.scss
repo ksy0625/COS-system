@@ -1,0 +1,35 @@
+page-p2l-job-in-progress {
+	ion-content ion-col {
+		padding: 0px !important;
+		border: 1px solid #e6e9ee;
+	}
+	ion-content ion-col div {
+	    border-radius: 2px;
+	    padding: 5px;
+	    text-align: center;
+	}
+	ion-content ion-col div.tblHeader{
+		background-color: #ebebeb;
+	}
+	
+	ion-content ion-col div.highPrio{
+		color: #ff0000;
+	}
+	ion-content ion-col div.selectedRow{
+		background-color: #659ef3;
+	}
+
+	ion-content ion-col div.highPrio-selectedRow{
+		color: #ff0000;
+		background-color: #659ef3;
+	}
+
+	ion-grid {
+		padding: 0px !important;
+		font-weight: bold;
+	}
+
+	ion-row.high-prio{
+		font-color: #ff0000;
+	}
+}

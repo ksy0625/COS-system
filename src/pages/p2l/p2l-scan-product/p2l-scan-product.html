@@ -1,0 +1,81 @@
+
+  Generated template for the ScanProductPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle >
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{title}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+	    <ion-row class="order-info-head">
+
+	  		<ion-col col-2 text-right><p>{{'BIN_LABEL'|translate }}:</p></ion-col>
+		    <ion-col><span>{{productInfo.binLocation}}</span></ion-col>
+	  		<ion-col text-right><p>Job ID:</p></ion-col>
+	      	<ion-col><span>{{productInfo.jobID}}</span></ion-col>
+   		    <ion-col text-right><p>Scan:</p></ion-col>
+			<ion-col col-3>
+				<ion-input class="border"  text-center placeholder="Barcode Here" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()" (change)='onChangedProductBarCode($event.target.value)'>
+				</ion-input>
+			</ion-col>	      				
+		    <ion-col col-1>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+		    </ion-col>
+	    </ion-row>
+
+		<hr/>
+
+		<ion-row class="order-info-head">
+			<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+			<ion-col col-2><span>{{productInfo.stockCode}}</span></ion-col>
+			<ion-col col-8><p>{{productInfo.description}}</p></ion-col>
+		</ion-row>
+		
+ 		<ion-row>
+ 			<ion-col col-6>	
+ 				<ion-row class="order-info">
+					<ion-col col-4 text-right><p>{{'PICKUNIT_LABEL'|translate}}:</p></ion-col>
+					<ion-col col-4 ><ion-label [color]="pickUnitSensitive? 'danger':''" >{{productInfo.pickUnit}}</ion-label></ion-col>
+					<ion-col col-4><ion-checkbox style="padding-top: 7px;" [(ngModel)]="pickUnitSensitive" [color]="pickUnitSensitive? 'danger':''" ></ion-checkbox>
+					</ion-col>
+				</ion-row>
+ 				<ion-row class="order-info">
+					<ion-col col-4 text-right><p>{{'PICKQTY_LABEL'|translate }}:</p></ion-col>
+					<ion-col col-8><span> {{productInfo.pickQty}}</span></ion-col>
+				</ion-row>
+
+				<ion-row class="order-info">
+					<ion-col col-1></ion-col>
+					<ion-col text-wrap text-right col-3><p>{{'CONFIRMQTY_LABEL'|translate}}:</p></ion-col>
+					<ion-col col-8>
+						<ion-input #confirmedInputBox class="border w100"  type="text" [value]="confirmedPick" [(ngModel)]="confirmedPick" (click)="onConfirmQtyFocused()" (ionFocus)="onConfirmQtyFocused()" ></ion-input>
+					</ion-col>
+				</ion-row>
+
+ 			</ion-col>
+
+ 			<ion-col col-6>	
+ 				<div style="height:75px; width:auto;">
+			      <img [src]="productInfo.img_url">
+				</div>
+ 			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>
+
+<ion-footer style="height:36px;">
+<!-- 	<ion-toolbar> -->
+		<ion-row>
+			<ion-col col-6  style="padding-top: 0px;" text-left><p>{{productInfo.statsLabelProgress}}</p></ion-col>
+			<ion-col col-6  style="padding-top: 0px;" text-right><p>{{productInfo.statsPickEfficiency}}</p></ion-col>
+		</ion-row>
+<!-- 	</ion-toolbar> -->
+</ion-footer>

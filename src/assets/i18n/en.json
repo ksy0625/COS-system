@@ -44,6 +44,8 @@
   "ORDER_CONTINUE":"Continue",  
   "SCANPRODUCT_LABEL" : "To Start, Scan Product Barcode",
 
+  "P2J_BEGIN_SCREEN_TITLE": "Begin P2L Job",
+  "P2J_BEGIN_SCREEN_LABEL": "To Start a Job, Scan first P2L Label",  
 
   "P2L_OUTSTANDING" : "P2L - Outstanding Jobs",
   "P2L_OUTSTANDING_JOBID" : "Job ID",
@@ -52,10 +54,22 @@
   "P2L_OUTSTANDING_PRIO_LABEL" : "NB:Jobs in RED are Priority", 
   "P2L_OUTSTANDING_GET_STARTED" : "GET STARTED",
 
-  "P2L_JOB_IN_PROGRESS_TITLE" : "My Jobs in Progress",
+  "P2L_JOB_IN_PROGRESS_TITLE" : "My P2L Job Status",
   "P2L_JOB_IN_PROGRESS_COMPLETED" : "#Completed",
   "P2L_JOB_IN_PROGRESS_CONTINUE_JOB" : "CONTINUE JOB",
-  "P2L_PRODUCT_SCAN_JOBID" : "Job ID"
-  
+  "P2L_PRODUCT_SCAN_JOBID" : "Job ID",
+  "SCAN_1ST_LABEL": "Scan first P2L Label of this Pick",
+  "SCAN_1ST_TITLE": "Scan first P2L Label",
+
+  "LINE_BEGIN_SCREEN_TITLE": "Begin 1Liner Pick Job",
+  "LINE_BEGIN_SCREEN_LABEL": "To Start Job, Scan first Job Label",
+
+  "LINE_PROCESS_JOB_TITLE": "Scan Product - Job:",
+  "LINE_PROCESS_JOB_LABEL": "Product:",
+  "LINE_PROCESS_JOB_COL_ORDERS": "# Orders:",
+  "LINE_PICK_ORDERS_TITLE": "Pick Orders ",  
+  "LINE_PRINT_BUTTON_LABEL": "Print Additional Packing labels",
+  "LINE_JOB_IN_PROGRESS_TITLE" : "My 1Line Job Status"
+
 
 }

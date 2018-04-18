@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>You've amended the Picked Qty!</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+      <ion-icon color="default" name="barcode"></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding overflow-scroll="true">
+  <h6>Suplus Locations.</h6>
+  <ion-row>
+    <ion-col *ngFor="let suplineLocation of data.productInfo.surplusBins">
+      {{suplineLocation.bin_code}}
+      <br> 
+      qty {{suplineLocation.qty}}
+    </ion-col>
+  </ion-row>  
+   
+  <ion-row>
+    <ion-col>
+      <ion-row>
+        <ion-col>Pick Qty</ion-col>
+        <ion-col><h6>{{data.productInfo.pickQty}}</h6></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>You've Entered</ion-col>
+        <ion-col><h6>{{data.entered}}</h6></ion-col>
+      </ion-row>      
+    </ion-col>
+
+    <ion-col>
+      <ion-row>
+        <ion-col>Pick Unit</ion-col>
+        <ion-col><h6>{{data.productInfo.pickUnit}}</h6></ion-col>
+      </ion-row>      
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <h6>Are you sure?</h6>
+  </ion-row>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row >
+    <ion-col></ion-col>
+    <ion-col><button ion-button  full color="secondary" (click)="onOK()">YES</button></ion-col>    
+    <ion-col></ion-col>
+    <ion-col><button ion-button  full color="danger" (click)="onCancel()">NO</button></ion-col>
+    <ion-col></ion-col>
+    <ion-col></ion-col>
+    <ion-col><button ion-button  full color="danger" (click)="onPark()">Park</button></ion-col>
+    <ion-col></ion-col>    
+  </ion-row>    
+</ion-footer>
+

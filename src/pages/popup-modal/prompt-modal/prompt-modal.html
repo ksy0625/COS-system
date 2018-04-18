@@ -18,7 +18,7 @@
     <ion-col col-7 style="position: initial;">        
       <ion-item>
         <ion-input type="text" #promptInputBox [placeholder]="placeholder" [value]="promptVal" [(ngModel)]="promptVal" name="promptVal"
-        (change)='onChangedVal($event.target.value)' ></ion-input>
+           ng-focus="focus=false" ng-blur="focus=false"  (change)='onChangedVal($event.target.value)' ></ion-input>
       </ion-item>  
     </ion-col>
   </ion-row>

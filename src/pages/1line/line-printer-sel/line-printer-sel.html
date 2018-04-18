@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+      <ion-icon color="default" [name]="icon"></ion-icon>
+    </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>  
+    <ion-grid>
+      <ion-row>
+        <ion-col col-1 offset-2>
+          <button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon name="keypad"> </ion-icon> </button>             
+        </ion-col>
+        <ion-col col-8 style="position: initial;">        
+          <ion-item class="font1">
+                <ion-input #promptInputBox type="text" placeholder="Qty" [value]="promptVal" [(ngModel)]="promptVal"   ng-focus="focus=false" ng-blur="focus=false" name="orderBarCode" (change)='onChangedVal($event.target.value)'>
+                </ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col col-9 offset-2>
+          <ion-item class="font1">        
+            <ion-label>Printer:</ion-label>
+            <!-- interface="popover" -->
+            <ion-select [(ngModel)]="promptVal1" name="promptVal1" interface="popover" style="max-width:80%;">
+              <ion-option *ngFor="let printer of printers" [value]="printer.printerAddress" >{{printer.printerName}}</ion-option>
+              <!-- <ion-option ></ion-option> -->
+            </ion-select>       
+          </ion-item>
+        </ion-col>
+      </ion-row>     
+
+    </ion-grid>
+  <!-- [value]="printer.printerAddress" -->
+
+
+<div class="center" *ngIf="bShowKb">
+  <!-- Keys -->
+  <div class="kb-row" [style.zoom]="zoom" *ngFor="let n of m_main_rows">
+    <div class="kb-key-cell" *ngFor="let m of m_main_cols">
+      <div class="kb-key" (click)="cKClick($event, keysTab[n + m])">
+        {{keysTab[n + m]}}
+      </div>
+    </div>
+  </div>  
+</div>  
+
+</ion-content>
+<ion-footer>
+	<ion-row>
+	    <ion-col></ion-col>
+	    <ion-col><button ion-button  full color="default" (click)="onCancel()">{{cancelTxt}}</button></ion-col>    
+	    <ion-col></ion-col>
+	    <ion-col><button ion-button  full color="secondary" (click)="onOK()">{{okTxt}}</button></ion-col>
+	    <ion-col></ion-col>
+  </ion-row>  
+</ion-footer>

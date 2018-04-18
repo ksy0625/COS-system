@@ -1,0 +1,47 @@
+<!--
+  Generated template for the ScanOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="headerColor" >
+  	<button ion-button menuToggle >
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> {{ 'LINE_BEGIN_SCREEN_TITLE' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding >
+	<ion-label padding-top text-center class="font2">{{ 'LINE_BEGIN_SCREEN_LABEL' | translate }}</ion-label>
+	<ion-grid>
+	    <ion-row padding-top>
+
+			<ion-col col-1 offset-2>
+			  <button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon name="keypad"> </ion-icon> </button>		        	
+		 	</ion-col>
+		 	<ion-col col-7 style="position: initial;">		 		
+		        <ion-item class="font2">
+ 		          <ion-input #lineBarCodeInputBox barcode-input type="text" placeholder="Barcode Here" [value]="lineBarCode" [(ngModel)]="lineBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="orderBarCode" (change)='onChangedLineBarcode($event.target.value)'>
+		          </ion-input>
+ 			</ion-item>
+		    </ion-col>
+	        <ion-col col-1>
+		        <button ion-button color="secondary" (click)="openPage()">{{ 'GO_BUTTON' | translate }}</button>
+		    </ion-col>
+		</ion-row>		
+
+<!--  	    <ion-row padding-top>
+			<ion-col >
+				<label class="item item-input">
+		            <input type="text" placeholder="Item barcode" id="itemBarcode" 
+		            onFocus="focus=false;"  onBlur="focus=false;"   ng-focus="focus=false;" ng-blur="focus=false;" >
+ 				</label>		            
+			</ion-col> 				
+		</ion-row>	
+ -->
+	</ion-grid>
+</ion-content>

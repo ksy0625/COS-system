@@ -1,18 +1,18 @@
-import { AppState } from './app.global';
+
 import { Component, ViewChild } from '@angular/core';
-import { HostListener } from '@angular/core';
+
 import { Platform, Nav, Config, MenuController, Events } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TranslateService } from '@ngx-translate/core'
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
+
 import {User} from '../providers/user'
 
 import {AlertService} from '../providers/alert.service'
 import { CustomKeyBoard } from '../components/customKeyBoard/custom-keyboard';
-
+import {MobileAppSystem} from '../providers/mobile.app.system'
 
 export interface PageInterface {
   title: string;
@@ -41,7 +41,7 @@ export class MyApp {
     { title: 'Home', component: 'HomeScreenPage', active: true},
     { title: 'Scan Order Barcode', component: 'ScanOrderPage', active: true},
     { title: 'Scan Product Barcode', component: 'ScanProductPage', active: true},
-    { title: 'Place in Tote', component: 'PlaceInTotePage', active: true},
+    // { title: 'Place in Tote', component: 'PlaceInTotePage', active: true},
     { title: 'Order Pick Status', component: 'OrderStatusPage', active: true},
     { title: 'About', component: 'AboutPage', active: false},
     { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
@@ -49,8 +49,18 @@ export class MyApp {
 
   P2LPages : PageInterface[] = [
     { title: 'Home', component: 'HomeScreenPage', active: true},
-    { title: 'P2L - Outstanding Jobs', component: 'P2lOutstandingPage', active: true},
+    { title: 'Begin P2L Job', component: 'P2lBeginJobPage', active: true},
+    { title: 'Scan Product', component: 'P2lScanProductPage', active: true},    
     { title: 'My Jobs in Progress', component: 'P2lJobInProgressPage', active: true},
+    { title: 'About', component: 'AboutPage', active: false},
+    { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
+  ];
+
+  LinePages : PageInterface[] = [
+    { title: 'Home', component: 'HomeScreenPage', active: true},
+    { title: 'Begin 1 Liner Pick Job', component: 'LinePickJobPage', active: true},
+    { title: 'Pick Orders', component: 'LinePickOrderPage', active: true},
+    { title: 'My 1 Liner Pick Status', component: 'LineJobInProgressPage', active: true},
     { title: 'About', component: 'AboutPage', active: false},
     { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
   ];
@@ -66,7 +76,8 @@ export class MyApp {
     private splashScreen: SplashScreen,
     private alertService:AlertService,
     public user:User,
-    private screenOrientation: ScreenOrientation) {
+    public mobileAppSystem: MobileAppSystem
+    ) {
 
     this.menuPages = this.homePages;
 
@@ -88,7 +99,6 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-
   }
 
   initTranslate() {
@@ -107,30 +117,42 @@ export class MyApp {
   }
 
   openPage(page) {
+    let svc = this;
 
     if(this.user.workingRegion =='convey')
     {
-      if(page.component =='OrderStatusPage' || page.component =='PlaceInTotePage')
+      if(page.component =='ScanOrderPage')
       {
-        //this.nav.push(page.component);
-        // if(this.user.orderInfo.isCompleted()==true)
-        // {
-        //   this.nav.popTo('ScanOrderPage');        
-        // }
-        // else 
-        //  this.nav.popTo('ScanProductPage');
-      }      
+        this.mobileAppSystem.checkInToteStatus(this.user.orderInfo.orderBarcode, this.user.orderInfo.zone,function(res:any){
+          if(res==null || res.result==null)return;
+          if(res.result.itemsNotInToteExist=='Y')
+          {        
+            svc.alertService.doConfirm('Error', res.result.statusMsg, 'OK', 'Cancel').then(function(yes)
+            {
+              if(yes)
+                svc.nav.setRoot('PlaceInTotePage');
+            });
+          }
+          else
+          {
+            svc.nav.setRoot('ScanOrderPage');
+          }
+        });   
+      }
+      else
+        this.nav.setRoot(page.component);
     }
     else if(this.user.workingRegion =='p2ljob')
     {
-      if(page.component =='P2lOutstandingPage' || page.component =='P2lJobInProgressPage')
-        this.nav.popTo('HomeScreenPage');
+      this.nav.setRoot(page.component);
     }
-
-    this.nav.setRoot(page.component);
+    else
+      this.nav.setRoot(page.component);
+    
     if (page.logsOut === true) {
         this.events.publish('user:logout');
     }
+    
   }
 
   enableMenu() {
@@ -140,6 +162,8 @@ export class MyApp {
       this.menuPages = this.ConveyPages;
     else if(this.user.workingRegion =='p2ljob')    
       this.menuPages = this.P2LPages;
+    else if(this.user.workingRegion =='1line')
+      this.menuPages = this.LinePages;
   }
 
   listenToEvents() {
@@ -158,6 +182,11 @@ export class MyApp {
       this.user.workingRegion = 'p2ljob';
       this.enableMenu();
     });
+
+    this.events.subscribe('1line:start', () => {
+      this.user.workingRegion = '1line';
+      this.enableMenu();
+    });    
 
     this.events.subscribe('user:logout', () => {
       this.user.workingRegion = '';

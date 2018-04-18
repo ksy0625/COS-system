@@ -7,17 +7,6 @@ export class AlertService {
   }
 
   public doAlert(title: string, message: string, btnTxt:string ): Promise<boolean>{
-    // const alert = this.alertCtrl.create(
-    //   {
-    //     title,
-    //     subTitle: message,
-    //     buttons: [
-    //       {
-    //         text: btnTxt
-    //       }
-    //     ]
-    //   });
-    // return alert.present();
     return new Promise((resolve, reject) => {
       const confirm = this.alertCtrl.create({
         title,
@@ -35,6 +24,24 @@ export class AlertService {
     });
 
   }
+
+  public doAlertWithtimeOut(title: string, message: string, timeout:number ): Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      const confirm = this.alertCtrl.create({
+        title,
+        message
+      });
+
+      if(timeout > 0)
+      {
+        setTimeout(() => {
+          confirm.dismiss().then(() => resolve(true));          
+        },timeout);
+      }
+      return confirm.present();
+    });
+  }
+  
 
   doConfirm(title: string, message: string, okTxt:string, cancelTxt:string): Promise<boolean> {
     return new Promise((resolve, reject) => {

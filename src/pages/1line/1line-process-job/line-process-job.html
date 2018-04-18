@@ -1,0 +1,78 @@
+<!--
+  Generated template for the PlacInTotePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="headerColor" >
+    <button ion-button menuToggle >
+      	<ion-icon name="menu"></ion-icon>
+    </button>
+
+	<ion-buttons end>
+		<button ion-button (click)="onGotoHome()">
+      		<ion-icon name="home"></ion-icon> 
+  		</button> 
+	</ion-buttons>    
+
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-label>
+		{{ 'PLACEINTOTE_LABEL' | translate }}
+	</ion-label>
+	<ion-grid>
+		<ion-row>
+			<ion-col col-4>
+			    <div class="tblHeader">{{ 'BINLOCAION_LABEL' | translate }}</div>
+			</ion-col>
+			<ion-col col-4>
+				<div class="tblHeader">{{ 'LINE_PROCESS_JOB_COL_ORDERS' | translate }}</div>
+			</ion-col>
+			<ion-col col-4>
+				<div class="tblHeader">{{ 'P2L_JOB_IN_PROGRESS_COMPLETED' | translate }}</div>
+			</ion-col>
+		</ion-row>
+		<ion-row *ngFor="let productbin of user.lineinfo.productBins">
+			<ion-col col-4>
+			    <div> {{productbin.binLocation}} </div>
+			</ion-col>
+			<ion-col col-4>
+				<div> {{productbin.numOrders}} </div>
+			</ion-col>
+			<ion-col col-4>
+				<div> {{productbin.numCompleted}} </div>
+			</ion-col>
+		</ion-row>
+		
+	</ion-grid>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+			<ion-col col-3 >
+				<ion-label class="font2" text-right> {{ 'LINE_PROCESS_JOB_LABEL' | translate }} : </ion-label>
+			</ion-col>
+			<button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon color="primary" name="keypad"> </ion-icon> </button>
+			<ion-col col-6>
+				<ion-item>			
+          			<ion-input #productBarCodeInputBox type="text" 
+          			[disabled]="user.hasTotes=='N' ? true:false"
+          			[placeholder]="user.hasTotes=='N' ? 'No Scan Required. Click Go':'Barcode'" 
+          			[value]="productBarcode" [(ngModel)]="productBarcode" name="toteBarcode"   ng-focus="focus=false" ng-blur="focus=false"  (change)='onChangedBarcode($event.target.value)'></ion-input>          			
+				</ion-item>
+			</ion-col>
+
+			<ion-col col-2>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'GO_BUTTON' | translate }}</button>
+			</ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>

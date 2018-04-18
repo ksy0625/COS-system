@@ -1,8 +1,10 @@
-import { Component , ViewChild} from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams , Events} from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 import {User} from '../../providers/user'
+import {MobileAppSystem} from '../../providers/mobile.app.system'
 import {MobileAppSystemP2l} from '../../providers/mobile.app.system.p2l'
+import {MobileAppSystem1Line} from '../../providers/mobile.app.system.1line'
 
 
 /**
@@ -25,17 +27,27 @@ export class HomeScreenPage {
   	public navParams: NavParams,
     public events: Events,
   	public menu: MenuController,
+    public mobileAppSystem:MobileAppSystem,
     public mobileAppSystemP2L:MobileAppSystemP2l,
+    public mobileAppSystem1Line:MobileAppSystem1Line,
     public user:User ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomeScreenPage');
+    
+    this.mobileAppSystemP2L.setSessionId(this.user.sessionInfo.sessionId); 
+    this.mobileAppSystemP2L.setBaseUrl(this.mobileAppSystem.getBaseUrl());
 
-    this.mobileAppSystemP2L.setSessionId(this.user.sessionInfo.sessionId);
-    this.mobileAppSystemP2L.deAllocateJob(this.user.sessionInfo.userWarehouse, 1576703);
+    this.mobileAppSystem1Line.setSessionId(this.user.sessionInfo.sessionId); 
+    this.mobileAppSystem1Line.setBaseUrl(this.mobileAppSystem.getBaseUrl());
+      
+    //for test . init.    
+    //this.mobileAppSystemP2L.deAllocateJob(this.user.sessionInfo.userWarehouse, 151398503);
+
 //    console.log(this.input1);
-    this.events.publish('home:entered');    
+    this.events.publish('home:entered'); 
+    this.user.orderInfo.zone = '';
   }
 
   ionViewDidEnter() {
@@ -43,17 +55,18 @@ export class HomeScreenPage {
   }
 
   openConvey() {
-  	this.navCtrl.push('ScanOrderPage');   
+  	this.navCtrl.setRoot('ScanOrderPage');
   }
 
   openP2Job() {
 
     this.events.publish('p2ljob:start');
-    this.navCtrl.push('P2lOutstandingPage');
+    this.navCtrl.setRoot('P2lBeginJobPage');
   }
 
-  openPage(){
-
+  open1Line(){
+    this.events.publish('1line:start');
+    this.navCtrl.setRoot('LinePickJobPage');
   }
 
 

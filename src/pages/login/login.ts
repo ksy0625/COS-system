@@ -34,7 +34,6 @@ export class LoginPage{
    	public navParams: NavParams,
   	public menu: MenuController,
     public mobileAppSystem: MobileAppSystem,
-    private alertService:AlertService,
     private appData:AppData,
     private user:User) 
   {
@@ -56,7 +55,8 @@ export class LoginPage{
     let svc = this;
     this.mobileAppSystem.loginOPsApp(this.username, this.password, function(res:any){
       svc.user.sessionInfo = res.result.loginResult;      
-      svc.navCtrl.setRoot('HomeScreenPage', {}, {animate: true, direction: 'forward'});
+      //svc.navCtrl.setRoot('HomeScreenPage', {}, {animate: true, direction: 'forward'});
+      svc.navCtrl.setRoot('HomeScreenPage');
     }, true);
 
   }

@@ -26,7 +26,7 @@ export class ModalService {
     });
   }  
   
-  showConfirmModal(page:string, cls:string, data:any): Promise<boolean> {
+  showConfirmModal(page:string, cls:string, data:any): Promise<number> {
     let svc = this;
     return new Promise((resolve, reject) => {
       data.resolve = resolve;

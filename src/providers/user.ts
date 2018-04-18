@@ -34,13 +34,13 @@ export class SessionInfo{
 }
 
 export class OrderModel{
-  orderBarcode:string;
-  warehouse:string;
-  zone:string;
+  orderBarcode:string = '';
+  warehouse:string = '';
+  zone:string = '';
   binLocations:string[];
-  countProductScaned:number;
-  countTotalProducts:number;
-  toteNumber:string;
+  countProductScaned:number = 0;
+  countTotalProducts:number = 0;
+  toteNumber:string = '';
 
   public clear():void{
     this.orderBarcode = '';
@@ -60,6 +60,60 @@ export class OrderModel{
 }
 
 
+export class P2LModel{
+  warehouse:string;
+  jobID:number = 0;
+  p2lBarcode:string = '';
+  toteNumber:string;  
+
+  public clear():void{
+    this.warehouse = '';
+    this.toteNumber = '';
+  }
+}
+
+
+export class ProductBin{
+  binLocation:string;
+  numOrders:number;
+  numCompleted:number;
+}
+
+
+export class LineProductInfo{
+  countOrdersPicked:number = 0;
+  countTotalOrders:number = 0;
+  statsLabelProgress:string;
+  statsPickEfficiency:string;
+
+  jobID:number=0; 
+  stockCode:string= '';  
+  description:string= '';
+  binLocation:string = '';  
+  orderNumber:string='';
+
+  pickQty:number=0;
+  pickUnit:string= '';
+
+  img_url:string= '';
+  productPickComplete:string='N';
+  jobComplete:string='N';
+}
+
+export class LineModel{
+  jobID:number = 0;
+  lineBarcode:string = '';
+  barcodetype:string = ''; 
+  productInfo:LineProductInfo = new LineProductInfo();
+  productBins: ProductBin[] = [];
+
+  public clear():void{
+  }
+}
+
+
+
+
 @Injectable()
 export class User {
   _user: any;
@@ -71,14 +125,19 @@ export class User {
   //for convey region
   public hasTotes:string='';
   public allowableProductsNotInTote:number;
-  public orderInfo : OrderModel
+  public orderInfo : OrderModel;
 
   //for P2l region
-  public p2lJobID:number = 0;
+  public p2linfo:  P2LModel;
+
+  //for line region
+  public lineinfo: LineModel;
 
   constructor(public http: Http, public api: Api) {
     this.sessionInfo = new SessionInfo();
     this.orderInfo = new OrderModel();
+    this.p2linfo = new  P2LModel();
+    this.lineinfo = new LineModel();
     this.allowableProductsNotInTote = 0;
   }
 

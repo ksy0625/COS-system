@@ -1,0 +1,18 @@
+page-line-process-job {
+	ion-content ion-col {
+		padding: 0px !important;
+		border: 1px solid #e6e9ee;
+	}
+	ion-content ion-col div {
+	    border-radius: 2px;
+	    padding: 5px;
+	    text-align: center;
+	}
+	ion-content ion-col div.tblHeader{
+		background-color: #ebebeb;
+	}
+	ion-grid {
+		padding: 0px !important;
+		font-weight: bold;
+	}
+}

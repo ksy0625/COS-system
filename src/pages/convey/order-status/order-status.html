@@ -1,0 +1,90 @@
+<!--
+  Generated template for the OrderStatusPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="headerColor">
+  	<button ion-button menuToggle >
+      <ion-icon name="menu"></ion-icon>
+    </button>
+	<ion-buttons end>
+		<button ion-button (click)="onGotoScanOrder()">
+      		<ion-icon name="barcode"></ion-icon> 
+  		</button> 					
+		<button ion-button (click)="onGotoHome()">
+      		<ion-icon name="home"></ion-icon> 
+  		</button> 
+	</ion-buttons>    
+
+    <ion-title>{{ 'ORDERSTATUS_TITLE' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-grid>
+		<ion-row>
+			<ion-col col-3>
+				<div class="tblHeader">{{ 'ORDER_LABEL' | translate }}#</div>
+			</ion-col>			
+			<ion-col col-2>
+				<div class="tblHeader">{{ 'BINLOCAION_LABEL' | translate }}</div>
+			</ion-col>
+			<ion-col col-2>
+				<div class="tblHeader">{{ 'STOCK_LABEL' | translate }}</div>
+			</ion-col>
+			<ion-col col-2>
+				<div class="tblHeader">{{ 'PICKQTY_LABEL' | translate }}</div>
+			</ion-col>
+			<ion-col col-2>
+				<div class="tblHeader">{{ 'CONFIRMQTY_HDR_LABEL' | translate }}</div>
+			</ion-col>
+			<ion-col col-1>
+				<div class="tblHeader">{{ 'STATUS_LABEL' | translate }}</div>
+			</ion-col>
+		</ion-row>
+		
+		<ion-row *ngFor="let productOrder of orderedProducts; let i = index"  (click)='onSelectOrder(i);' >
+			<ion-col col-3 >
+				<div [class]="i==selectedIndex? 'selectedRow':''" > {{productOrder.orderNumber}} </div>
+			</ion-col>			
+			<ion-col col-2>
+				<div [class]="i==selectedIndex? 'selectedRow':''" > {{productOrder.binLocation}} </div>
+			</ion-col>
+			<ion-col col-2>
+				<div [class]="i==selectedIndex? 'selectedRow':''" > {{productOrder.stockCode}} </div>
+			</ion-col>
+			<ion-col col-2>
+				<div [class]="i==selectedIndex? 'selectedRow':''" > {{productOrder.pickQty}} </div>
+			</ion-col>
+			<ion-col col-2>
+				<div [class]="i==selectedIndex? 'selectedRow':''" > {{productOrder.confirmQty}} </div>
+			</ion-col>
+			<ion-col col-1>
+				<div [class]="i==selectedIndex? 'selectedRow':''" > 
+					<ion-icon [name]="(productOrder.status==null || productOrder.confirmQty==null) ? '': 
+					(productOrder.status=='Y' ? 'checkbox': (productOrder.status=='N' ? 'warning':'')) " 
+					[color]="(productOrder.status=='Y') ? 'secondary':'warning'"></ion-icon>
+				</div>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+			<ion-col col-9></ion-col>
+			<ion-col col-3>
+				<button ion-button block full color="secondary" [disabled]="selectedIndex==-1" (click)="onContinue()" >{{ 'ORDER_CONTINUE' | translate }}
+				</button>
+			</ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>
+
