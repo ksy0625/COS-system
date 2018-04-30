@@ -47,7 +47,7 @@
 <ion-footer>
   <ion-row >
     <ion-col></ion-col>
-    <ion-col><button ion-button  full color="secondary" (click)="onOK()">YES</button></ion-col>    
+    <ion-col><button *ngIf="noExistSuplusBin" button ion-button  full color="secondary" (click)="onOK()">YES</button></ion-col>    
     <ion-col></ion-col>
     <ion-col><button ion-button  full color="danger" (click)="onCancel()">NO</button></ion-col>
     <ion-col></ion-col>

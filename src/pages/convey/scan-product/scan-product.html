@@ -45,22 +45,6 @@
 		        <button ion-button color="secondary" (click)="firstScan()">{{ 'GO_BUTTON' | translate }}</button>
 		    </ion-col>				        
     	</ion-row>
-
-    	<hr/>
-
-		<ion-row>
-			<ion-col col-9>
-				<ion-row>
-					<ion-col col-4 class="nextBinCol" *ngFor="let binCode of user.orderInfo.binLocations">
-						<ion-label >{{binCode}}</ion-label>
-					</ion-col>
-				</ion-row>
-			</ion-col>			
- 			<ion-col col-3>
-<!-- 				<button  ion-button block full color="secondary" [disabled]="user.orderInfo.countProductScaned==0" (click)="openPage()" >{{ 'PLACEINTOTE_BUTTON' | translate }}</button>
- -->			</ion-col>
- 		</ion-row>
-
 	</ion-grid>	    	
 
 	<ion-grid *ngIf="scanStarted">
@@ -121,25 +105,15 @@
 				</div> 					
 			</ion-col>		
 		</ion-row>
-
-		<hr/>
-		<ion-row>
-			<ion-col col-9>
-				<ion-row>
-					<ion-col col-4 class="nextBinCol" *ngFor="let binCode of user.orderInfo.binLocations">
-						<ion-label [style.color]="productInfo.binLocation==binCode? 'gray' :'white'" >{{binCode}}</ion-label>
-					</ion-col>
-				</ion-row>
-			</ion-col>
-			<ion-col col-3>
-<!-- 				<ion-row class="order-info"></ion-row>	
-				<ion-row class="order-info"></ion-row>
-				<button *ngIf="scanStarted" ion-button block full color="secondary" 
-				[disabled]="productInfo.pickUnitSensitive=='Y' && !pickUnitSensitive" (click)="onConfirmClicked()">
-					{{ 'CONFIRM_BUTTON' | translate }} {{confirmedPick}}
-				</button>
- -->			</ion-col>
-		</ion-row>
 	</ion-grid>
 
 </ion-content>
+
+<ion-footer>
+	<ion-row>
+		<ion-col col-1></ion-col>
+		<ion-col col-3 class="nextBinCol" *ngFor="let binCode of user.orderInfo.binLocations">
+			<ion-label [style.color]="productInfo.binLocation==binCode? 'gray' :'white'" >{{binCode}}</ion-label>
+		</ion-col>
+	</ion-row>
+</ion-footer>

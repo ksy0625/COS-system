@@ -1,6 +1,21 @@
 $kb-key-height: 40px;
 
 page-prompt-modal {
+  ion-list {
+    margin: 0 !important;
+  }
+
+
+  ion-content {
+    height: 100%;
+  }
+  .border{
+    border:1px solid #d0d6df;     
+  }
+  .button.button-md{
+    height:2.8rem;
+  }
+
   .round {
     border-radius: 8%;
   }
@@ -50,14 +65,16 @@ page-prompt-modal {
     border-radius: 3%;
   }
   button.footer-button {
-    height: 15%;
+    height: 10%;
     background-color: #578be4;
     bottom: 0px;
     position: absolute;
     margin: 0;
   }
 
-
+  p{
+    padding-left: 30px;
+  }
 
     div.center {
         margin-left: auto;

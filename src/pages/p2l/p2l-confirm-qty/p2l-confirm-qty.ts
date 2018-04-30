@@ -9,6 +9,7 @@ import { NavParams, ViewController, IonicPage } from 'ionic-angular';
 export class P2lConfirmQtyPage {
   resolve:(result:any)=>void;
   data:any;
+  private noExistSuplusBin:boolean = true;
 
   constructor(public viewCtrl: ViewController, params: NavParams) 
   {
@@ -16,6 +17,8 @@ export class P2lConfirmQtyPage {
     this.data = params.data;
 
     console.log(this.data);
+    if(this.data.productInfo.surplusBins !=null && this.data.productInfo.surplusBins.length >0)
+      this.noExistSuplusBin = false;
   }
 
   onOK() {

@@ -69,7 +69,13 @@
   "LINE_PROCESS_JOB_COL_ORDERS": "# Orders:",
   "LINE_PICK_ORDERS_TITLE": "Pick Orders ",  
   "LINE_PRINT_BUTTON_LABEL": "Print Additional Packing labels",
-  "LINE_JOB_IN_PROGRESS_TITLE" : "My 1Line Job Status"
+  "LINE_JOB_IN_PROGRESS_TITLE" : "My 1Line Job Status",
 
+  "JOB_ID":"Job ID",
+  "CREATE_BY":"Create By",
+  "DATE_TIME":"Datetime",
+  "PUT_AWAY_JOB_LIST_LINES":"#Lines",
+  "PUT_AWAY_JOB_LIST_TITLE": "Put­away Job List",
+  "PUT_AWAY_JOB_LIST_DESCR": "Select Job, OR Scan Job, Label or Product Barcode"
 
 }

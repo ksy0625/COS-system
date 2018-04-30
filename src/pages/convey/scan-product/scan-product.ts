@@ -207,7 +207,7 @@ private inputBinLocationCode(confirmAcked:string, statusMsg:string, firstPage:bo
     if(statusMsg!='')
       strMsg = statusMsg;
 
-    this.modalService.doPromptRightSide(strMsg, 'Scan or Enter Bin Location', 'Go', 'Cancel','', 'BinLocation').then(function(binLocationCode)
+    this.modalService.doPromptRightSide('Scan or Enter Bin Location', strMsg, 'Go', 'Cancel','', 'BinLocation').then(function(binLocationCode)
     {
         svc.bBinLocationScaning = false;
         if(binLocationCode == '')
@@ -224,17 +224,17 @@ private inputBinLocationCode(confirmAcked:string, statusMsg:string, firstPage:bo
     });
 }
 
-private inputBarCodeOnPopup(strMsg:string)
+private inputBarCodeOnPopup(strMsg:string, strAck:string)
 {
     let svc = this;
     this.bBinLocationScaning = true;
-    this.modalService.doPromptRightSide(strMsg, 'Scan or Enter Barcode', 'Go', 'Cancel','', 'Barcode').then(function(barCode)
+    this.modalService.doPromptRightSide('Scan or Enter Barcode', strMsg, 'Go', 'Cancel','', 'Barcode').then(function(barCode)
     {
         svc.bBinLocationScaning = false;
         if(barCode == '')
             return;
         svc.productBarCode = barCode;
-        svc.startScanBarcode1('Y', 'N');
+        svc.startScanBarcode1(strAck, 'N');
     });
 }
 
@@ -393,9 +393,18 @@ startScanBarcode1(ackStr:string, checkForBin:string)
       this.productInfo.stockCode, this.productInfo.binLocation, Number(this.confirmedPick),  this.productBarCode, this.user.orderInfo.zone, 
       this.user.hasTotes, ackStr,  checkForBin, svc.laneStockItem, function(res:any){
           svc.clearBarcodeScan();
+        if(res==null || res.result==null)  
+          return;
+
         if(res.result.statusCode==200)  
         {
-          svc.laneStockItem = res.result.laneStockItem;
+           svc.laneStockItem = res.result.laneStockItem;
+           if(res.result.getNewBarcode=='Y')
+           {
+             svc.inputBarCodeOnPopup(res.result.statusMsg, ackStr);
+             return;
+           }
+
            if(svc.laneStockItem =='Y')
            {
              svc.alertService.doAlertWithtimeOut('', res.result.statusMsg, 2000).then(function(yes){
@@ -431,14 +440,25 @@ startScanBarcode1(ackStr:string, checkForBin:string)
         }
         else if(res.result.statusCode==400)
         {
-          if(checkForBin =='Y')
+          if(res.result.outdatedTote=='Y')
           {
-             svc.alertService.doAlert(res.result.statusMsg, '', 'OK'); 
+            svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(ret:boolean){
+              svc.inputBarCodeOnPopup('', 'N');
+            });                  
           }
           else
           {
-            svc.inputBinLocationCode(ackStr, res.result.statusMsg, false);
-          }          
+            if(checkForBin =='Y')
+            {
+              svc.alertService.doAlert(res.result.statusMsg, '', 'OK').then(function(ret:boolean){
+                  //svc.inputBinLocationCode(ackStr, res.result.statusMsg, false);
+              }); 
+            }
+            else
+            {
+              svc.inputBinLocationCode(ackStr, res.result.statusMsg, false);
+            } 
+          }
         }
     });
   }
@@ -616,13 +636,13 @@ startScanBarcode1(ackStr:string, checkForBin:string)
                 }
                 else
                 {
-                  svc.inputBarCodeOnPopup(res.result.statusMsg);
+                  svc.inputBarCodeOnPopup(res.result.statusMsg, 'Y');
                 }
               }
               else if(res.result.statusCode==400)
               {
                 svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(ret:boolean){
-                });
+                });                                    
               }
           });
         }
