@@ -23,11 +23,17 @@
 
 
   "GO_BUTTON" : "GO",  
+  "UPDATE_BUTTON" : "UPDATE",    
   "CONVEYORPICK_BUTTON": "Conveyor Pick",
   "P2LBULK_BUTTON": "P2L Bulk",
   "1LINERPICK_BUTTON": "1 Liner  Pick",
   "PLACEINTOTE_BUTTON" : "Place in Tote",
+  "PUTAWAY_BUTTON": "Put-Away",
+  "MOVESTOCK_BUTTON": "Move Stock",  
+  "BININFO_BUTTON": "Bin Info",
+
   "CONFIRM_BUTTON": "Confirm",
+  "COMPLETE_BUTTON": "Complete",  
   
   "SCANORDER_LABEL" : "To Start, Scan OR Enter Order/Tote Barcode",
   "ZONE_LABEL" : "Zone : ",
@@ -76,6 +82,63 @@
   "DATE_TIME":"Datetime",
   "PUT_AWAY_JOB_LIST_LINES":"#Lines",
   "PUT_AWAY_JOB_LIST_TITLE": "Put­away Job List",
-  "PUT_AWAY_JOB_LIST_DESCR": "Select Job, OR Scan Job, Label or Product Barcode"
+  "PUT_AWAY_JOB_LIST_DESCR": "Select Job, OR Scan Job, Label or Product Barcode",
+  "PUT_AWAY_JOB_TITLE": "Put­away Job",
+  "PUT_AWAY_PALLET_LABEL": "Pallet",  
+  "PUT_AWAY_QTY_LABEL": "Putaway Qty",
+  "PUT_AWAYS_LABEL": "Putaways",  
+  "PUT_AWAY_SOURCE_TITLE": "Put-away Item - Source",
+  "PUT_AWAY_DEST_TITLE": "Put-away Item - destination",
+  "PUT_AWAY_SCAN_DEST": "Scan Dest",  
+  "PUT_AWAY_SCAN_DEST_QTY": "Qty",    
+  "PUT_AWAY_APPLY_STOCK_MOVE": "Apply Stock Move",      
+  "PUT_AWAY_REPORT_DSNT": "Report Put­away doesn't fit in bin",
 
+
+  "SCANBIN_TITLE": "Bin Info ­ Scan Bin",
+  "SCANBIN_LABEL": "Scan Bin Barcode:",
+  "BINDETAILES_TITLE": "Bin Details",  
+  "WH_LABEL": "WH:",
+  "SCANBIN_QTY": "Bin Qty",
+  "SCANBIN_COMMIT": "Commit",
+  "SCANBIN_CLASS": "Bin Class",
+  "SCANBIN_LAST_CNT": "Last Count",
+  "SCANBIN_LAST_USED": "Last Used",
+  "SCANBIN_TYPE": "Bin Type",
+  "SCANBIN_MAX_QTY": "Max Qty",
+
+  "STOCKDETAILES_TITLE": "Stock Details",  
+  "WH_LABEL": "WH:",
+  "STOCKDETAIL_TYPE": "Bin Type",
+  "STOCKDETAIL_AVG_COST": "Avg Cost",  
+  "STOCKDETAIL_CLASS": "Class",
+  "STOCKDETAIL_SPRCEDED": "Sprceded",  
+  "STOCKDETAIL_DG": "DG#",    
+  "STOCKDETAIL_DAYS_COVE": "Days Cove",      
+  "STOCKDETAIL_P2L_QTY": "P2L Qty",
+  "STOCKDETAIL_OH": "OH",
+  "STOCKDETAIL_P2P_QTY": "P2P Qty",  
+
+  "SCANBIN_QTY": "Bin Qty",
+  "SCANBIN_COMMIT": "Commit",
+  "SCANBIN_LAST_CNT": "Last Count",
+  "SCANBIN_LAST_USED": "Last Used",
+  "SCANBIN_MAX_QTY": "Max Qty",
+
+
+  "MOVE_STOCK_SOURCE_MAINWH":"Source WH",
+  "MOVE_STOCK_SOURCE_TITLE":"Move Stock ­ Source",
+  "MOVE_STOCK_SCAN_SOURCE_BIN":"Scan Source Bin",
+  "MOVE_STOCK_SOURCE_SOS":"SOs",
+  "MOVE_STOCK_REPLENS_LABEL":"Replens",  
+  "MOVE_STOCK_SOURCE_QTY_LABEL":"Source Qty",  
+  "MOVE_STOCK_MOVE_QTY_LABEL":"Move Qty",    
+  "MOVE_STOCK_REAL_ESTATE_LABEL":"Real Estate",         
+  "MOVE_STOCK_DEST_TITLE":"Move Stock ­ Destination", 
+  "MOVE_STOCK_SCAN_DEST_BIN":"Scan Dest Bin",
+  "MOVE_STOCK_PRINT_LABEL":"Print Label",  
+  "MOVE_STOCK_DEST_MAINWH":"Dest WH",
+  "MOVE_STOCK_MAX_QTY":"Max Qty",
+
+  "END": "End"
 }

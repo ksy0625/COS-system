@@ -65,6 +65,29 @@ export class MyApp {
     { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
   ];
 
+  BinInfoPages : PageInterface[] = [
+    { title: 'Home', component: 'HomeScreenPage', active: true},
+    { title: 'Bin Info - Scan Bin', component: 'ScanBinPage', active: true},
+    { title: 'Bin Detailes', component: 'BinDetailesPage', active: true},
+    { title: 'Stock Detailes', component: 'StockDetailesPage', active: true},
+    { title: 'About', component: 'AboutPage', active: false},
+    { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
+  ];
+
+  PutAwayPages : PageInterface[] = [
+    { title: 'Home', component: 'HomeScreenPage', active: true},
+    { title: 'Put­away Job List', component: 'PutAwayJobListPage', active: true},
+    { title: 'About', component: 'AboutPage', active: false},
+    { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
+  ];
+
+  MoveStockPages: PageInterface[] = [
+    { title: 'Home', component: 'HomeScreenPage', active: true},
+    { title: 'Move Stock - Source', component: 'MoveStockSourcePage', active: true},
+    { title: 'About', component: 'AboutPage', active: false},
+    { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
+  ];
+
   constructor(
     public events: Events,
     public translate: TranslateService, 
@@ -164,6 +187,12 @@ export class MyApp {
       this.menuPages = this.P2LPages;
     else if(this.user.workingRegion =='1line')
       this.menuPages = this.LinePages;
+    else if(this.user.workingRegion =='bininfo')
+      this.menuPages = this.BinInfoPages;
+    else if(this.user.workingRegion =='putaway')
+      this.menuPages = this.PutAwayPages;
+    else if(this.user.workingRegion == 'stockmove')
+      this.menuPages = this.MoveStockPages;
   }
 
   listenToEvents() {
@@ -188,9 +217,26 @@ export class MyApp {
       this.enableMenu();
     });    
 
+    this.events.subscribe('bininfo:start', () => {
+      this.user.workingRegion = 'bininfo';
+      this.enableMenu();
+    });    
+
+    this.events.subscribe('putaway:start', () => {
+      this.user.workingRegion = 'putaway';
+      this.enableMenu();
+    });    
+
+    this.events.subscribe('stockmove:start', () => {
+      this.user.workingRegion = 'stockmove';
+      this.enableMenu();
+    });        
+
     this.events.subscribe('user:logout', () => {
       this.user.workingRegion = '';
     });
+
+    
 
 
   }

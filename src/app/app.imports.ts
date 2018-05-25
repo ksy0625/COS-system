@@ -9,6 +9,11 @@ import { AppData } from '../providers/app';
 import {MobileAppSystem} from '../providers/mobile.app.system'
 import {MobileAppSystemP2l} from '../providers/mobile.app.system.p2l'
 import {MobileAppSystem1Line} from '../providers/mobile.app.system.1line'
+import {MobileAppSystemBinInfo} from '../providers/mobile.app.system.bin'
+import {MobileAppSystemPutAway} from '../providers/mobile.app.system.putaway'
+import {MobileAppSystemMoveStock} from '../providers/mobile.app.system.movestock'
+
+
 import {AlertService} from '../providers/alert.service'
 import {UtilService} from '../providers/util.service'
 import {ModalService} from '../providers/modal.service'
@@ -54,6 +59,9 @@ export const PROVIDERS = [
   MobileAppSystem,
   MobileAppSystemP2l,
   MobileAppSystem1Line,
+  MobileAppSystemBinInfo,
+  MobileAppSystemPutAway,
+  MobileAppSystemMoveStock,
   AlertService,
   UtilService,
   ModalService

@@ -102,6 +102,7 @@ export class P2lBeginJobPage {
       {
         svc.user.p2linfo.jobID = res.result.jobID;
         svc.user.p2linfo.p2lBarcode = svc.p2lBarCode;
+        svc.user.p2linfo.sortOrder = res.result.sortOrder;
         svc.navCtrl.setRoot('P2lScanProductPage');
       }
       svc.p2lBarCode = '';

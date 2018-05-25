@@ -4,7 +4,10 @@ import { MenuController } from 'ionic-angular';
 import {User} from '../../providers/user'
 import {MobileAppSystem} from '../../providers/mobile.app.system'
 import {MobileAppSystemP2l} from '../../providers/mobile.app.system.p2l'
+import {MobileAppSystemMoveStock} from '../../providers/mobile.app.system.movestock'
 import {MobileAppSystem1Line} from '../../providers/mobile.app.system.1line'
+import {MobileAppSystemPutAway} from '../../providers/mobile.app.system.putaway'
+import {MobileAppSystemBinInfo} from '../../providers/mobile.app.system.bin'
 
 
 /**
@@ -30,6 +33,9 @@ export class HomeScreenPage {
     public mobileAppSystem:MobileAppSystem,
     public mobileAppSystemP2L:MobileAppSystemP2l,
     public mobileAppSystem1Line:MobileAppSystem1Line,
+    public mobileAppSystemMoveStock:MobileAppSystemMoveStock,
+    public mobileAppSystemPutAway:MobileAppSystemPutAway,
+    public mobileAppSystemBinInfo:MobileAppSystemBinInfo,    
     public user:User ) {
   }
 
@@ -41,6 +47,15 @@ export class HomeScreenPage {
 
     this.mobileAppSystem1Line.setSessionId(this.user.sessionInfo.sessionId); 
     this.mobileAppSystem1Line.setBaseUrl(this.mobileAppSystem.getBaseUrl());
+
+    this.mobileAppSystemMoveStock.setSessionId(this.user.sessionInfo.sessionId); 
+    this.mobileAppSystemMoveStock.setBaseUrl(this.mobileAppSystem.getBaseUrl());    
+
+    this.mobileAppSystemPutAway.setSessionId(this.user.sessionInfo.sessionId); 
+    this.mobileAppSystemPutAway.setBaseUrl(this.mobileAppSystem.getBaseUrl());    
+
+    this.mobileAppSystemBinInfo.setSessionId(this.user.sessionInfo.sessionId); 
+    this.mobileAppSystemBinInfo.setBaseUrl(this.mobileAppSystem.getBaseUrl());    
       
     //for test . init.    
     //this.mobileAppSystemP2L.deAllocateJob(this.user.sessionInfo.userWarehouse, 151398503);
@@ -69,5 +84,18 @@ export class HomeScreenPage {
     this.navCtrl.setRoot('LinePickJobPage');
   }
 
+
+  openPutAway(){
+    this.events.publish('putaway:start');
+    this.navCtrl.setRoot('PutAwayJobListPage');
+  }
+  openMoveStock(){
+    this.events.publish('stockmove:start');
+    this.navCtrl.setRoot('MoveStockSourcePage');
+  }
+  openBinInfo(){
+    this.events.publish('bininfo:start');
+    this.navCtrl.setRoot('ScanBinPage');
+  }
 
 }

@@ -179,7 +179,7 @@ public p2l_getJob(warehouse:string, p2lBarcode:string, success_cb:(result:any)=>
   });
 }
 
-public p2l_getNextProduct(jobID:number, p2lBarcode:string, success_cb:(result:any)=>void){
+public p2l_getNextProduct(jobID:number, p2lBarcode:string, sortOrder:string,success_cb:(result:any)=>void){
 
     let requests =
         [
@@ -189,7 +189,8 @@ public p2l_getNextProduct(jobID:number, p2lBarcode:string, success_cb:(result:an
                 data: {
                     userSessionID: this.sessionId,
                     jobID: jobID,
-                    p2lBarcode:p2lBarcode
+                    p2lBarcode:p2lBarcode,
+                    sortOrder:sortOrder,
                 }
             }
         ];

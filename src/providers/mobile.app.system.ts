@@ -14,10 +14,10 @@ import {UtilService} from './util.service'
 export class MobileAppSystem {
 
   private requestConveyorCounter:number;  
-  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
+  //private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
   //private baseUrl: string = 'http://int.cos.net.au/ProcessRequest';
   //private baseUrl: string = 'http://staging.cos.net.au/ProcessRequest';
-  //private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';  
+  private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';  
   
   
   private sessionId:string;
@@ -360,7 +360,7 @@ public confirmChangedProductQty(orderNumber:string,  warehouse:string, stockCode
 
 
 public confirmProductQty(orderNumber:string,stockCode:string, binLocation:string, 
-    confirmQty:number, barcode:string, pickzone:string,  hasTotes:string, confirmAck:string,checkForBin:string, laneStockItem:string, success_cb:(result:any)=>void){
+    confirmQty:number, barcode:string, pickzone:string,  hasTotes:string, confirmAck:string,checkForBin:string, laneStockItem:string,  success_cb:(result:any)=>void){
 
 
     let requests =
@@ -379,7 +379,7 @@ public confirmProductQty(orderNumber:string,stockCode:string, binLocation:string
                     hasTotes:hasTotes,
                     confirmAck:confirmAck,
                     checkForBin:checkForBin,
-                    laneStockItem:laneStockItem
+                    laneStockItem:laneStockItem,
                 }
             }
         ];

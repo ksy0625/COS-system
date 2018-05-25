@@ -64,7 +64,8 @@
 
  			<ion-col col-6>	
  				<div style="height:75px; width:auto;">
-			      <img [src]="productInfo.img_url">
+<!-- 			      <img [src]="productInfo.img_url"> -->
+					<img [src]="imageUrl" (error)="updateImageUrl($event)">
 				</div>
  			</ion-col>
 		</ion-row>

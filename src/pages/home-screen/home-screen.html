@@ -30,6 +30,15 @@
 			</ion-col>
 		</ion-row>
 		<ion-row >
+			<ion-col>
+				<button ion-button large full color="secondary" (click)="openPutAway()">{{ 'PUTAWAY_BUTTON' | translate }}</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button large full color="secondary" (click)="openMoveStock()">{{ 'MOVESTOCK_BUTTON' | translate }}</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button large full color="secondary" (click)="openBinInfo()">{{ 'BININFO_BUTTON' | translate }}</button>
+			</ion-col>			
 		</ion-row >
 	</ion-grid>
 </ion-content>

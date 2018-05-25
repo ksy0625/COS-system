@@ -62,7 +62,7 @@ export class LinePickOrderPage {
   private confirmedPickFocused :boolean = false;
   private statusMsg:string = '';
   private surplusBins: SurplusBin[]=[];
-
+  private imageUrl:string = '';
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -116,6 +116,7 @@ private getNextOrderToPick()
     {
       svc.productInfo = res.result;
       svc.confirmedPick = String(svc.productInfo.pickQty);
+      svc.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.result.stockCode + '.jpg';      
       svc.title = svc.titleDefault + " : " + svc.productInfo.countOrdersPicked + " of " + svc.productInfo.countTotalOrders + " done";
     }
   });  
@@ -161,6 +162,67 @@ processStep3(statusMsg:string)
 
 checkConfirmQty(strMsg:string)
 {
+  // let svc = this;
+  // if(this.confirmedPick=='')
+  //   return;
+  // let confQty = Number(this.confirmedPick);
+  // if(confQty != this.productInfo.pickQty)
+  // {
+  //     svc.mobileAppSystem.singleLine_updateOrderPickStatus(svc.user.lineinfo.jobID, svc.user.sessionInfo.userWarehouse, svc.productInfo.stockCode,
+  //       svc.productInfo.binLocation, svc.productInfo.orderNumber, confQty, "N", svc.productBarCode, function(res:any)
+  //       {
+  //         if(res==null || res.result==null)return;
+  //         if(res.result.statusCode!= 200)
+  //         {   
+  //           svc.alertService.doAlert('Error!', res.result.statusMsg, 'OK').then(function(any)
+  //           {
+  //             svc.productBarCode = '';
+  //           });
+  //         }
+  //         else
+  //         { 
+  //             if(res.result.surplusBins!=null)
+  //               svc.surplusBins = res.result.surplusBins;
+  //             else
+  //               svc.surplusBins =[];
+
+  //             if(res.result.jobComplete =='N')
+  //               svc.user.lineinfo.productBins = res.result.productBins;
+
+
+  //             let data={surplusBins: svc.surplusBins, productInfo:svc.productInfo, entered:svc.confirmedPick};
+  //             svc.modalService.showConfirmModal('LineConfirmQtyPage', 'inset-modal_2', data).then(function(yes)
+  //             {
+  //                 if(yes!=1) //click No, remain current page
+  //                   return;
+
+
+  //                 svc.mobileAppSystem.singleLine_updateOrderPickStatus(svc.user.lineinfo.jobID, 
+  //                   svc.user.sessionInfo.userWarehouse, svc.productInfo.stockCode,svc.productInfo.binLocation, 
+  //                   svc.productInfo.orderNumber, confQty, "Y", svc.productBarCode, function(res:any)
+  //                   {
+  //                       if(res==null || res.result==null)return;
+
+  //                       if(res.result.statusCode== 200)
+  //                       {
+  //                         svc.productInfo.productPickComplete = res.result.productPickComplete;
+  //                         svc.processStep3(res.result.statusMsg);
+  //                       }
+  //                       else
+  //                       {
+  //                         svc.alertService.doAlert('Error!', res.result.statusMsg, 'OK').then(function(any)
+  //                         {
+  //                         });                          
+  //                       }
+  //                   });
+  //             });
+  //         }
+  //     });  
+  // }
+  // else
+  //   svc.processStep3(strMsg);
+
+
   let svc = this;
   if(this.confirmedPick=='')
     return;
@@ -198,7 +260,7 @@ checkConfirmQty(strMsg:string)
       });    
   }
   else
-    svc.processStep3(strMsg);
+    svc.processStep3(strMsg);  
 }
 
 onChangedProductBarCode(val:any)
@@ -207,7 +269,7 @@ onChangedProductBarCode(val:any)
   this.productBarCode =  val;
   let svc = this;    
   svc.mobileAppSystem.singleLine_updateOrderPickStatus(svc.user.lineinfo.jobID, svc.user.sessionInfo.userWarehouse, svc.productInfo.stockCode,
-    svc.productInfo.binLocation, svc.productInfo.orderNumber, Number(svc.confirmedPick) , "", svc.productBarCode, function(res:any)
+    svc.productInfo.binLocation, svc.productInfo.orderNumber, Number(svc.confirmedPick) , "N", svc.productBarCode, function(res:any)
     {
       if(res==null || res.result==null)return;
       if(res.result.statusCode == 403)
@@ -361,6 +423,10 @@ onChangedProductBarCode(val:any)
 
         });
   }
+  updateImageUrl(event:any)
+  {
+    //this.imageUrl = this.productInfo.img_url;
+  }    
 
     
 }

@@ -63,6 +63,7 @@ export class ScanProductPage {
   private pickUnitSensitive: boolean = false;
 
   private laneStockItem:string = 'N';
+  private completed:string = 'N';  
   private imageUrl:string = '';
 
 
@@ -118,8 +119,8 @@ private setQtyInformation(res:any)
     this.productInfo.binLocation = res.binLocation;
     this.productInfo.description = res.description;
     this.productInfo.img_url =   res.img_url;
-    //this.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.stockCode + '.jpg';
-    this.imageUrl = res.img_url;
+    this.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.stockCode + '.jpg';
+    //this.imageUrl = res.img_url;
 
     //
     //res.img_url; //   'style="background-image:'  + res.img_url + ';"';
@@ -278,9 +279,35 @@ private checkProductBarcode(productBarcode:string){
               return;
           }
           else
-          {
+          {           
+
             if(res.result.statusCode==200)  
             {
+              if(res.result.reloadPage=='Y')
+              {
+                svc.mobileAppSystem.scanOrderBarcode(res.result.orderBarcode, svc.user.sessionInfo.userWarehouse,svc.user.orderInfo.zone, function(res:any)
+                {
+                  if(res==null)return;
+                  if(res.result.binLocationList == null)
+                  {
+                    if(res.result.statusMsg != null && res.result.statusMsg != '')
+                      // svc.modalService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK', 'default', 'barcode');
+                      svc.alertService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK');                      
+                    return;
+                  }
+                  svc.user.orderInfo.binLocations = res.result.binLocationList;
+                  svc.user.orderInfo.countProductScaned = res.result.countProductScanned;
+                  svc.user.orderInfo.countTotalProducts = res.result.countTotalProducts;
+                  svc.user.orderInfo.orderBarcode = res.result.orderNumber;
+                  svc.user.orderInfo.toteNumber = res.result.toteNumber;
+                  svc.user.orderInfo.warehouse = svc.user.sessionInfo.userWarehouse;
+                  svc.scanStarted = false;
+                  svc.navCtrl.setRoot('ScanProductPage');
+                });
+                return;                
+              }
+
+
               if(res.result.go2ScanOrderPage=='Y') 
               {
                 svc.navCtrl.setRoot('ScanOrderPage');
@@ -399,11 +426,44 @@ startScanBarcode1(ackStr:string, checkForBin:string)
         if(res.result.statusCode==200)  
         {
            svc.laneStockItem = res.result.laneStockItem;
-           if(res.result.getNewBarcode=='Y')
+           // svc.completed = res.result.completed;
+
+           // if(svc.completed =='Y')
+           // {
+           //   svc.alertService.doAlertWithtimeOut('', res.result.statusMsg, 3000).then(function(yes){
+           //   });
+           //   return;
+           // }
+            if(res.result.go2ScanOrderPage == 'Y')
+            {
+              svc.navCtrl.setRoot('ScanOrderPage');
+              return;
+            } 
+
+
+           if(res.result.go2ProductBarcodePage=='Y')
            {
-             svc.inputBarCodeOnPopup(res.result.statusMsg, ackStr);
+              svc.mobileAppSystem.scanOrderBarcode(res.result.orderBarcode, svc.user.sessionInfo.userWarehouse,svc.user.orderInfo.zone, function(res:any){
+                if(res==null)return;
+                if(res.result.binLocationList == null)
+                {
+                  if(res.result.statusMsg != null && res.result.statusMsg != '')
+                    // svc.modalService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK', 'default', 'barcode');
+                  svc.alertService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK');        
+                  return;
+                }
+                svc.user.orderInfo.binLocations = res.result.binLocationList;
+                svc.user.orderInfo.countProductScaned = res.result.countProductScanned;
+                svc.user.orderInfo.countTotalProducts = res.result.countTotalProducts;
+                svc.user.orderInfo.orderBarcode = res.result.orderNumber;
+                svc.user.orderInfo.toteNumber = res.result.toteNumber;
+                svc.user.orderInfo.warehouse = svc.user.sessionInfo.userWarehouse;
+                svc.scanStarted = false;
+                svc.navCtrl.setRoot('ScanProductPage');
+              });
              return;
            }
+
 
            if(svc.laneStockItem =='Y')
            {
@@ -443,23 +503,14 @@ startScanBarcode1(ackStr:string, checkForBin:string)
           if(res.result.outdatedTote=='Y')
           {
             svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(ret:boolean){
-              svc.inputBarCodeOnPopup('', 'N');
             });                  
           }
           else
           {
-            if(checkForBin =='Y')
-            {
-              svc.alertService.doAlert(res.result.statusMsg, '', 'OK').then(function(ret:boolean){
-                  //svc.inputBinLocationCode(ackStr, res.result.statusMsg, false);
-              }); 
-            }
-            else
-            {
-              svc.inputBinLocationCode(ackStr, res.result.statusMsg, false);
-            } 
-          }
+            svc.inputBinLocationCode(ackStr, res.result.statusMsg, false);
+          } 
         }
+
     });
   }
 

@@ -60,8 +60,7 @@ export class P2lScanProductPage {
 
   private bValidateProductCode :boolean = false;
   private labelOfScanBarcode:string = 'Scan Product';
-
-
+  private imageUrl:string = '';
 
 
   constructor(public navCtrl: NavController, 
@@ -141,7 +140,9 @@ private getNextProduct()
   }  
 
   svc.productBarCode = '';
-  this.mobileAppSystem.p2l_getNextProduct(this.user.p2linfo.jobID, this.user.p2linfo.p2lBarcode, function(res:any){
+  this.mobileAppSystem.p2l_getNextProduct(this.user.p2linfo.jobID, this.user.p2linfo.p2lBarcode, 
+    svc.user.p2linfo.sortOrder,function(res:any){
+      
     if(res==null)return;
     if(res.result.statusCode!=200)
     {
@@ -157,6 +158,7 @@ private getNextProduct()
     {
       svc.productInfo = res.result;
       svc.confirmedPick = String(svc.productInfo.pickQty);
+      svc.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.result.stockCode + '.jpg';
       svc.title = svc.titleDefault + " : " + svc.productInfo.countProductScanned + " of " + svc.productInfo.countTotalProducts + " done";
     }
   });
@@ -504,4 +506,8 @@ onChangedProductBarCode(val:any)
     }
   }
     
+  updateImageUrl(event:any)
+  {
+    //this.imageUrl = this.productInfo.img_url;
+  }    
 }

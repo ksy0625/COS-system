@@ -64,6 +64,7 @@ export class P2LModel{
   warehouse:string;
   jobID:number = 0;
   p2lBarcode:string = '';
+  sortOrder:string='';
   toteNumber:string;  
 
   public clear():void{
@@ -112,6 +113,55 @@ export class LineModel{
 }
 
 
+export class MoveStockModel{
+  fromBinCode:string='';
+  sourceMainWH:string='';  
+  sourceBinQty:number = 0; 
+  sourceStockCode:string = '';   
+  sourceBinImage:string = '';
+  public clear():void{
+  }
+}
+
+
+export class BinDetailes{
+  stockCode:string = '';
+  stkDesc:string = '';
+  stkImage:string = ''; 
+  warehouse:string = '';
+  binCode:string = '';     
+  binClass:string = '';
+  binType:string = '';  
+  binQty:number = 0;    
+  binMaxQty:number = 0;      
+  binCommit:number = 0;        
+  lastUsed:string = '';        
+  lastCount:string = '';
+}
+
+export class BinModel{
+  binDetailes: BinDetailes= new  BinDetailes();
+}
+
+
+export class PutawayDetail{
+  task_id: number=0;
+  stk_code:string=''
+  stkdescription:string='';
+  warehouse:string='';
+  to_bin:string='';
+  putaway_qty:number=0;
+  job_id:string='';
+  order_number:string=''; 
+}
+
+export class PutawayModel{
+  barcode:string='';
+  putawayDetails: PutawayDetail[]=[];
+  putawayDetails1: PutawayDetail[]=[];
+}
+
+
 
 
 @Injectable()
@@ -133,11 +183,23 @@ export class User {
   //for line region
   public lineinfo: LineModel;
 
+  //for movestock region
+  public movestockInfo: MoveStockModel;
+
+  //for bin info region
+  public binInfo: BinModel;
+
+  //for putaway  region
+  public putwayInfo:PutawayModel;
+
   constructor(public http: Http, public api: Api) {
     this.sessionInfo = new SessionInfo();
     this.orderInfo = new OrderModel();
     this.p2linfo = new  P2LModel();
     this.lineinfo = new LineModel();
+    this.movestockInfo = new MoveStockModel();
+    this.binInfo = new BinModel();
+    this.putwayInfo = new PutawayModel();
     this.allowableProductsNotInTote = 0;
   }
 

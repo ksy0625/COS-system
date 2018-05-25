@@ -60,7 +60,9 @@ export class LinePrinterSelModalPage {
                      "0", "<Back"];
 
     this.m_main_rows = this.range(0, (this.keysTab.length - 1), this.m_main_column_nb);
-    this.m_main_cols = this.range(0, this.m_main_column_nb - 1, 1);                     
+    this.m_main_cols = this.range(0, this.m_main_column_nb - 1, 1);    
+
+    this.timerTick();                 
   }
 
   private range(min, max, step)
