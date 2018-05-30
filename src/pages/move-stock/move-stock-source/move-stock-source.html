@@ -1,0 +1,81 @@
+
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle >
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{'MOVE_STOCK_SOURCE_TITLE' | translate}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+	    <ion-row class="order-info-head">
+	  		<ion-col col-3 text-right><p>{{'MOVE_STOCK_SCAN_SOURCE_BIN'|translate }}:</p></ion-col>
+	      	<ion-col col-4>
+				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (change)='onChangedBarCode($event.target.value)'>
+				</ion-input>				
+	      	</ion-col>
+	      	<ion-col col-1>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+	      	</ion-col>	  		
+		    <ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+		    <ion-col col-2><span>{{moveStockSourceData.stockCode}}</span></ion-col>		    
+	    </ion-row>
+
+		<ion-row class="order-info-head">
+			<ion-col col-3></ion-col>
+			<ion-col col-9><p>{{moveStockSourceData.description}}</p></ion-col>
+		</ion-row>
+
+
+ 		<ion-row>
+ 			<ion-col col-8>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'SCANBIN_QTY'|translate }}:</p></ion-col>
+					<ion-col col-2><span>{{binQty}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_SOURCE_MAINWH'|translate}}:</p></ion-col>
+					<ion-col col-4 ><span>{{moveStockSourceData.sourceMainWH}}</span></ion-col>
+				</ion-row>
+
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'SCANBIN_CLASS'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>{{moveStockSourceData.binClass}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_SOURCE_SOS'|translate }}:</p></ion-col>
+					<ion-col col-4><span>{{sos}}</span></ion-col>
+				</ion-row>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'SCANBIN_TYPE'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>{{moveStockSourceData.binType}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'PUT_AWAYS_LABEL'|translate }}:</p></ion-col>
+					<ion-col col-4><span>{{putaways}}</span></ion-col>
+				</ion-row>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'SCANBIN_MAX_QTY'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>{{maxQty}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_REPLENS_LABEL'|translate }}:</p></ion-col>
+					<ion-col col-4><span>{{replens}}</span></ion-col>
+				</ion-row>
+ 			</ion-col>
+
+ 			<ion-col col-4>	
+ 				<div style="height:125px; width:auto;">
+				  <img [src]="imageUrl" (error)="updateImageUrl($event)" style="height:100%;">
+<!-- 			      <img [src]="moveStockSourceData.img_url" style="height:100%;"> -->
+				</div>
+ 			</ion-col>
+		</ion-row>
+
+		<ion-row  class="order-info">
+			<ion-col col-9>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'CONFIRM_BUTTON' | translate }}</button>
+			</ion-col>			
+		</ion-row>
+	</ion-grid>
+</ion-content>
+
+<!-- <ion-footer style="height:36px;">
+</ion-footer>
+ -->

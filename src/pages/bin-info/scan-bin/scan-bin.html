@@ -1,0 +1,38 @@
+<!--
+  Generated template for the ScanOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="headerColor" >
+  	<button ion-button menuToggle >
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title> {{ 'SCANBIN_TITLE' | translate }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding >
+	<ion-label padding-top text-center class="font2">{{ 'SCANBIN_LABEL' | translate }}</ion-label>
+	<ion-grid>
+	    <ion-row padding-top>
+
+			<ion-col col-1 offset-2>
+			  <button ion-button clear color="primary" type="button" item-left (click)="onShowKeyPad()"> <ion-icon name="keypad"> </ion-icon> </button>		        	
+		 	</ion-col>
+		 	<ion-col col-7 style="position: initial;">		 		
+		        <ion-item class="font2">
+ 		          <ion-input #orderBarCodeInputBox type="text" placeholder="Barcode Here" [value]="orderBarCode" [(ngModel)]="orderBarCode"   ng-focus="focus=false" ng-blur="focus=false" name="orderBarCode" (change)='onChangedOrderBarcode($event.target.value)'>
+		          </ion-input>
+ 			</ion-item>
+		    </ion-col>
+	        <ion-col col-1>
+		        <button tappable ion-button color="secondary" (click)="openPage()">{{ 'GO_BUTTON' | translate }}</button>
+		    </ion-col>
+		</ion-row>		
+	</ion-grid>
+</ion-content>

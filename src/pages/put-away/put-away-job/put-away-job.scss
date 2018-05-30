@@ -1,0 +1,58 @@
+page-put-away-job {
+
+ 	ion-content {
+ 		height: 100%;
+ 	}
+ 	.info-head {
+ 		height: 36px;
+	    p {
+	      color: #444;
+	      font-size: 14px;      
+	      margin-top: 0px;
+	    }
+	    span {
+	      font-weight: bold;
+	      font-size: medium;
+	      color: #34354c;
+	    }
+  	}
+
+	ion-grid ion-col {
+		padding: 0px !important;
+		border: 1px solid #e6e9ee;
+	}
+	ion-grid ion-col div {
+	    border-radius: 2px;
+	    padding: 5px;
+	    text-align: center;
+	}
+	ion-grid ion-col div.tblHeader{
+		background-color: #ebebeb;
+	}
+	
+	ion-grid ion-col div.highPrio{
+		color: #ff0000;
+	}
+	ion-grid ion-col div.selectedRow{
+		background-color: #659ef3;
+	}
+
+	.border{
+		border:1px solid #d0d6df; 		
+ 	}
+
+
+	ion-grid ion-col div.highPrio-selectedRow{
+		color: #ff0000;
+		background-color: #659ef3;
+	}
+
+	ion-grid {
+		padding: 0px !important;
+		font-weight: bold;
+	}
+
+	ion-row.high-prio{
+		font-color: #ff0000;
+	}
+}

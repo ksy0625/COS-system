@@ -508,6 +508,6 @@ onChangedProductBarCode(val:any)
     
   updateImageUrl(event:any)
   {
-    //this.imageUrl = this.productInfo.img_url;
+    this.imageUrl = this.productInfo.img_url;
   }    
 }

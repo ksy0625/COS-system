@@ -66,6 +66,8 @@ export class ScanProductPage {
   private completed:string = 'N';  
   private imageUrl:string = '';
 
+  private nPromptcount:number = 0;
+
 
 
   constructor(public navCtrl: NavController, 
@@ -208,6 +210,8 @@ private inputBinLocationCode(confirmAcked:string, statusMsg:string, firstPage:bo
     if(statusMsg!='')
       strMsg = statusMsg;
 
+    svc.nPromptcount ++;
+
     this.modalService.doPromptRightSide('Scan or Enter Bin Location', strMsg, 'Go', 'Cancel','', 'BinLocation').then(function(binLocationCode)
     {
         svc.bBinLocationScaning = false;
@@ -246,22 +250,32 @@ private checkProductBinBarcode(binBarcode:string){
       this.user.orderInfo.toteNumber, this.user.orderInfo.warehouse, this.user.orderInfo.zone, function(res:any){
           svc.clearBarcodeScan();
           if(res.isError)
-          {              
-              svc.inputBinLocationCode('N', '', true);
+          {   
+              svc.inputBinLocationCode('N', '', true);            
               return;
           }
           else
           {
             if(res.result.statusCode==200)  
             {
+              svc.nPromptcount = 0; 
               svc.setQtyInformation(res.result);
             }
             else
             {
-              svc.alertService.doConfirm('Error', res.result.statusMsg, 'OK', 'Scan Bin Barcode').then(function(ret:boolean){
-                if(ret == false)
-                  svc.inputBinLocationCode('N', '', true);
-              });
+              if(svc.nPromptcount >=1)
+              {                
+                svc.nPromptcount = 0;  
+                svc.alertService.doAlert('Error', "WRONG BARCODE", 'OK').then(function(){
+                });
+              } 
+              else
+              {         
+                svc.alertService.doConfirm('Error', res.result.statusMsg, 'OK', 'Scan Bin Barcode').then(function(ret:boolean){
+                  if(ret == false)
+                    svc.inputBinLocationCode('N', '', true);
+                });
+              }
             }
           }
     });     
@@ -283,6 +297,7 @@ private checkProductBarcode(productBarcode:string){
 
             if(res.result.statusCode==200)  
             {
+              svc.nPromptcount = 0;
               if(res.result.reloadPage=='Y')
               {
                 svc.mobileAppSystem.scanOrderBarcode(res.result.orderBarcode, svc.user.sessionInfo.userWarehouse,svc.user.orderInfo.zone, function(res:any)
@@ -425,6 +440,7 @@ startScanBarcode1(ackStr:string, checkForBin:string)
 
         if(res.result.statusCode==200)  
         {
+           svc.nPromptcount = 0;
            svc.laneStockItem = res.result.laneStockItem;
            // svc.completed = res.result.completed;
 
@@ -507,7 +523,14 @@ startScanBarcode1(ackStr:string, checkForBin:string)
           }
           else
           {
-            svc.inputBinLocationCode(ackStr, res.result.statusMsg, false);
+            if(svc.nPromptcount >=1)
+            {
+                svc.nPromptcount = 0;  
+                svc.alertService.doAlert('Error', "WRONG BARCODE", 'OK').then(function(){
+                });                
+            }
+            else
+              svc.inputBinLocationCode(ackStr, res.result.statusMsg, false);
           } 
         }
 
@@ -705,7 +728,7 @@ startScanBarcode1(ackStr:string, checkForBin:string)
 
   updateImageUrl(event:any)
   {
-    //this.imageUrl = this.productInfo.img_url;
+    this.imageUrl = this.productInfo.img_url;
   }
   
   onGotoHome()

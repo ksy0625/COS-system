@@ -1,0 +1,73 @@
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle>
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{'BINDETAILES_TITLE' | translate}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+
+	    <ion-row class="order-info-head">
+		  <ion-col col-2 text-right><p>{{'BIN_LABEL'|translate }}:</p></ion-col>
+	      <ion-col col-2><span>{{binDetailes.binCode}}</span></ion-col>
+
+	      <ion-col col-2 text-right><p>{{'WH_LABEL'|translate }}</p></ion-col>
+	      <ion-col col-2><span>{{binDetailes.warehouse}}</span></ion-col>
+
+	      <ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+	      <ion-col col-2><span>{{binDetailes.stockCode}}</span></ion-col>
+	    </ion-row>
+
+		<ion-row class="order-info-head">
+			<ion-col col-2 text-right><p>{{'SCANBIN_QTY'|translate }}:</p></ion-col>
+			<ion-col col-2><span>{{binDetailes.binQty}}</span></ion-col>
+			<ion-col col-8><p>{{binDetailes.stkDesc}}</p></ion-col>
+		</ion-row>
+		
+ 		<ion-row>
+ 			<ion-col col-9>	
+ 				<ion-row class="order-info">
+					<ion-col col-3 text-right><p>{{'SCANBIN_COMMIT'|translate}}:</p></ion-col>
+ 					<ion-col col-1 ><span>{{binDetailes.binCommit}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'SCANBIN_LAST_USED'|translate}}:</p></ion-col>
+ 					<ion-col col-5 ><span>{{binDetailes.lastUsed}}</span></ion-col>
+				</ion-row>
+
+ 				<ion-row class="order-info">
+					<ion-col col-3 text-right><p>{{'SCANBIN_CLASS'|translate}}:</p></ion-col>
+ 					<ion-col col-1 ><span>{{binDetailes.binClass}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'SCANBIN_LAST_CNT'|translate}}:</p></ion-col>
+ 					<ion-col col-5 ><span>{{binDetailes.lastCount}}</span></ion-col>
+				</ion-row>
+
+				<ion-row class="order-info">
+					<ion-col col-3 text-right><p>{{'SCANBIN_TYPE'|translate}}:</p></ion-col>
+ 					<ion-col col-1 ><span>{{binDetailes.binType}}</span></ion-col>
+ 					<ion-col col-3 text-right><p>{{'SCANBIN_MAX_QTY'|translate}}:</p></ion-col>
+					<ion-col col-5 style="position: initial;">
+						<ion-input #confirmedInputBox class="border w100" type="text" [value]="confirmedPick" [(ngModel)]="confirmedPick" (change)='onChangeConfirmQty($event.target.value)' (ionFocus)="onConfirmQtyFocused()" ></ion-input>
+					</ion-col>
+				</ion-row>
+
+				<ion-row>
+					<ion-col col-8>
+						<ion-buttons end>
+					    	<button tappable ion-button color="secondary" (click)="openPage()">{{ 'UPDATE_BUTTON' | translate }}
+					    	</button>							
+					    </ion-buttons>
+					</ion-col>
+				</ion-row>	
+ 			</ion-col>
+
+ 			<ion-col col-3>
+				<div style="height:72px; width:auto;">
+			      <img [src]="imageUrl" (error)="updateImageUrl($event)">
+				</div> 					
+			</ion-col>		
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

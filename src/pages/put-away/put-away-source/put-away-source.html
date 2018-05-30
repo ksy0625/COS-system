@@ -1,0 +1,62 @@
+
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle >
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{'PUT_AWAY_SOURCE_TITLE' | translate}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+	    <ion-row class="order-info-head">
+	  		<ion-col col-2 text-right><p>{{'WH_LABEL'|translate }}:</p></ion-col>
+		    <ion-col col-2><span>{{putawayLineDetail.warehouse}}</span></ion-col>
+		    <ion-col col-4></ion-col>
+	  		<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+	      	<ion-col col-2><span>{{putawayLineDetail.stk_code}}</span></ion-col>
+	    </ion-row>
+
+		<ion-row class="order-info-head">
+			<ion-col col-2 text-right><p>{{'ZONE_LABEL'|translate }}:</p></ion-col>
+			<ion-col col-2><span>{{putawayLineDetail.zone}}</span></ion-col>
+			<ion-col col-8><p>{{putawayLineDetail.stkdescription}}</p></ion-col>
+		</ion-row>
+		
+ 		<ion-row>
+ 			<ion-col col-4>
+ 				<ion-row class="order-info">
+					<ion-col col-6 text-right><p>{{'PUT_AWAY_PALLET_LABEL'|translate}}:</p></ion-col>
+					<ion-col col-6 >{{putawayLineDetail.from_pallet}}</ion-col>
+				</ion-row>
+ 				<ion-row class="order-info">
+					<ion-col col-6 text-right><p>{{'PUT_AWAY_QTY_LABEL'|translate }}:</p></ion-col>
+					<ion-col col-6><span>{{putawayLineDetail.putaway_qty}}</span></ion-col>
+				</ion-row>
+ 			</ion-col>
+
+ 			<ion-col col-8>	
+ 				<div style="height:75px; width:auto;">
+			      <img [src]="imageUrl" (error)="updateImageUrl($event)">
+				</div>
+ 			</ion-col>
+		</ion-row>
+
+		<ion-row>
+			<ion-col col-9></ion-col>
+			<ion-col col-3>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'CONFIRM_BUTTON' | translate }}</button>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>
+
+<ion-footer style="height:36px;">
+<!-- 	<ion-toolbar> -->
+		<ion-row>
+			<ion-col col-6></ion-col>
+			<ion-col col-6  style="padding-top: 0px;" text-right><p>Rate: 160 Lines/Hour</p></ion-col>
+		</ion-row>
+<!-- 	</ion-toolbar> -->
+</ion-footer>

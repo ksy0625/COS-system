@@ -1,0 +1,91 @@
+
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle >
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{'MOVE_STOCK_DEST_TITLE' | translate}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+	    <ion-row class="order-info-head">
+	  		<ion-col col-3 text-right><p>{{'MOVE_STOCK_SCAN_DEST_BIN'|translate }}:</p></ion-col>
+	      	<ion-col col-4>
+				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()" (change)='onChangedBarCode($event.target.value)'>
+				</ion-input>				
+	      	</ion-col>
+	      	<ion-col col-1>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+	      	</ion-col>	  		
+		    <ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+		    <ion-col col-2><span>{{user.movestockInfo.sourceStockCode}}</span></ion-col>		    
+	    </ion-row>
+
+<!-- 		<ion-row class="order-info-head">
+ 			<ion-col col-3></ion-col>
+ 			<ion-col col-9><p>{{moveStockDestData.description}}</p></ion-col>
+		</ion-row>
+ -->
+ 		<ion-row>
+ 			<ion-col col-8>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'SCANBIN_CLASS'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>{{moveStockDestData.binClass}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'SCANBIN_TYPE'|translate}}:</p></ion-col>
+					<ion-col col-4 ><span>{{moveStockDestData.binType}}</span></ion-col>
+				</ion-row>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_SOURCE_QTY_LABEL'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>{{sourceQty}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_MOVE_QTY_LABEL'|translate }}:</p></ion-col>
+					<ion-col col-4>
+						<ion-input #moveQtyInputBox class="border w100"  type="text" [value]="moveQtyPick" [(ngModel)]="moveQtyPick" (click)="onMoveQtyFocused()" (ionFocus)="onMoveQtyFocused()" ></ion-input>						
+					</ion-col>
+				</ion-row>
+
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_DEST_MAINWH'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>{{moveStockDestData.destMainWH}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_MAX_QTY'|translate }}:</p></ion-col>
+					<ion-col col-4>
+						<ion-input #maxQtyInputBox class="border w100"  type="text" [value]="maxQtyPick" [(ngModel)]="maxQtyPick" (click)="onMaxQtyFocused()" (ionFocus)="onMaxQtyFocused()" ></ion-input>
+					</ion-col>
+				</ion-row>
+
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_REAL_ESTATE_LABEL'|translate}}:</p></ion-col>
+					<ion-col col-9>
+			            <ion-select class="border" [(ngModel)]="moveStockDestData.realestate" name="realestate" interface="popover" style="max-width:80%;">
+			              <!-- <ion-option *ngFor="let printer of printers" [value]="printer.printerAddress" >{{printer.printerName}}</ion-option> -->
+			              <ion-option value="1" >1</ion-option>
+			              <ion-option value="2" >2</ion-option>
+			              <ion-option value="3" >3</ion-option>
+			              <ion-option value="4" >4</ion-option>
+			            </ion-select>
+					</ion-col>
+				</ion-row>
+ 			</ion-col>
+
+ 			<ion-col col-4>	
+ 				<div style="height:125px; width:auto;">
+					<img [src]="imageUrl" (error)="updateImageUrl($event)"  style="height:100%;">
+<!-- 			      <img [src]="moveStockDestData.img_url"> -->
+				</div>
+ 			</ion-col>
+		</ion-row>
+
+		<ion-row  class="order-info">
+			<ion-col col-2 text-right>
+				<ion-checkbox  [(ngModel)]="chk0" (ionChange)="onCheckPrinter(rmchecked)"> </ion-checkbox>
+			</ion-col>
+			<ion-col col-7>
+				<ion-label>{{'MOVE_STOCK_PRINT_LABEL'| translate}}</ion-label>
+			</ion-col>
+			<ion-col col-3>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'COMPLETE_BUTTON' | translate }}</button>
+			</ion-col>			
+		</ion-row>
+	</ion-grid>
+</ion-content>

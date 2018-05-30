@@ -1,0 +1,69 @@
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle>
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{'STOCKDETAILES_TITLE' | translate}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+
+	    <ion-row class="order-info-head">
+		  <ion-col col-2 text-right><p>{{'BIN_LABEL'|translate }}:</p></ion-col>
+	      <ion-col col-2><span>{{binStockDetail.binCode}}</span></ion-col>
+
+	      <ion-col col-2 text-right><p>{{'WH_LABEL'|translate }}</p></ion-col>
+	      <ion-col col-2><span>{{binStockDetail.warehouse}}</span></ion-col>
+
+	      <ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+	      <ion-col col-2><span>{{binStockDetail.stockCode}}</span></ion-col>
+	    </ion-row>
+
+		<ion-row class="order-info-head">
+			<ion-col col-2 text-right><p>{{'STOCKDETAIL_TYPE'|translate }}:</p></ion-col>
+			<ion-col col-2><span>{{binStockDetail.type}}</span></ion-col>
+			<ion-col col-8><p>{{binStockDetail.stkDesc}}</p></ion-col>
+		</ion-row>
+		
+ 		<ion-row>
+ 			<ion-col col-9>	
+ 				<ion-row class="order-info">
+					<ion-col col-3 text-right><p>{{'STOCKDETAIL_AVG_COST'|translate}}:</p></ion-col>
+ 					<ion-col col-3 ><span>{{binStockDetail.avgCost}}$</span></ion-col>
+					<ion-col col-3 text-right><p>{{'STOCKDETAIL_CLASS'|translate}}:</p></ion-col>
+ 					<ion-col col-3 ><span>{{binStockDetail.stkClass}}</span></ion-col>
+				</ion-row>
+
+ 				<ion-row class="order-info">
+					<ion-col col-3 text-right><p>{{'STOCKDETAIL_SPRCEDED'|translate}}:</p></ion-col>
+ 					<ion-col col-3 ><span>{{binStockDetail.superceded}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'STOCKDETAIL_DG'|translate}}:</p></ion-col>
+ 					<ion-col col-3 ><span>{{binStockDetail.dgNum}}</span></ion-col>
+				</ion-row>
+
+				<ion-row class="order-info">
+					<ion-col col-3 text-right><p>{{'STOCKDETAIL_DAYS_COVE'|translate}}:</p></ion-col>
+ 					<ion-col col-3 ><span>{{binStockDetail.minDaysCover}}</span></ion-col>
+ 					<ion-col col-3 text-right><p>{{'STOCKDETAIL_P2L_QTY'|translate}}:</p></ion-col>
+ 					<ion-col col-3 ><span>{{binDetailes.binQty}}</span></ion-col>
+				</ion-row>
+
+				<ion-row class="order-info">				
+					<ion-col col-3 text-right><p>{{'STOCKDETAIL_OH'|translate}}:</p></ion-col>
+ 					<ion-col col-3 ><span>{{binStockDetail.onHand}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'STOCKDETAIL_P2P_QTY'|translate}}:</p></ion-col>
+ 					<ion-col col-3 ><span>{{binStockDetail.p2pQty}}</span></ion-col>
+				</ion-row>	
+ 			</ion-col>
+
+ 			<ion-col col-3>
+				<div style="height:72px; width:auto;">
+			      <img [src]="imageUrl" (error)="updateImageUrl($event)">
+				</div> 						
+			</ion-col>		
+		</ion-row>
+	</ion-grid>
+
+</ion-content>

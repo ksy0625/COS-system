@@ -144,6 +144,15 @@ export class BinModel{
 }
 
 
+
+export class PutAwayJobStatus{
+  job_id:string='';
+  task_owner:string='';
+  scan_frompall:string='';     
+  lines:number=0; 
+  hfapCnt:number = 0;  
+}
+
 export class PutawayDetail{
   task_id: number=0;
   stk_code:string=''
@@ -155,10 +164,27 @@ export class PutawayDetail{
   order_number:string=''; 
 }
 
+export class PutawayLineDetail{
+  task_id:number=0;
+  stk_code:string='';
+  stkdescription:string='';
+  image:string='';
+  warehouse:string='';
+  zone:string='';
+  to_bin:string='';
+  from_pallet:string='';
+  bin_class:string='';
+  bin_type:string='';
+  putaway_qty:number=0;
+  job_id:string='';
+}
+
 export class PutawayModel{
   barcode:string='';
   putawayDetails: PutawayDetail[]=[];
   putawayDetails1: PutawayDetail[]=[];
+  putAwayJobStatus:PutAwayJobStatus = new PutAwayJobStatus(); 
+  putawayLineDetail:PutawayLineDetail = new PutawayLineDetail();
 }
 
 
