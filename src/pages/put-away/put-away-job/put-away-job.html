@@ -18,11 +18,11 @@
 <ion-content padding>
 	<ion-row class="info-head">
 		<ion-col col-2>	<p>Created:</p></ion-col>
-		<ion-col col-2>	<span>{{jobStatus.scan_frompall}}</span></ion-col>		
+		<ion-col col-4>	<span>{{jobStatus.scan_frompall}}</span></ion-col>		
 		<ion-col col-2>	<p>Create By:</p></ion-col>
 		<ion-col col-2>	<span>{{jobStatus.task_owner}}</span></ion-col>
-		<ion-col col-2>	<p>Lines:</p></ion-col>
-		<ion-col col-2>	<span>{{jobStatus.lines}}</span></ion-col>
+		<ion-col col-1>	<p>Lines:</p></ion-col>
+		<ion-col col-1>	<span>{{jobStatus.lines}}</span></ion-col>
 	</ion-row>	
 	<ion-row class="info-head">
 		<p> {{ 'PUT_AWAY_JOB_LIST_DESCR' |  translate  }} </p>
@@ -31,16 +31,16 @@
 	<ion-grid>
 		<ion-row color='secondary'>
 			<ion-col col-3>
-			    <div class="tblHeader">{{ 'JOB_ID' | translate }}</div>
+			    <div class="tblHeader">Stock</div>
 			</ion-col>
 			<ion-col col-3>
-				<div class="tblHeader">{{ 'CREATE_BY' | translate }}</div>
+				<div class="tblHeader">Description</div>
 			</ion-col>
 			<ion-col col-3>
-				<div class="tblHeader">{{ 'DATE_TIME' | translate }}</div>
+				<div class="tblHeader">Bin</div>
 			</ion-col>
 			<ion-col col-3>
-				<div class="tblHeader">{{ 'PUT_AWAY_JOB_LIST_LINES' | translate }}</div>
+				<div class="tblHeader">Qty</div>
 			</ion-col>
 		</ion-row>
 		

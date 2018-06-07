@@ -58,7 +58,7 @@ export class PutAwayJobFoundPage {
         if(res.result.statusCode==200)
         {
           svc.user.putwayInfo.putawayDetails1 = res.result.putawayListResponse;
-          this.navCtrl.setRoot('PutAwayJobPage');
+          svc.navCtrl.setRoot('PutAwayJobPage');
         }
         else
         {

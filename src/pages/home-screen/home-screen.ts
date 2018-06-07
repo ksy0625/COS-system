@@ -8,6 +8,7 @@ import {MobileAppSystemMoveStock} from '../../providers/mobile.app.system.movest
 import {MobileAppSystem1Line} from '../../providers/mobile.app.system.1line'
 import {MobileAppSystemPutAway} from '../../providers/mobile.app.system.putaway'
 import {MobileAppSystemBinInfo} from '../../providers/mobile.app.system.bin'
+import {MobileAppSystemBarcodes} from '../../providers/mobile.app.system.barcodes'
 
 
 /**
@@ -17,12 +18,26 @@ import {MobileAppSystemBinInfo} from '../../providers/mobile.app.system.bin'
  * on Ionic pages and navigation.
  */
 
+
+export class module{
+  alias:string='';
+  title:string='';  
+}
+
+export class row_def{
+  modules:module[] = [];
+}
+
+
 @IonicPage()
 @Component({
   selector: 'page-home-screen',
   templateUrl: 'home-screen.html',
 })
+
 export class HomeScreenPage {
+
+  private rows:row_def[]= [];
 //  @ViewChild('input1') input1 ;
 
   constructor(
@@ -35,8 +50,54 @@ export class HomeScreenPage {
     public mobileAppSystem1Line:MobileAppSystem1Line,
     public mobileAppSystemMoveStock:MobileAppSystemMoveStock,
     public mobileAppSystemPutAway:MobileAppSystemPutAway,
-    public mobileAppSystemBinInfo:MobileAppSystemBinInfo,    
-    public user:User ) {
+    public mobileAppSystemBinInfo:MobileAppSystemBinInfo,   
+    public mobileAppSystemBarcodes:MobileAppSystemBarcodes, 
+    public user:User ) 
+  {
+
+//  "BARCODES_BUTTON": "Barcodes",  
+
+    let titles = {'binfo':'Bin Info', 
+              'convpick':'Conveyor Pick', 
+              'movstk':'Move Stock', 
+              'p2l':'P2L Bulk', 
+              'putway':'Put-Away', 
+              'sinlin':'1 Liner  Pick'};
+
+    let row:row_def = new row_def();
+    let index:number = 0;
+    for(let alias of this.user.sessionInfo.modules)
+    {
+      let newModule:module = new module();
+      newModule.alias = alias;
+      newModule.title = titles[alias];
+
+      row.modules.push(newModule);
+      index++;
+      if(index % 3==0)
+      {
+        this.rows.push(row);
+        row = new row_def();
+      }
+    }
+
+    if(row.modules.length > 0)
+    {
+      if(row.modules.length < 3)
+      {
+        for(let i=0; i<3-row.modules.length; i++)
+        {
+          let newModule:module = new module();
+          newModule.alias = '';
+          newModule.title = '';
+          row.modules.push(newModule);
+        }
+      }      
+      this.rows.push(row);
+    }
+
+    //console.log(this.rows);
+
   }
 
   ionViewDidLoad() {
@@ -56,6 +117,9 @@ export class HomeScreenPage {
 
     this.mobileAppSystemBinInfo.setSessionId(this.user.sessionInfo.sessionId); 
     this.mobileAppSystemBinInfo.setBaseUrl(this.mobileAppSystem.getBaseUrl());    
+
+    this.mobileAppSystemBarcodes.setSessionId(this.user.sessionInfo.sessionId); 
+    this.mobileAppSystemBarcodes.setBaseUrl(this.mobileAppSystem.getBaseUrl());
       
     //for test . init.    
     //this.mobileAppSystemP2L.deAllocateJob(this.user.sessionInfo.userWarehouse, 151398503);
@@ -69,33 +133,52 @@ export class HomeScreenPage {
   	this.menu.swipeEnable(true);
   }
 
-  openConvey() {
-  	this.navCtrl.setRoot('ScanOrderPage');
+
+  openBarcodes()
+  {
+    this.events.publish('barcodes:start');
+    this.navCtrl.setRoot('BarcodeScanBinPage');
   }
 
-  openP2Job() {
+  openModule(alias:string)
+  {
+    let titles = {'binfo':'Bin Info', 
+              'convpick':'Conveyor Pick', 
+              'movstk':'Move Stock', 
+              'p2l':'P2L Bulk', 
+              'putway':'Put-Away', 
+              'sinlin':'1 Liner  Pick'};
 
-    this.events.publish('p2ljob:start');
-    this.navCtrl.setRoot('P2lBeginJobPage');
-  }
+    if(alias=='binfo')
+    {
+      this.events.publish('bininfo:start');
+      this.navCtrl.setRoot('ScanBinPage');
+    }
+    else if(alias=='convpick')
+    {
+      this.navCtrl.setRoot('ScanOrderPage');
+    }
+    else if(alias=='movstk')
+    {
+      this.events.publish('stockmove:start');
+      this.navCtrl.setRoot('MoveStockSourcePage');
+    }
+    else if(alias=='p2l')
+    {
+      this.events.publish('p2ljob:start');
+      this.navCtrl.setRoot('P2lBeginJobPage');      
+    }
+    else if(alias=='putway')
+    {
+      this.events.publish('putaway:start');
+      this.navCtrl.setRoot('PutAwayJobListPage');
+    }
+    else if(alias=='sinlin')
+    {
+      this.events.publish('1line:start');
+      this.navCtrl.setRoot('LinePickJobPage');      
+    }
 
-  open1Line(){
-    this.events.publish('1line:start');
-    this.navCtrl.setRoot('LinePickJobPage');
-  }
-
-
-  openPutAway(){
-    this.events.publish('putaway:start');
-    this.navCtrl.setRoot('PutAwayJobListPage');
-  }
-  openMoveStock(){
-    this.events.publish('stockmove:start');
-    this.navCtrl.setRoot('MoveStockSourcePage');
-  }
-  openBinInfo(){
-    this.events.publish('bininfo:start');
-    this.navCtrl.setRoot('ScanBinPage');
   }
 
 }

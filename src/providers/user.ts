@@ -31,6 +31,7 @@ export class SessionInfo{
   userFullName:string;
   userName:string;
   userWarehouse:string;
+  modules:string[] = [];
 }
 
 export class OrderModel{

@@ -60,7 +60,7 @@ export class PutAwayDestPage{
     let svc = this;
     setTimeout(() => {
 
-      if(this.navCtrl.getActive().id !="P2lScanProductPage"  || this.mobileAppSystem.isBusy()==true)
+      if(this.navCtrl.getActive().id !="PutAwayDestPage"  || this.mobileAppSystem.isBusy()==true)
       {
         this.timerTick();
         return;
@@ -77,8 +77,8 @@ export class PutAwayDestPage{
          {
            if(svc.barCodeInput._isFocus ==false)
            {
-             this.barCodeInput._readonly = true;
-             this.barCodeInput.setFocus(); 
+             svc.barCodeInput._readonly = true;
+             svc.barCodeInput.setFocus(); 
              setTimeout(() =>{
                svc.barCodeInput._readonly = false;
              }, 40);                 
@@ -139,6 +139,7 @@ export class PutAwayDestPage{
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {
+          svc.navCtrl.setRoot('PutAwayJobListPage');
         }
         else
         {

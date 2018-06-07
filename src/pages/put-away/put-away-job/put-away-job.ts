@@ -43,15 +43,16 @@ export class PutAwayJobPage {
   			  public user:User) {
 
     let svc = this;
+    this.jobList = svc.user.putwayInfo.putawayDetails1;
+    this.jobStatus = svc.user.putwayInfo.putAwayJobStatus;      
+
     translateService.get('PUT_AWAY_JOB_TITLE').subscribe(
       value => {
         svc.titleDefault = value;
-        svc.title = svc.titleDefault  + ":";
+        svc.title = svc.titleDefault  + ":" + svc.jobStatus.job_id;
       }
     );  
 
-    this.jobList = svc.user.putwayInfo.putawayDetails1;
-    this.jobStatus = svc.user.putwayInfo.putAwayJobStatus;      
   }
 
   ionViewDidLoad() {
@@ -83,7 +84,7 @@ export class PutAwayJobPage {
         if(res.result.statusCode==200)
         {
           svc.user.putwayInfo.putawayLineDetail = res.result;
-          this.navCtrl.setRoot('PutAwaySourcePage');
+          svc.navCtrl.setRoot('PutAwaySourcePage');
         }
         else
         {

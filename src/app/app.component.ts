@@ -88,6 +88,13 @@ export class MyApp {
     { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
   ];
 
+  BarcodesPages:PageInterface[] = [
+    { title: 'Home', component: 'HomeScreenPage', active: true},
+    { title: 'Barcodes-Scan Bin', component: 'BarcodeScanBinPage', active: true},
+    { title: 'About', component: 'AboutPage', active: false},
+    { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
+  ];
+
   constructor(
     public events: Events,
     public translate: TranslateService, 
@@ -109,7 +116,7 @@ export class MyApp {
 
     // Keyboard key tab (used in the app.html template)
     this.keysTab = [ "1", "2", "3", "4", "5", "6","7", "8", "9","0",
-                     "A", "B", "C", "D", "E", "F","",  "", "", "GO"];
+                     "A", "B", "C", "D", "E", "F","T", "O", "", "GO"];
 
     this.keyboard.disableScroll(true);
   }
@@ -193,6 +200,8 @@ export class MyApp {
       this.menuPages = this.PutAwayPages;
     else if(this.user.workingRegion == 'stockmove')
       this.menuPages = this.MoveStockPages;
+    else if(this.user.workingRegion == 'barcodes')
+      this.menuPages = this.BarcodesPages;
   }
 
   listenToEvents() {
@@ -201,6 +210,12 @@ export class MyApp {
       this.user.workingRegion = '';
       this.enableMenu();
     });
+
+    this.events.subscribe('barcodes:start', () => {
+      this.user.workingRegion = 'barcodes';
+      this.enableMenu();      
+    });
+
 
     this.events.subscribe('convey:startscan', () => {
       this.user.workingRegion = 'convey';
@@ -235,8 +250,7 @@ export class MyApp {
     this.events.subscribe('user:logout', () => {
       this.user.workingRegion = '';
     });
-
-    
+  
 
 
   }

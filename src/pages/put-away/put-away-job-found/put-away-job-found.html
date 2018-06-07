@@ -10,7 +10,7 @@
     <button ion-button menuToggle >
       	<ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{ 'PUT_AWAY_JOB_LIST_TITLE' |  translate }}</ion-title>
+    <ion-title>{{ 'PUT_AWAY_JOB_FOUND_TITLE' |  translate }}</ion-title>
 <!--     <img src="../assets/img/logo.png" alt="logo" height="40"> -->
   </ion-navbar>
 </ion-header>
@@ -26,13 +26,13 @@
 			    <div class="tblHeader">{{ 'JOB_ID' | translate }}</div>
 			</ion-col>
 			<ion-col col-3>
-				<div class="tblHeader">{{ 'CREATE_BY' | translate }}</div>
+				<div class="tblHeader">Description</div>
 			</ion-col>
 			<ion-col col-3>
-				<div class="tblHeader">{{ 'DATE_TIME' | translate }}</div>
+				<div class="tblHeader">PO#</div>
 			</ion-col>
 			<ion-col col-3>
-				<div class="tblHeader">{{ 'PUT_AWAY_JOB_LIST_LINES' | translate }}</div>
+				<div class="tblHeader">Bin</div>
 			</ion-col>
 		</ion-row>
 
@@ -41,10 +41,10 @@
 				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.stk_code}} </div>
 			</ion-col>
 			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.stkdescription}} </div>
+				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.stk_description}} </div>
 			</ion-col>			
 			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.putaway_qty}} </div>
+				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.order_number}} </div>
 			</ion-col>
 			<ion-col col-3>
 				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.to_bin}} </div>

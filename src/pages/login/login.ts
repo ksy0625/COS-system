@@ -35,6 +35,7 @@ export class LoginPage{
   	public menu: MenuController,
     public mobileAppSystem: MobileAppSystem,
     private appData:AppData,
+    private alertService:AlertService,
     private user:User) 
   {
     this.username = 'testuser';
@@ -54,9 +55,18 @@ export class LoginPage{
   doLogin() {
     let svc = this;
     this.mobileAppSystem.loginOPsApp(this.username, this.password, function(res:any){
-      svc.user.sessionInfo = res.result.loginResult;      
+      svc.user.sessionInfo = res.result.loginResult;
+      svc.user.sessionInfo.modules = res.result.modules;
+      if(svc.user.sessionInfo.modules==null || svc.user.sessionInfo.modules.length==0)
+      {
+        svc.alertService.doAlert('', 'You do not have access to any app, please contact IT Support', 'OK');
+      }
+      else
+      {
+        svc.navCtrl.setRoot('HomeScreenPage');
+      }
+
       //svc.navCtrl.setRoot('HomeScreenPage', {}, {animate: true, direction: 'forward'});
-      svc.navCtrl.setRoot('HomeScreenPage');
     }, true);
 
   }

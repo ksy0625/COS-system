@@ -4,7 +4,7 @@
 		<button ion-button menuToggle >
       		<ion-icon name="menu"></ion-icon> 
   		</button>
-	    <ion-title>{{'PUT_AWAY_SOURCE_TITLE' | translate}}</ion-title>	    
+	    <ion-title>{{'PUT_AWAY_DEST_TITLE' | translate}}</ion-title>	    
 	</ion-navbar>
 </ion-header>
 
@@ -15,7 +15,7 @@
 		    <ion-col col-3><span>{{putawayLineDetail.to_bin}}</span></ion-col>
 		    <ion-col col-2 text-right><p>{{'PUT_AWAY_SCAN_DEST'|translate }}:</p></ion-col>
 	      	<ion-col col-4>
-				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()" (change)='onChangedProductBarCode($event.target.value)'>
+				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
 				</ion-input>				
 	      	</ion-col>
 	      	<ion-col col-1>
@@ -34,15 +34,15 @@
  			<ion-col col-8>
  				<ion-row  class="order-info">
 					<ion-col col-3 text-right><p>{{'SCANBIN_TYPE'|translate}}:</p></ion-col>
-					<ion-col col-1 ><span>{{putawayLineDetail.bin_type}}</span></ion-col>
+					<ion-col col-2 ><span>{{putawayLineDetail.bin_type}}</span></ion-col>
 					<ion-col col-3 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
-					<ion-col col-5><span>{{putawayLineDetail.stk_code}}</span></ion-col>
+					<ion-col col-4><span>{{putawayLineDetail.stk_code}}</span></ion-col>
 				</ion-row>
  				<ion-row  class="order-info">
 					<ion-col col-3 text-right><p>{{'PUT_AWAY_SCAN_DEST_QTY'|translate}}:</p></ion-col>
-					<ion-col col-1 ><span>{{putawayLineDetail.putaway_qty}}</span></ion-col>
+					<ion-col col-2 ><span>{{putawayLineDetail.putaway_qty}}</span></ion-col>
 					<ion-col col-3 text-right><p>{{'PUT_AWAY_QTY_LABEL'|translate }}:</p></ion-col>
-					<ion-col col-5>
+					<ion-col col-4>
 						<ion-input #confirmedInputBox class="border w100"  type="text" [value]="confirmedPick" [(ngModel)]="confirmedPick" (click)="onConfirmQtyFocused()" (ionFocus)="onConfirmQtyFocused()" ></ion-input>						
 					</ion-col>
 				</ion-row>

@@ -31,6 +31,7 @@
   "PUTAWAY_BUTTON": "Put-Away",
   "MOVESTOCK_BUTTON": "Move Stock",  
   "BININFO_BUTTON": "Bin Info",
+  "BARCODES_BUTTON": "Barcodes",  
 
   "CONFIRM_BUTTON": "Confirm",
   "COMPLETE_BUTTON": "Complete",  
@@ -82,6 +83,7 @@
   "DATE_TIME":"Datetime",
   "PUT_AWAY_JOB_LIST_LINES":"#Lines",
   "PUT_AWAY_JOB_LIST_TITLE": "Put­away Job List",
+  "PUT_AWAY_JOB_FOUND_TITLE": "Multiple Put-­away Jobs Found",   
   "PUT_AWAY_JOB_LIST_DESCR": "Select Job, OR Scan Job, Label or Product Barcode",
   "PUT_AWAY_JOB_TITLE": "Put­away Job",
   "PUT_AWAY_PALLET_LABEL": "Pallet",  
@@ -139,6 +141,22 @@
   "MOVE_STOCK_PRINT_LABEL":"Print Label",  
   "MOVE_STOCK_DEST_MAINWH":"Dest WH",
   "MOVE_STOCK_MAX_QTY":"Max Qty",
+
+  "BINCODE_SCAN_BIN_TITLE": "Barcodes - Scan Bin",
+  "BINCODE_SCAN_BIN_BARCODE_LABEL": "Scan Bin Barcode",  
+
+  "BINCODE_DETAILS_TITLE": "Bin Details",
+  "BINCODE_DETAILS_UOM": "UOM",
+  "BINCODE_DETAILS_PACK_QTY": "Pack Qty",  
+  "BINCODE_DETAILS_CARTON": "Carton",    
+  "BINCODE_DETAILS_PALLET_QTY": "Pallet Qty",      
+
+  "BINCODE_SCREEN_TITLE": "Barcodes",
+  "BINCODE_SCREEN_PIECE_BARCODE": "Piece Barcode",
+  "BINCODE_SCREEN_PACK_BARCODE": "Pack Barcode",  
+  "BINCODE_SCREEN_CARTON_BARCODE": "Carton Barcode",
+  "BINCODE_SCREEN_PALLET_BARCODE": "Pallet Barcod",      
+
 
   "END": "End"
 }

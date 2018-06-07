@@ -1,0 +1,78 @@
+
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle >
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{'BINCODE_SCREEN_TITLE' | translate}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+	    <ion-row class="order-info-head">
+	  		<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+		    <ion-col col-3><span>Ball1594</span></ion-col>	    	
+	    </ion-row>	
+	    <ion-row class="order-info-head">
+	  		<ion-col col-2></ion-col>
+		    <ion-col col-10><span>COS Retractable Ballpoint Pen Medium</span></ion-col>
+	    </ion-row>	
+
+		<ion-row class="order-info">
+			<ion-col col-3 text-right><p>{{'BINCODE_SCREEN_PIECE_BARCODE'|translate }}:</p></ion-col>
+			<ion-col col-3><span>AAAAAA</span></ion-col>
+			<ion-col col-5>
+				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				</ion-input>
+			</ion-col>
+			<ion-col col-1>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+			</ion-col>
+		</ion-row>
+
+  		<ion-row class="order-info">
+			<ion-col col-3 text-right><p>{{'BINCODE_SCREEN_PACK_BARCODE'|translate }}:</p></ion-col>
+			<ion-col col-3><span>BBBBBB</span></ion-col>
+			<ion-col col-5>
+				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				</ion-input>
+			</ion-col>
+			<ion-col col-1>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="order-info">
+			<ion-col col-3 text-right><p>{{'BINCODE_SCREEN_CARTON_BARCODE'|translate }}:</p></ion-col>
+			<ion-col col-3></ion-col>
+			<ion-col col-5>
+				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				</ion-input>
+			</ion-col>
+			<ion-col col-1>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+			</ion-col>
+		</ion-row>
+
+		<ion-row class="order-info">
+			<ion-col col-3 text-right><p>{{'BINCODE_SCREEN_PALLET_BARCODE'|translate }}:</p></ion-col>
+			<ion-col col-3></ion-col>
+			<ion-col col-5>
+				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				</ion-input>
+			</ion-col>
+			<ion-col col-1>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+			</ion-col>
+		</ion-row>
+
+		<ion-row  class="order-info">
+			<ion-col col-6>
+			</ion-col>
+			<ion-col col-5>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'UPDATE_BUTTON' | translate }}</button>
+			</ion-col>			
+		</ion-row>
+	</ion-grid>
+</ion-content>

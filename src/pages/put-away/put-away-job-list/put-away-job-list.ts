@@ -1,7 +1,7 @@
 import { Component , ViewChild} from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
-
+import { Platform } from 'ionic-angular';
 import {MobileAppSystemPutAway} from '../../../providers/mobile.app.system.putaway'
 import {User, PutAwayJobStatus} from '../../../providers/user'
 import {ModalService} from '../../../providers/modal.service'
@@ -34,11 +34,46 @@ export class PutAwayJobListPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
   			  public mobileAppSystem:MobileAppSystemPutAway,
           private keyboard:Keyboard,
+          private platform: Platform,          
   	    	private modalService:ModalService,
   	    	private alertService:AlertService, 
           public translateService:TranslateService,
   			  public user:User) {
+
+    CustomKeyBoard.hide();
+    this.timerTick();
   }
+
+  timerTick()
+  {
+    let svc = this;
+    setTimeout(() => {
+
+      if(this.navCtrl.getActive().id !="PutAwayJobListPage"  || this.mobileAppSystem.isBusy()==true)
+      {
+        this.timerTick();
+        return;
+      }
+
+      let visibleKeypad = CustomKeyBoard.isVisible();            
+      if (svc.platform.is('cordova'))
+       svc.keyboard.close();
+
+       if(visibleKeypad==false )
+       {
+         if(svc.orderBarCodeInput._isFocus ==false)
+         {
+           svc.orderBarCodeInput._readonly = true;
+           svc.orderBarCodeInput.setFocus(); 
+           setTimeout(() =>{
+             svc.orderBarCodeInput._readonly = false;
+           }, 40);                 
+         }               
+       }
+       svc.timerTick();
+    },100); //a least 150ms.
+  }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Put-Away job list page');
@@ -86,19 +121,24 @@ export class PutAwayJobListPage {
 
   onClickRow(jobID:string)
   {
-    this.selectedJobID = jobID;
+    this.selectedJobID = '';
     for (let jobStatus of this.jobList) {
       if(jobStatus.job_id == jobID)
       {
         this.user.putwayInfo.putAwayJobStatus =   jobStatus;
+        this.selectedJobID = jobID;
         break;
       }        
     }
+
+    this.barcode = this.selectedJobID;
+    if(this.barcode!='')
+      this.openPage();
   }
 
   onChangedProductBarCode(val:string)
   {
-   this.openPage() ; 
+   this.onClickRow(val) ; 
   }
 
   onClickBarcode()

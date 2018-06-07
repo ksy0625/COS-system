@@ -13,7 +13,7 @@ import {UtilService} from './util.service'
   for more info on providers and Angular DI.
 */
 @Injectable()
-export class MobileAppSystemPutAway {
+export class MobileAppSystemBarcodes {
 
   private baseUrl: string = '';    
   private sessionId:string;
@@ -153,16 +153,18 @@ export class MobileAppSystemPutAway {
       });
   }
 
-public putaway_getPutawayJobList(warehouse:string, success_cb:(result:any)=>void){
+
+public GetBinDetails(warehouse:string, binCode:string, success_cb:(result:any)=>void){
 
     let requests =
         [
             {
                 requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_getPutawayJobList',
+                command: 'GetBinDetails',
                 data: {
                     userSessionID: this.sessionId,
                     warehouse: warehouse,
+                    binCode:binCode,
                 }
             }
         ];
@@ -179,18 +181,17 @@ public putaway_getPutawayJobList(warehouse:string, success_cb:(result:any)=>void
 }
 
 
-public putaway_getPutawayLineScan (warehouse:string, barcode:string,success_cb:(result:any)=>void)
+public GetBarcodes(stockCode:string,success_cb:(result:any)=>void)
 {
 
     let requests =
         [
             {
                 requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_getPutawayLineScan',
+                command: 'GetBarcodes',
                 data: {
                     userSessionID: this.sessionId,
-                    barcode: barcode,
-                    warehouse:warehouse,
+                    stockCode:stockCode
                 }
             }
         ];
@@ -206,44 +207,22 @@ public putaway_getPutawayLineScan (warehouse:string, barcode:string,success_cb:(
   });
 }
 
-public putaway_getPutawayJobDetails(jobID:number, success_cb:(result:any)=>void){
+public UpdateStockBarcodes(userName:string,stockCode:string, pieceBarcode:string, packBarcode:string, 
+  cartonBarcode:string, palletBarcode:string, success_cb:(result:any)=>void){
 
     let requests =
         [
             {
                 requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_getPutawayJobDetails',
+                command: 'UpdateStockBarcodes',
                 data: {
                     userSessionID: this.sessionId,
-                    jobId: jobID,
-                }
-            }
-        ];
-    
-    this._doServerSideOp(requests, true, false, function (res:any) {        
-      if(res==null)
-        return;
-      if(res.isError==false)
-      {
-        if(success_cb != null)  
-          success_cb(res);
-      }
-  });
-}
-
-public putaway_getPutawayLineDetails(taskId :number, warehouse:string, stockCode:string, toBin:string, success_cb:(result:any)=>void){
-
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_getPutawayLineDetails',
-                data: {
-                    userSessionID: this.sessionId,
-                    taskId:taskId,
-                    warehouse:warehouse,
+                    userName:userName,
                     stockCode:stockCode,
-                    toBin:toBin,
+                    pieceBarcode:pieceBarcode,
+                    packBarcode:packBarcode,
+                    cartonBarcode:cartonBarcode,
+                    palletBarcode:palletBarcode,
                 }
             }
         ];
@@ -258,35 +237,6 @@ public putaway_getPutawayLineDetails(taskId :number, warehouse:string, stockCode
       }
   });
 }
-
-
-public putaway_completePutawayLine (taskId:number,warehouse:string,stockCode:string,toBin:string, 
-  quantity:number, overflowBinCode:string, overflowQty:number,success_cb:(result:any)=>void){
-
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_completePutawayLine',
-                data: {
-                    userSessionID: this.sessionId,
-                    taskId:taskId,
-                    warehouse:warehouse,
-                    stockCode:stockCode,
-                    toBin: toBin,
-                    quantity:quantity,
-                    overflowBinCode:overflowBinCode,
-                    overflowQty:overflowQty,
-                }
-            }
-        ];
-    
-    this._doServerSideOp(requests, true, false, function (res:any) {        
-        if(success_cb != null)  
-          success_cb(res);
-  });
-}
-
 
 
 }

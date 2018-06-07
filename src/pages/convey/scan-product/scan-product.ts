@@ -46,8 +46,9 @@ export class ScanProductPage {
   @ViewChild('confirmedInputBox') confirmInput;
 
 
-  private onceConfirmClicked:boolean = false;
+  private m_checkFirBin:string = 'N';
 
+  private onceConfirmClicked:boolean = false;
   private productBarCode:string = '';
   private productBarCode1:string = '';  
   private productBarCode1Bk:string = '';  
@@ -65,10 +66,6 @@ export class ScanProductPage {
   private laneStockItem:string = 'N';
   private completed:string = 'N';  
   private imageUrl:string = '';
-
-  private nPromptcount:number = 0;
-
-
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -210,8 +207,6 @@ private inputBinLocationCode(confirmAcked:string, statusMsg:string, firstPage:bo
     if(statusMsg!='')
       strMsg = statusMsg;
 
-    svc.nPromptcount ++;
-
     this.modalService.doPromptRightSide('Scan or Enter Bin Location', strMsg, 'Go', 'Cancel','', 'BinLocation').then(function(binLocationCode)
     {
         svc.bBinLocationScaning = false;
@@ -224,7 +219,7 @@ private inputBinLocationCode(confirmAcked:string, statusMsg:string, firstPage:bo
         else
         {
           svc.productBarCode = binLocationCode;
-          svc.startScanBarcode1(confirmAcked, 'Y');
+          svc.startScanBarcode1(confirmAcked);
         }
     });
 }
@@ -239,7 +234,7 @@ private inputBarCodeOnPopup(strMsg:string, strAck:string)
         if(barCode == '')
             return;
         svc.productBarCode = barCode;
-        svc.startScanBarcode1(strAck, 'N');
+        svc.startScanBarcode1(strAck);
     });
 }
 
@@ -258,15 +253,13 @@ private checkProductBinBarcode(binBarcode:string){
           {
             if(res.result.statusCode==200)  
             {
-              svc.nPromptcount = 0; 
               svc.setQtyInformation(res.result);
             }
             else
             {
-              if(svc.nPromptcount >=1)
+              if(svc.m_checkFirBin!='Y')
               {                
-                svc.nPromptcount = 0;  
-                svc.alertService.doAlert('Error', "WRONG BARCODE", 'OK').then(function(){
+                svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(){
                 });
               } 
               else
@@ -297,7 +290,6 @@ private checkProductBarcode(productBarcode:string){
 
             if(res.result.statusCode==200)  
             {
-              svc.nPromptcount = 0;
               if(res.result.reloadPage=='Y')
               {
                 svc.mobileAppSystem.scanOrderBarcode(res.result.orderBarcode, svc.user.sessionInfo.userWarehouse,svc.user.orderInfo.zone, function(res:any)
@@ -425,7 +417,7 @@ private checkProductBarcode(productBarcode:string){
   //   });     
   // }
 
-startScanBarcode1(ackStr:string, checkForBin:string)
+startScanBarcode1(ackStr:string)
   {
     let svc = this;    
     this.productInfoBack = this.productInfo;
@@ -433,15 +425,16 @@ startScanBarcode1(ackStr:string, checkForBin:string)
 
     this.mobileAppSystem.confirmProductQty(this.user.orderInfo.orderBarcode,
       this.productInfo.stockCode, this.productInfo.binLocation, Number(this.confirmedPick),  this.productBarCode, this.user.orderInfo.zone, 
-      this.user.hasTotes, ackStr,  checkForBin, svc.laneStockItem, function(res:any){
+      this.user.hasTotes, ackStr,  this.m_checkFirBin, svc.laneStockItem, function(res:any){
           svc.clearBarcodeScan();
         if(res==null || res.result==null)  
           return;
 
+        svc.m_checkFirBin = res.result.checkForBin;
+        
         if(res.result.statusCode==200)  
         {
-           svc.nPromptcount = 0;
-           svc.laneStockItem = res.result.laneStockItem;
+           svc.laneStockItem = res.result.laneStockItem;           
            // svc.completed = res.result.completed;
 
            // if(svc.completed =='Y')
@@ -523,10 +516,9 @@ startScanBarcode1(ackStr:string, checkForBin:string)
           }
           else
           {
-            if(svc.nPromptcount >=1)
+            if(svc.m_checkFirBin!='Y')
             {
-                svc.nPromptcount = 0;  
-                svc.alertService.doAlert('Error', "WRONG BARCODE", 'OK').then(function(){
+                svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(){
                 });                
             }
             else
@@ -549,7 +541,7 @@ startScanBarcode1(ackStr:string, checkForBin:string)
     if(val =='')return;
     this.productBarCode =  val;
     this.productBarCode1Bk = val;
-    this.startScanBarcode1('N', 'N');
+    this.startScanBarcode1('N');
   }
 
 

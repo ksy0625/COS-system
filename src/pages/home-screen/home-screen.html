@@ -18,8 +18,16 @@
 
 <ion-content padding>
 	<ion-grid class="container">
-		<ion-row >
-			<ion-col>
+
+		<ion-row *ngFor="let rowDef of rows">
+			<ion-col *ngFor="let module of rowDef.modules">
+				<button *ngIf="module.alias!=''" ion-button large full color="secondary" (click)="openModule(module.alias)">{{ module.title }}</button>
+			</ion-col>
+		</ion-row>
+
+
+<!-- 		<ion-row >
+			<ion-col>				
 				<button ion-button large full color="secondary" (click)="openConvey()">{{ 'CONVEYORPICK_BUTTON' | translate }}</button>
 			</ion-col>
 			<ion-col>
@@ -29,6 +37,7 @@
 				<button ion-button large full color="secondary" (click)="open1Line()">{{ '1LINERPICK_BUTTON' | translate }}</button>
 			</ion-col>
 		</ion-row>
+
 		<ion-row >
 			<ion-col>
 				<button ion-button large full color="secondary" (click)="openPutAway()">{{ 'PUTAWAY_BUTTON' | translate }}</button>
@@ -40,5 +49,17 @@
 				<button ion-button large full color="secondary" (click)="openBinInfo()">{{ 'BININFO_BUTTON' | translate }}</button>
 			</ion-col>			
 		</ion-row >
+
+		<ion-row >
+			<ion-col>
+				<button ion-button large full color="secondary" (click)="openBarcodes()">{{ 'BARCODES_BUTTON' | translate }}</button>
+			</ion-col>
+
+			<ion-col>
+			</ion-col>
+			<ion-col>
+			</ion-col>			
+		</ion-row >		
+ -->	
 	</ion-grid>
 </ion-content>
