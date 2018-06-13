@@ -157,6 +157,14 @@
   "BINCODE_SCREEN_CARTON_BARCODE": "Carton Barcode",
   "BINCODE_SCREEN_PALLET_BARCODE": "Pallet Barcod",      
 
+  "REPENISH_LIST_TITLE": "Replenish List",
+  "REPENISH_LIST_ISLE_LBL": "Isle",  
+  "DAYS_LBL": "Days",    
+  "FROM_LBL": "From",
+  "TO_LBL": "To",  
+  "QTY_LBL": "To",
+
+  "REPLENISH_DEST_TITLE" : "Replenish - Destination Bin",    
 
   "END": "End"
 }

@@ -13,6 +13,7 @@ import {MobileAppSystemBinInfo} from '../providers/mobile.app.system.bin'
 import {MobileAppSystemPutAway} from '../providers/mobile.app.system.putaway'
 import {MobileAppSystemMoveStock} from '../providers/mobile.app.system.movestock'
 import {MobileAppSystemBarcodes} from '../providers/mobile.app.system.barcodes'
+import {MobileAppSystemReplenish} from '../providers/mobile.app.system.replenish'
 
 
 
@@ -65,6 +66,7 @@ export const PROVIDERS = [
   MobileAppSystemPutAway,
   MobileAppSystemMoveStock,
   MobileAppSystemBarcodes,
+  MobileAppSystemReplenish,
   AlertService,
   UtilService,
   ModalService

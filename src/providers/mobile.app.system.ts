@@ -14,10 +14,10 @@ import {UtilService} from './util.service'
 export class MobileAppSystem {
 
   private requestConveyorCounter:number;  
-  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';  
+  //private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';  
   //private baseUrl: string = 'http://int.cos.net.au/ProcessRequest';
   //private baseUrl: string = 'http://staging.cos.net.au/ProcessRequest';
-  //private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';  
+  private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';  
   
   
   private sessionId:string;
