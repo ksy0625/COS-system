@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AlertService} from './alert.service';
-import {UtilService} from './util.service'
+import {UtilService} from './util.service';
+import { CacheService } from "ionic-cache";
 
 /*
   Generated class for the CoreProvider provider.
@@ -14,10 +15,12 @@ import {UtilService} from './util.service'
 export class MobileAppSystem {
 
   private requestConveyorCounter:number;  
-  //private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';  
+  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';    
   //private baseUrl: string = 'http://int.cos.net.au/ProcessRequest';
   //private baseUrl: string = 'http://staging.cos.net.au/ProcessRequest';
-  private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';  
+  //private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';  
+
+  private baseUrlNewScheme: string = 'http://inttest.cos.net.au/';
   
   
   private sessionId:string;
@@ -26,10 +29,12 @@ export class MobileAppSystem {
 
   public constructor(public http: Http,
     private alertService:AlertService,
+    private cache: CacheService,
     private utilService:UtilService) 
   {
     console.log('Hello CoreService Provider');
 
+    //this.cache.enableCache(false);
     this.requestConveyorCounter = 1;
     this.sessionId = '';
   }
@@ -43,6 +48,11 @@ export class MobileAppSystem {
     return this.baseUrl;
   }
 
+  public getBaseUrlNewScheme():string
+  {
+    return this.baseUrlNewScheme;
+  }
+
 
   public  isBusy(): boolean
   {
@@ -53,6 +63,7 @@ export class MobileAppSystem {
   
   private _doServerSideOp (requests:any, checkForErrors:boolean, isArrayRequest:boolean, callback:(result:any) => void): void 
   {
+    this.cache.clearAll();
 
     let model = {
         requests: requests,

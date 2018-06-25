@@ -116,7 +116,8 @@ private getNextOrderToPick()
     {
       svc.productInfo = res.result;
       svc.confirmedPick = String(svc.productInfo.pickQty);
-      svc.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.result.stockCode + '.jpg';      
+      //svc.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.result.stockCode + '.jpg';      
+      svc.imageUrl = res.result.img_url;
       svc.title = svc.titleDefault + " : " + svc.productInfo.countOrdersPicked + " of " + svc.productInfo.countTotalOrders + " done";
     }
   });  
@@ -425,7 +426,7 @@ onChangedProductBarCode(val:any)
   }
   updateImageUrl(event:any)
   {
-    this.imageUrl = this.productInfo.img_url;
+    //this.imageUrl = this.productInfo.img_url;
   }    
 
     

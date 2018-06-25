@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Http} from '@angular/http';
-
+import { CacheService } from "ionic-cache";
 
 import 'rxjs/add/operator/map';
 import { AlertService} from './alert.service';
 import {UtilService} from './util.service'
+
 
 /*
   Generated class for the CoreProvider provider.
@@ -22,7 +23,9 @@ export class MobileAppSystem1Line {
 
   public constructor(public http: Http,
     private alertService:AlertService,
-    private utilService:UtilService) 
+    private utilService:UtilService
+    ,private cache: CacheService
+    ) 
   {
     console.log('Hello CoreService Provider');
     this.sessionId = '';
@@ -53,6 +56,8 @@ export class MobileAppSystem1Line {
 
   private _doServerSideOp (requests:any, checkForErrors:boolean, isArrayRequest:boolean, callback:(result:any) => void): void 
   {
+
+    this.cache.clearAll();
 
     let model = {
         requests: requests,

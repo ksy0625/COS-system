@@ -9,11 +9,14 @@ import { MobileAppSystemP2l } from '../providers/mobile.app.system.p2l';
 import { AlertService } from '../providers/alert.service';
 import { UtilService } from '../providers/util.service';
 import { ModalService } from '../providers/modal.service';
+import { CacheService } from "ionic-cache";
+
 // Ionic native providers
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { CustomKeyBoard } from '../components/customKeyBoard/custom-keyboard';
+
 // Directives
 // Components
 // Pipes

@@ -62,7 +62,8 @@ export class MoveStockDestPage{
 
     this.sourceMainWH = this.user.movestockInfo.sourceMainWH;
     this.sourceQty = this.user.movestockInfo.sourceBinQty;
-    this.imageUrl   =  'http://int.cos.net.au/mobileappimages/'+ this.user.movestockInfo.sourceStockCode + '.jpg';    
+    this.imageUrl   =  this.user.movestockInfo.sourceBinImage;
+    //this.imageUrl   =  'http://int.cos.net.au/mobileappimages/'+ this.user.movestockInfo.sourceStockCode + '.jpg';    
     this.timerTick();
   }
 
@@ -213,7 +214,7 @@ export class MoveStockDestPage{
 
   updateImageUrl(event:any)
   {
-    this.imageUrl = this.user.movestockInfo.sourceBinImage;
+    //this.imageUrl = this.user.movestockInfo.sourceBinImage;
   }      
 
   onCheckPrinter(rmchecked:boolean)

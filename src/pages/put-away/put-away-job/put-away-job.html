@@ -33,29 +33,29 @@
 			<ion-col col-3>
 			    <div class="tblHeader">Stock</div>
 			</ion-col>
-			<ion-col col-3>
+			<ion-col col-5>
 				<div class="tblHeader">Description</div>
 			</ion-col>
-			<ion-col col-3>
+			<ion-col col-2>
 				<div class="tblHeader">Bin</div>
 			</ion-col>
-			<ion-col col-3>
+			<ion-col col-2>
 				<div class="tblHeader">Qty</div>
 			</ion-col>
 		</ion-row>
 		
-		<ion-row *ngFor="let job of jobList" (click)="onClickRow(job.job_id)">
+		<ion-row *ngFor="let job of jobList" (click)="onClickRow(job.job_id, job.to_bin)">
 			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.stk_code}} </div>
+				<div [class]="selectedBIN==job.to_bin? 'selectedRow':''"> {{job.stk_code}} </div>
 			</ion-col>
-			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.stkdescription}} </div>
+			<ion-col col-5>
+				<div [class]="selectedBIN==job.to_bin? 'selectedRow':''"> {{job.stkdescription}} </div>
 			</ion-col>			
-			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.to_bin}} </div>
+			<ion-col col-2>
+				<div [class]="selectedBIN==job.to_bin? 'selectedRow':''"> {{job.to_bin}} </div>
 			</ion-col>
-			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.putaway_qty}} </div>
+			<ion-col col-2>
+				<div [class]="selectedBIN==job.to_bin? 'selectedRow':''"> {{job.putaway_qty}} </div>
 			</ion-col>			
 		</ion-row>
 

@@ -78,23 +78,17 @@ export class BarcodeScanBinPage {
       return;
 
     this.mobileAppSystem.GetBinDetails(this.user.sessionInfo.userWarehouse,this.orderBarCode, function(res:any){
-      if(res==null || res.result==null)return;
-      if(res.result)
+      if(res==null || res.data==null)return;
+
+      if(res.statusCode!=200)
       {
         svc.orderBarCode = '';
-        if(res.result.statusMsg != null && res.result.statusMsg != '')
-          // svc.modalService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK', 'default', 'barcode');
-        svc.alertService.doAlert('ScanOrderBarcode', res.result.statusMsg, 'OK');        
+        if(res.statusMsg != null && res.statusMsg != '')
+          svc.alertService.doAlert('ScanOrderBarcode', res.statusMsg, 'OK');
         return;
       }
 
-      svc.user.orderInfo.binLocations = res.result.binLocationList;
-      svc.user.orderInfo.countProductScaned = res.result.countProductScanned;
-      svc.user.orderInfo.countTotalProducts = res.result.countTotalProducts;
-      svc.user.orderInfo.orderBarcode = res.result.orderNumber;
-      svc.user.orderInfo.toteNumber = res.result.toteNumber;
-      svc.user.orderInfo.warehouse = svc.user.sessionInfo.userWarehouse;
-
+      
       svc.navCtrl.setRoot('BarcodeBinDetailsPage');
     });
 

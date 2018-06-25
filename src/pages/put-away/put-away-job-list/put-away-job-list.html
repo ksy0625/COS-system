@@ -33,10 +33,10 @@
 			<ion-col col-3>
 				<div class="tblHeader">{{ 'CREATE_BY' | translate }}</div>
 			</ion-col>
-			<ion-col col-3>
+			<ion-col col-4>
 				<div class="tblHeader">{{ 'DATE_TIME' | translate }}</div>
 			</ion-col>
-			<ion-col col-3>
+			<ion-col col-2>
 				<div class="tblHeader">{{ 'PUT_AWAY_JOB_LIST_LINES' | translate }}</div>
 			</ion-col>
 		</ion-row>
@@ -48,11 +48,11 @@
 			<ion-col col-3>
 				<div [class]="selectedJobID==job.job_id? 'selectedRow':''"> {{job.task_owner}} </div>
 			</ion-col>			
-			<ion-col col-3>
-				<div [class]="selectedJobID==job.job_id? 'selectedRow':''"> {{job.scan_frompall}} </div>
+			<ion-col col-4>
+				<div [class]="selectedJobID==job.job_id? 'selectedRow':''"> {{ job.scan_frompall}} </div>
 			</ion-col>
-			<ion-col col-3>
-				<div [class]="selectedJobID==job.job_id? 'selectedRow':''"> {{job.hfapCnt}} </div>
+			<ion-col col-2>
+				<div [class]="selectedJobID==job.job_id? 'selectedRow':''"> {{job.lines}} </div>
 			</ion-col>			
 		</ion-row>
 

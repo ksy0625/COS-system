@@ -157,13 +157,14 @@ export class PutAwayJobStatus{
 export class PutawayDetail{
   task_id: number=0;
   stk_code:string=''
-  stkdescription:string='';
+  stk_description:string='';
   warehouse:string='';
   to_bin:string='';
   putaway_qty:number=0;
   job_id:string='';
   order_number:string=''; 
 }
+
 
 export class PutawayLineDetail{
   task_id:number=0;
@@ -182,6 +183,7 @@ export class PutawayLineDetail{
 
 export class PutawayModel{
   barcode:string='';
+  putawayJobList:PutAwayJobStatus[]=[];
   putawayDetails: PutawayDetail[]=[];
   putawayDetails1: PutawayDetail[]=[];
   putAwayJobStatus:PutAwayJobStatus = new PutAwayJobStatus(); 

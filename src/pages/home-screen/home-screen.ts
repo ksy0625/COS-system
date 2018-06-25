@@ -66,11 +66,29 @@ export class HomeScreenPage {
 
     let row:row_def = new row_def();
     let index:number = 0;
-    for(let alias of this.user.sessionInfo.modules)
+
+    let modules:string[] = [];
+    if(this.user.sessionInfo.modules.indexOf('all') >=0 || 
+      this.user.sessionInfo.modules.indexOf(' all')>=0 || 
+      this.user.sessionInfo.modules.indexOf('all ')>=0 ||
+      this.user.sessionInfo.modules.indexOf(' all ')>=0)
+    {
+      modules.push('binfo','convpick', 'movstk', 'p2l', 'putway', 'sinlin');
+    }
+    else
+     modules =  this.user.sessionInfo.modules;
+
+     console.log(modules);
+
+    for(let alias of modules)
     {
       let newModule:module = new module();
+
+      alias = alias.trim();
       newModule.alias = alias;
       newModule.title = titles[alias];
+
+      //console.log(newModule.alias, newModule.title);
 
       row.modules.push(newModule);
       index++;
@@ -119,7 +137,7 @@ export class HomeScreenPage {
     this.mobileAppSystemBinInfo.setBaseUrl(this.mobileAppSystem.getBaseUrl());    
 
     this.mobileAppSystemBarcodes.setSessionId(this.user.sessionInfo.sessionId); 
-    this.mobileAppSystemBarcodes.setBaseUrl(this.mobileAppSystem.getBaseUrl());
+    this.mobileAppSystemBarcodes.setBaseUrl(this.mobileAppSystem.getBaseUrlNewScheme() + 'ops/Barcodes/');
       
     //for test . init.    
     //this.mobileAppSystemP2L.deAllocateJob(this.user.sessionInfo.userWarehouse, 151398503);
@@ -142,6 +160,8 @@ export class HomeScreenPage {
 
   openModule(alias:string)
   {
+
+
     let titles = {'binfo':'Bin Info', 
               'convpick':'Conveyor Pick', 
               'movstk':'Move Stock', 

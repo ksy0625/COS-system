@@ -70,7 +70,8 @@ export class StockDetailesPage {
           if(res.result.statusCode==200)
           {
             svc.binStockDetail = res.result;
-            svc.imageUrl =  'http://int.cos.net.au/mobileappimages/'+ svc.binStockDetail.stockCode + '.jpg';
+            svc.imageUrl =  svc.binStockDetail.stkImage;
+            //svc.imageUrl =  'http://int.cos.net.au/mobileappimages/'+ svc.binStockDetail.stockCode + '.jpg';
           }
           else
           {
@@ -94,6 +95,6 @@ export class StockDetailesPage {
   
   updateImageUrl(event:any)
   {
-    this.imageUrl = this.binStockDetail.stkImage;
+    //this.imageUrl = this.binStockDetail.stkImage;
   }      
 }

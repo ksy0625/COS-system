@@ -13,6 +13,7 @@ import {User} from '../providers/user'
 import {AlertService} from '../providers/alert.service'
 import { CustomKeyBoard } from '../components/customKeyBoard/custom-keyboard';
 import {MobileAppSystem} from '../providers/mobile.app.system'
+//import { CacheService } from "ionic-cache";
 
 export interface PageInterface {
   title: string;
@@ -108,6 +109,7 @@ export class MyApp {
     public user:User,
     public mobileAppSystem: MobileAppSystem
     ) {
+
 
     this.menuPages = this.homePages;
 

@@ -42,7 +42,8 @@ export class BinDetailesPage {
 
     this.binDetailes = this.user.binInfo.binDetailes;
     this.confirmedPick = String(this.binDetailes.binMaxQty);
-    this.imageUrl =  'http://int.cos.net.au/mobileappimages/'+ this.binDetailes.stockCode + '.jpg';
+    this.imageUrl =    this.binDetailes.stkImage;
+    //this.imageUrl =  'http://int.cos.net.au/mobileappimages/'+ this.binDetailes.stockCode + '.jpg';
 
     CustomKeyBoard.hide();
   }
@@ -89,7 +90,7 @@ export class BinDetailesPage {
 
   updateImageUrl(event:any)
   {
-    this.imageUrl = this.binDetailes.stkImage;
+    //this.imageUrl = this.binDetailes.stkImage;
   }    
   
 }

@@ -28,7 +28,8 @@ import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboa
 export class PutAwayJobFoundPage {
 
   jobList: PutawayDetail[]=[];
-  selectedJOB:string = '';
+  selectedBin:string = '';
+  selectedJobId:string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   			  public mobileAppSystem:MobileAppSystemPutAway,
@@ -49,11 +50,13 @@ export class PutAwayJobFoundPage {
   	// this.navCtrl.setRoot('P2lScan1stlabelPage');
   }
 
-  onClickRow(job_id:string)
+  onClickRow(bincode:string, jobId:string)
   {
-    this.selectedJOB = job_id;
+    this.selectedBin = bincode;
+    this.selectedJobId = jobId;
+
     let svc = this;
-    this.mobileAppSystem.putaway_getPutawayJobDetails(Number(job_id), function(res:any){
+    this.mobileAppSystem.putaway_getPutawayJobDetails(Number(jobId), function(res:any){
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {

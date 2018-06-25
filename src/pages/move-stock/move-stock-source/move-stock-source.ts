@@ -126,7 +126,8 @@ export class MoveStockSourcePage{
       if(res.result.statusCode==200)
       {
         svc.moveStockSourceData = res.result;
-        svc.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.result.stockCode + '.jpg';        
+        svc.imageUrl = svc.moveStockSourceData.img_url;
+        //svc.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.result.stockCode + '.jpg';        
 
         svc.bDataChecked = true;
         svc.user.movestockInfo.fromBinCode = res.result.fromBinCode;
@@ -164,7 +165,7 @@ export class MoveStockSourcePage{
   }
   updateImageUrl(event:any)
   {
-    this.imageUrl = this.moveStockSourceData.img_url;
+    //this.imageUrl = this.moveStockSourceData.img_url;
   }      
     
 }

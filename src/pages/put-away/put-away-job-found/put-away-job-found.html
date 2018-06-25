@@ -36,18 +36,18 @@
 			</ion-col>
 		</ion-row>
 
-		<ion-row *ngFor="let job of jobList" (click)="onClickRow(job.job_id)">
+		<ion-row *ngFor="let job of jobList" (click)="onClickRow(job.to_bin, job.job_id)">
 			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.stk_code}} </div>
+				<div [class]="selectedJobId==job.job_id? 'selectedRow':''"> {{job.job_id}} </div>
 			</ion-col>
 			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.stk_description}} </div>
+				<div [class]="selectedJobId==job.job_id? 'selectedRow':''"> {{job.stk_description}} </div>
 			</ion-col>			
 			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.order_number}} </div>
+				<div [class]="selectedJobId==job.job_id? 'selectedRow':''"> {{job.order_number}} </div>
 			</ion-col>
 			<ion-col col-3>
-				<div [class]="selectedJOB==job.job_id? 'selectedRow':''"> {{job.to_bin}} </div>
+				<div [class]="selectedJobId==job.job_id? 'selectedRow':''"> {{job.to_bin}} </div>
 			</ion-col>			
 		</ion-row>
 	</ion-grid>

@@ -87,6 +87,7 @@ export class PutAwayJobListPage {
         if(res.result.statusCode==200)
         {
           svc.jobList = res.result.putAwayJobs;
+          svc.user.putwayInfo.putawayJobList = res.result.putAwayJobs;
         }
         else
         {
@@ -100,7 +101,7 @@ export class PutAwayJobListPage {
   {
     let svc = this;
     if(this.barcode=='')
-      return;
+      return;    
 
     this.mobileAppSystem.putaway_getPutawayLineScan(this.user.sessionInfo.userWarehouse, this.barcode, function(res:any){
         if(res==null || res.result==null)return;
@@ -132,13 +133,28 @@ export class PutAwayJobListPage {
     }
 
     this.barcode = this.selectedJobID;
-    if(this.barcode!='')
-      this.openPage();
+    if(this.barcode=='')
+      return;
+
+    let svc = this;
+    this.mobileAppSystem.putaway_getPutawayJobDetails(Number(jobID), function(res:any){
+        if(res==null || res.result==null)return;
+        if(res.result.statusCode==200)
+        {
+          svc.user.putwayInfo.putawayDetails1 = res.result.putawayListResponse;
+          svc.navCtrl.setRoot('PutAwayJobPage');
+        }
+        else
+        {
+            svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(res:any){
+            });
+        }
+    });
   }
 
   onChangedProductBarCode(val:string)
   {
-   this.onClickRow(val) ; 
+     this.openPage(); 
   }
 
   onClickBarcode()

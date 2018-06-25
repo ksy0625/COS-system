@@ -32,6 +32,7 @@ export class PutAwayJobPage {
   jobList: PutawayDetail[]=[];
   jobStatus:PutAwayJobStatus;
   selectedJOB:string = '';
+  selectedBIN:string = '';  
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -62,9 +63,11 @@ export class PutAwayJobPage {
   openPage() {  	
   }
 
-  onClickRow(job_id:string)
+  onClickRow(job_id:string, binCode:string)
   {
     this.selectedJOB = job_id;
+    this.selectedBIN = binCode;
+    
     let svc = this;
     let jobDetail: PutawayDetail = null;
     for(let detail of this.jobList)
