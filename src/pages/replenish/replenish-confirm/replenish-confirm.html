@@ -1,0 +1,77 @@
+
+<ion-header  >
+	<ion-navbar color="headerColor">
+		<button ion-button menuToggle >
+      		<ion-icon name="menu"></ion-icon> 
+  		</button>
+	    <ion-title>{{'REPLENISH_CONFIRM_TITLE' | translate}}</ion-title>	    
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding >
+	<ion-grid>
+	    <ion-row class="order-info-head">
+	  		<ion-col col-2 text-right><p>{{'WH_LABEL'|translate }}:</p></ion-col>
+		    <ion-col col-3><span>SH</span></ion-col>
+		    <ion-col col-2></ion-col>
+	  		<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+		    <ion-col col-3><span>Ball1594</span></ion-col>
+	    </ion-row>
+
+		<ion-row class="order-info-head">
+			<ion-col col-4></ion-col>
+			<ion-col col-8><span>HHHHHHHHHHHHHHH</span></ion-col>
+		</ion-row>
+
+
+ 		<ion-row>
+ 			<ion-col col-8>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'BINCODE_DETAILS_CARTON'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>100</span></ion-col>
+					<ion-col col-3 ><p>{{'BINCODE_DETAILS_UOM'|translate }}:</p></ion-col>
+					<ion-col col-4><span>Box200</span></ion-col>
+				</ion-row>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_SCAN_SOURCE_BIN'|translate}}:</p></ion-col>
+					<ion-col col-4 ><span>10.18.02</span></ion-col>
+					<ion-col col-3 text-right><p>{{'PUT_AWAY_SCAN_DEST_QTY'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>100</span></ion-col>					
+				</ion-row>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'MOVE_STOCK_SCAN_DEST_BIN'|translate}}:</p></ion-col>
+					<ion-col col-4 ><span>10.18.02</span></ion-col>
+					<ion-col col-3 text-right><p>{{'PUT_AWAY_SCAN_DEST_QTY'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>100</span></ion-col>					
+				</ion-row>
+
+ 				<ion-row  class="order-info">
+					<ion-col col-5 text-right><p>{{'REPLEN_QTY'|translate}}:</p></ion-col>
+					<ion-col col-7 ><span>500</span></ion-col>
+				</ion-row>
+			</ion-col>		
+ 			<ion-col col-4>	
+ 				<div style="height:75px; width:auto;">
+			      <img [src]="imageUrl">
+				</div>
+ 			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row>
+   		    <ion-col col-4 text-right><p>Actual Qty:</p></ion-col>
+			<ion-col col-4 >
+				<ion-input class="border"  text-center placeholder="Actual Qty" #orderBarCodeInputBox type="text" [value]="barcode" [(ngModel)]="barcode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()" (change)='onChangedProductBarCode($event.target.value)'>
+				</ion-input>
+			</ion-col>
+			<ion-col col-4>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'GO_BUTTON' | translate }}</button>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+		    </ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>

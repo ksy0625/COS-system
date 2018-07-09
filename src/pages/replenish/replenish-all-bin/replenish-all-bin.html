@@ -1,0 +1,91 @@
+
+<ion-header>
+
+  <ion-navbar color="headerColor" >
+    <button ion-button menuToggle >
+      	<ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ 'REPENISH_ALL_BIN' |  translate }}</ion-title>
+<!--     <img src="../assets/img/logo.png" alt="logo" height="40"> -->
+  </ion-navbar>
+</ion-header>
+
+<!-- REPENISH_LIST_ISLE_LBL -->
+
+<ion-content padding>
+
+    <ion-row class="order-info-head">
+  		<ion-col col-1 text-right><p>{{'WH_LABEL'|translate }}:</p></ion-col>
+	    <ion-col col-1><span>SH</span></ion-col>
+  		<ion-col col-1 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
+	    <ion-col col-2><span>Ball1594</span></ion-col>
+	    <ion-col col-7><span>HHHHHHHHHHHHHHH</span></ion-col>
+    </ion-row>
+
+    <ion-row class="order-info-head">
+  		<ion-col col-1 text-right><p>{{'STOCKDETAIL_OH'|translate }}:</p></ion-col>
+	    <ion-col col-2><span>4035</span></ion-col>
+  		<ion-col col-2 text-right><p>{{'SCANBIN_COMMIT'|translate }}:</p></ion-col>
+	    <ion-col col-2><span>Ball1594</span></ion-col>
+  		<ion-col col-2 text-right><p>{{'REPENISH_AVAIL'|translate }}:</p></ion-col>
+	    <ion-col col-3><span>3976</span></ion-col>
+    </ion-row>
+
+
+	<ion-grid>
+		<ion-row color='secondary'>
+			<ion-col >
+			    <div class="tblHeader">{{ 'STOCK_LABEL' | translate }}</div>
+			</ion-col>
+			<ion-col >
+				<div class="tblHeader">{{ 'FROM_LBL' | translate }}</div>
+			</ion-col>
+			<ion-col >
+				<div class="tblHeader">{{ 'TO_LBL' | translate }}</div>
+			</ion-col>
+			<ion-col >
+				<div class="tblHeader">{{ 'QTY_LBL' | translate }}</div>
+			</ion-col>
+			<ion-col >
+				<div class="tblHeader">{{ 'DAYS_LBL' | translate }}</div>
+			</ion-col>			
+		</ion-row>
+
+		<ion-row *ngFor="let replenish of replenishList" (click)="onClickRow(replenish.stockCode)">
+			<ion-col >
+				<div [class]="selectedStockCode==replenish.stockCode? 'selectedRow':''"> {{replenish.stockCode}} </div>
+			</ion-col>
+			<ion-col >
+				<div [class]="selectedStockCode==replenish.stockCode? 'selectedRow':''"> {{replenish.from}} </div>
+			</ion-col>			
+			<ion-col >
+				<div [class]="selectedStockCode==replenish.stockCode? 'selectedRow':''"> {{replenish.to}} </div>
+			</ion-col>
+			<ion-col >
+				<div [class]="selectedStockCode==replenish.stockCode? 'selectedRow':''"> {{replenish.qty}} </div>
+			</ion-col>			
+			<ion-col >
+				<div [class]="selectedStockCode==replenish.stockCode? 'selectedRow':''"> {{replenish.days}} </div>
+			</ion-col>
+		</ion-row>
+
+
+	</ion-grid>
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<ion-row >
+			<ion-col col-6 >
+				<ion-input class="border"  text-center placeholder="Scan Bin" #orderBarCodeInputBox type="text" [value]="barcode" [(ngModel)]="barcode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()" (change)='onChangedProductBarCode($event.target.value)'>
+				</ion-input>
+			</ion-col>
+			<ion-col col-1 >
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>			
+			</ion-col>
+			<ion-col col-5>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'REPENISH_SELECT_AS_SOURCE_BIN' | translate }}</button>
+		    </ion-col>
+		</ion-row>
+	</ion-toolbar>
+</ion-footer>
