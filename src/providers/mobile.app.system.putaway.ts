@@ -68,7 +68,11 @@ export class MobileAppSystemPutAway {
 
     console.log(model);
 
-    let body = { id: JSON.stringify(model)}; 
+//    let body = { id: JSON.stringify(model)}; 
+   let bodyj = JSON.stringify(model); 
+   let body = new FormData();
+   body.append("id",bodyj);    
+
 
     this.utilService.presentLoading();
 

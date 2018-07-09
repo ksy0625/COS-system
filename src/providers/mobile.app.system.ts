@@ -15,13 +15,17 @@ import { CacheService } from "ionic-cache";
 export class MobileAppSystem {
 
   private requestConveyorCounter:number;  
-  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
+  //private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
+  //private baseUrlNewScheme: string = 'http://inttest.cos.net.au/';
+
   //private baseUrl: string = 'http://int.cos.net.au/ProcessRequest';
+  //private baseUrlNewScheme: string = 'http://int.cos.net.au/';
+
   //private baseUrl: string = 'http://staging.cos.net.au/ProcessRequest';
-  //private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';
+  //private baseUrlNewScheme: string = 'http://staging.cos.net.au/';
 
-
-  private baseUrlNewScheme: string = 'http://inttest.cos.net.au/';
+  private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';
+  private baseUrlNewScheme: string = 'http://beta.cos.net.au/';
   
   
   private sessionId:string;
@@ -77,7 +81,11 @@ export class MobileAppSystem {
 
     console.log(model);
 
-    let body = { id: JSON.stringify(model)}; 
+    //let body = { id: JSON.stringify(model)}; 
+   let bodyj = JSON.stringify(model); 
+   let body = new FormData();
+   body.append("id",bodyj);    
+
 
     this.utilService.presentLoading();
 

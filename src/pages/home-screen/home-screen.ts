@@ -64,7 +64,10 @@ export class HomeScreenPage {
               'movstk':'Move Stock', 
               'p2l':'P2L Bulk', 
               'putway':'Put-Away', 
-              'sinlin':'1 Liner  Pick'};
+              'sinlin':'1 Liner  Pick',
+              'barcode':'Barcodes',
+              'replen':'Replenish'};
+              
 
     let row:row_def = new row_def();
     let index:number = 0;
@@ -75,7 +78,8 @@ export class HomeScreenPage {
       this.user.sessionInfo.modules.indexOf('all ')>=0 ||
       this.user.sessionInfo.modules.indexOf(' all ')>=0)
     {
-      modules.push('binfo','convpick', 'movstk', 'p2l', 'putway', 'sinlin');
+//      modules.push('binfo','convpick', 'movstk', 'p2l', 'putway', 'sinlin', 'barcode');
+      modules.push('binfo','convpick', 'movstk', 'p2l', 'putway', 'sinlin', 'barcode');
     }
     else
      modules =  this.user.sessionInfo.modules;
@@ -105,7 +109,8 @@ export class HomeScreenPage {
     {
       if(row.modules.length < 3)
       {
-        for(let i=0; i<3-row.modules.length; i++)
+        let nModulsOfRow = row.modules.length;
+        for(let i=0; i<3-nModulsOfRow; i++)
         {
           let newModule:module = new module();
           newModule.alias = '';
@@ -157,13 +162,6 @@ export class HomeScreenPage {
   }
 
 
-  openBarcodes()
-  {
-    this.events.publish('barcodes:start');
-    this.navCtrl.setRoot('BarcodeScanBinPage');
-  }
-
-  
 
   openModule(alias:string)
   {
@@ -175,6 +173,7 @@ export class HomeScreenPage {
               'p2l':'P2L Bulk', 
               'putway':'Put-Away', 
               'sinlin':'1 Liner  Pick',
+              'barcode':'Barcodes',
               'replen':'Replenish'};
 
     if(alias=='binfo')
@@ -200,6 +199,11 @@ export class HomeScreenPage {
     {
       this.events.publish('putaway:start');
       this.navCtrl.setRoot('PutAwayJobListPage');
+    }
+    else if(alias =='barcode')
+    {
+      this.events.publish('barcodes:start');
+      this.navCtrl.setRoot('BarcodeScanBinPage');      
     }
     else if(alias=='sinlin')
     {
