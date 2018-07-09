@@ -9,6 +9,7 @@ import {MobileAppSystem1Line} from '../../providers/mobile.app.system.1line'
 import {MobileAppSystemPutAway} from '../../providers/mobile.app.system.putaway'
 import {MobileAppSystemBinInfo} from '../../providers/mobile.app.system.bin'
 import {MobileAppSystemBarcodes} from '../../providers/mobile.app.system.barcodes'
+import {MobileAppSystemReplenish} from '../../providers/mobile.app.system.replenish'
 
 
 /**
@@ -52,6 +53,7 @@ export class HomeScreenPage {
     public mobileAppSystemPutAway:MobileAppSystemPutAway,
     public mobileAppSystemBinInfo:MobileAppSystemBinInfo,   
     public mobileAppSystemBarcodes:MobileAppSystemBarcodes, 
+    public mobileAppSystemReplenish:MobileAppSystemReplenish,
     public user:User ) 
   {
 
@@ -138,7 +140,10 @@ export class HomeScreenPage {
 
     this.mobileAppSystemBarcodes.setSessionId(this.user.sessionInfo.sessionId); 
     this.mobileAppSystemBarcodes.setBaseUrl(this.mobileAppSystem.getBaseUrlNewScheme() + 'ops/Barcodes/');
-      
+
+    this.mobileAppSystemReplenish.setSessionId(this.user.sessionInfo.sessionId); 
+    this.mobileAppSystemReplenish.setBaseUrl(this.mobileAppSystem.getBaseUrlNewScheme() + 'ops/Replenish/');
+
     //for test . init.    
     //this.mobileAppSystemP2L.deAllocateJob(this.user.sessionInfo.userWarehouse, 151398503);
 
@@ -158,6 +163,8 @@ export class HomeScreenPage {
     this.navCtrl.setRoot('BarcodeScanBinPage');
   }
 
+  
+
   openModule(alias:string)
   {
 
@@ -167,7 +174,8 @@ export class HomeScreenPage {
               'movstk':'Move Stock', 
               'p2l':'P2L Bulk', 
               'putway':'Put-Away', 
-              'sinlin':'1 Liner  Pick'};
+              'sinlin':'1 Liner  Pick',
+              'replen':'Replenish'};
 
     if(alias=='binfo')
     {
@@ -197,6 +205,11 @@ export class HomeScreenPage {
     {
       this.events.publish('1line:start');
       this.navCtrl.setRoot('LinePickJobPage');      
+    }
+    else if(alias=='replen')
+    {
+      this.events.publish('replenish:start');
+      this.navCtrl.setRoot('ReplenishListPage');
     }
 
   }

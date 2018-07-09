@@ -19,65 +19,56 @@
 	    </ion-row>
 
 		<ion-row class="order-info-head">
-			<ion-col col-2 text-right><p>{{'SCANBIN_CLASS'|translate }}:</p></ion-col>
-			<ion-col col-2><span>{{putawayLineDetail.bin_class}}</span></ion-col>
-			<ion-col col-8><p>{{putawayLineDetail.stkdescription}}</p></ion-col>
+			<ion-col col-4></ion-col>
+			<ion-col col-8><span>HHHHHHHHHHHHHHH</span></ion-col>
 		</ion-row>
 
 
  		<ion-row>
  			<ion-col col-8>
  				<ion-row  class="order-info">
-					<ion-col col-3 text-right><p>{{'SCANBIN_TYPE'|translate}}:</p></ion-col>
-					<ion-col col-2 ><span>{{putawayLineDetail.bin_type}}</span></ion-col>
-					<ion-col col-3 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
-					<ion-col col-4><span>{{putawayLineDetail.stk_code}}</span></ion-col>
+					<ion-col col-3 text-right><p>{{'BINCODE_DETAILS_CARTON'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>100</span></ion-col>
+					<ion-col col-3 ><p>{{'BINCODE_DETAILS_UOM'|translate }}:</p></ion-col>
+					<ion-col col-4><span>Box200</span></ion-col>
 				</ion-row>
  				<ion-row  class="order-info">
-					<ion-col col-3 text-right><p>{{'PUT_AWAY_SCAN_DEST_QTY'|translate}}:</p></ion-col>
-					<ion-col col-2 ><span>{{putawayLineDetail.putaway_qty}}</span></ion-col>
-					<ion-col col-3 text-right><p>{{'PUT_AWAY_QTY_LABEL'|translate }}:</p></ion-col>
-					<ion-col col-4>
-						<ion-input #confirmedInputBox class="border w100"  type="text" [value]="confirmedPick" [(ngModel)]="confirmedPick" (click)="onConfirmQtyFocused()" (ionFocus)="onConfirmQtyFocused()" ></ion-input>						
-					</ion-col>
+					<ion-col col-5 text-right><p>{{'MOVE_STOCK_SCAN_SOURCE_BIN'|translate}}:</p></ion-col>
+					<ion-col col-7 ><span>10.18.02</span></ion-col>
 				</ion-row>
-
-				<ion-row  class="order-info">
-					<ion-col col-3 text-right>
-						<ion-checkbox  [(ngModel)]="chk0"></ion-checkbox>
-					</ion-col>
-					<ion-col col-9>
-						<ion-label>{{'PUT_AWAY_APPLY_STOCK_MOVE'| translate}}</ion-label>
-					</ion-col>
+ 				<ion-row  class="order-info">
+					<ion-col col-3 text-right><p>{{'DEST_BIN_QTY'|translate}}:</p></ion-col>
+					<ion-col col-2 ><span>500</span></ion-col>
+					<ion-col col-3 ><p>{{'SCANBIN_MAX_QTY'|translate }}:</p></ion-col>
+					<ion-col col-4><span>1000</span></ion-col>
 				</ion-row>
- 			</ion-col>
-
+ 				<ion-row  class="order-info">
+					<ion-col col-5 text-right><p>{{'REPLEN_QTY'|translate}}:</p></ion-col>
+					<ion-col col-7 ><span>500</span></ion-col>
+				</ion-row>
+			</ion-col>		
  			<ion-col col-4>	
  				<div style="height:75px; width:auto;">
-			      <img [src]="imageUrl" (error)="updateImageUrl($event)">
+			      <img [src]="imageUrl">
 				</div>
  			</ion-col>
 		</ion-row>
 
-		<ion-row  class="order-info">
-			<ion-col col-2 text-right>
-				<ion-checkbox [(ngModel)]="chk1"></ion-checkbox>
-			</ion-col>
-			<ion-col col-7>
-				<ion-label>{{'PUT_AWAY_REPORT_DSNT'| translate}}</ion-label>
-			</ion-col>
-			<ion-col col-3>
-				<button ion-button color="secondary" (click)="openPage()">{{ 'COMPLETE_BUTTON' | translate }}</button>
-			</ion-col>			
-		</ion-row>
 	</ion-grid>
 </ion-content>
 
-<ion-footer style="height:36px;">
-<!-- 	<ion-toolbar> -->
+<ion-footer>
+	<ion-toolbar>
 		<ion-row>
-			<ion-col col-6></ion-col>
-			<ion-col col-6  style="padding-top: 0px;" text-right><p>Rate: 160 Lines/Hour</p></ion-col>
+   		    <ion-col col-2 text-right><p>Scan:</p></ion-col>
+			<ion-col col-8 >
+				<ion-input class="border"  text-center placeholder="Destination Bin" #orderBarCodeInputBox type="text" [value]="barcode" [(ngModel)]="barcode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()" (change)='onChangedProductBarCode($event.target.value)'>
+				</ion-input>
+			</ion-col>
+			<ion-col col-2>
+				<button ion-button color="secondary" (click)="openPage()">{{ 'GO_BUTTON' | translate }}</button>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+		    </ion-col>
 		</ion-row>
-<!-- 	</ion-toolbar> -->
+	</ion-toolbar>
 </ion-footer>

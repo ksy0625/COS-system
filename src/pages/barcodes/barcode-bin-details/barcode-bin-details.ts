@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Platform } from 'ionic-angular';
 import {MobileAppSystemBarcodes} from '../../../providers/mobile.app.system.barcodes'
-import {User} from '../../../providers/user'
+import {User, BarcodeBinDetails} from '../../../providers/user'
 import {AlertService} from '../../../providers/alert.service'
 import {ModalService} from '../../../providers/modal.service'
 import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboard';
@@ -23,6 +23,7 @@ import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboa
 })
 export class BarcodeBinDetailsPage{
   imageUrl :string = '';
+  binDetails:BarcodeBinDetails;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
@@ -32,8 +33,8 @@ export class BarcodeBinDetailsPage{
               private modalService:ModalService,
               public translateService:TranslateService, public user:User, private alertService:AlertService) {
 
-//    this.putawayLineDetail = this.user.putwayInfo.putawayLineDetail;
-//    this.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ this.putawayLineDetail.stk_code + '.jpg';
+    this.binDetails = this.user.barcodeInfo.binDetails;
+    this.imageUrl = this.binDetails.imageUrl; 
   }
 
   ionViewDidLoad() {
@@ -42,11 +43,19 @@ export class BarcodeBinDetailsPage{
 
   openPage()
   {    
-    this.navCtrl.setRoot('BarcodeScreenPage');
+    let svc = this;
+    this.mobileAppSystem.GetBarcodes(this.binDetails.stockCode, function(res:any){
+      if(res==null)return;
+      if(res.status!=200)
+      {
+        if(res.statusMsg != null && res.statusMsg != '')
+          svc.alertService.doAlert('GetBarcodes', res.statusMsg, 'OK');
+        return;
+      }
+
+      svc.user.barcodeInfo.barcodes = res.data;
+      svc.navCtrl.push('BarcodeScreenPage');
+    });
   }
-  updateImageUrl(event:any)
-  {
-    //this.imageUrl = this.putawayLineDetail.image;
-  }      
     
 }

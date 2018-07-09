@@ -12,43 +12,43 @@
 	<ion-grid>
 	    <ion-row class="order-info-head">
 	  		<ion-col col-2 text-right><p>{{'BIN_LABEL'|translate }}:</p></ion-col>
-		    <ion-col col-2><span>52.33.12.56</span></ion-col>
-	  		<ion-col col-2 text-right><p>{{'WH_LABEL'|translate }}:</p></ion-col>
-		    <ion-col col-2><span>SH</span></ion-col>
+		    <ion-col col-2><span>{{binDetails.binCode}}</span></ion-col>
+	  		<ion-col col-2 text-right><p>{{'WH_LABEL'|translate }}</p></ion-col>
+		    <ion-col col-1><span>{{binDetails.warehouse}}</span></ion-col>
 	  		<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
-	      	<ion-col col-2><span>Ball1594</span></ion-col>
+	      	<ion-col col-3><span>{{binDetails.stockCode}}</span></ion-col>
 	    </ion-row>	    
 
 		<ion-row class="order-info-head">
 			<ion-col col-2 text-right><p>{{'SCANBIN_QTY'|translate}}:</p></ion-col>
-			<ion-col col-2><span>20</span></ion-col>
-			<ion-col col-8><p>Description</p></ion-col>
+			<ion-col col-2><span>{{binDetails.binQuantity}}</span></ion-col>
+			<ion-col col-8><p>{{binDetails.description}}</p></ion-col>
 		</ion-row>
 		
 
  		<ion-row>
  			<ion-col col-6>
- 				<ion-row class="order-info">
+ 				<ion-row class="order-info-head">
 					<ion-col col-6 text-right><p>{{'BINCODE_DETAILS_UOM'|translate}}:</p></ion-col>
-					<ion-col col-6 >Box100</ion-col>
+					<ion-col col-6 ><span>{{binDetails.uom}}</span></ion-col>
 				</ion-row>
- 				<ion-row class="order-info">
+ 				<ion-row class="order-info-head">
 					<ion-col col-6 text-right><p>{{'BINCODE_DETAILS_PACK_QTY'|translate }}:</p></ion-col>
-					<ion-col col-6><span>100</span></ion-col>
+					<ion-col col-6><span>{{binDetails.packQuantity}}</span></ion-col>
 				</ion-row>
- 				<ion-row class="order-info">
+ 				<ion-row class="order-info-head">
 					<ion-col col-6 text-right><p>{{'BINCODE_DETAILS_CARTON'|translate }}:</p></ion-col>
-					<ion-col col-6><span>500</span></ion-col>
+					<ion-col col-6><span>{{binDetails.cartonQuantity}}</span></ion-col>
 				</ion-row>
- 				<ion-row class="order-info">
+ 				<ion-row class="order-info-head">
 					<ion-col col-6 text-right><p>{{'BINCODE_DETAILS_PALLET_QTY'|translate }}:</p></ion-col>
-					<ion-col col-6><span>5000</span></ion-col>
+					<ion-col col-6><span>{{binDetails.palletQuantity}}</span></ion-col>
 				</ion-row>
  			</ion-col>
 
  			<ion-col col-6>	
  				<div style="height:75px; width:auto;">
-			      <img [src]="imageUrl" (error)="updateImageUrl($event)">
+			      <img [src]="imageUrl">
 				</div>
  			</ion-col>
 		</ion-row>

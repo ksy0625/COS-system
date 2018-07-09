@@ -43,7 +43,7 @@ export class PutAwayDestPage{
               private modalService:ModalService,
               public translateService:TranslateService, public user:User, private alertService:AlertService) {
     this.putawayLineDetail = this.user.putwayInfo.putawayLineDetail;
-    this.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ this.putawayLineDetail.stk_code + '.jpg';
+    this.imageUrl = this.putawayLineDetail.image + '?' + new Date().toISOString();
 
     CustomKeyBoard.hide();
     this.timerTick();
@@ -133,13 +133,22 @@ export class PutAwayDestPage{
   openPage()
   {
     let svc = this;
+    if(svc.productBarCode=='' || Number(this.confirmedPick)==0)
+    {
+      svc.alertService.doAlert('Please scan destination and add putaway quantity.', '', 'OK').then(function(res:any){
+      });      
+      return;
+    }
+
     this.mobileAppSystem.putaway_completePutawayLine(svc.putawayLineDetail.task_id, svc.putawayLineDetail.warehouse,
       svc.putawayLineDetail.stk_code, svc.putawayLineDetail.to_bin, svc.putawayLineDetail.putaway_qty,
       svc.productBarCode, Number(svc.confirmedPick), function(res:any){
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {
-          svc.navCtrl.setRoot('PutAwayJobListPage');
+            svc.alertService.doAlert('', 'Putaway Successfully Completed', 'OK').then(function(res:any){
+              svc.navCtrl.setRoot('PutAwayJobListPage');
+            });
         }
         else
         {

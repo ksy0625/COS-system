@@ -12,58 +12,58 @@
 	<ion-grid>
 	    <ion-row class="order-info-head">
 	  		<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
-		    <ion-col col-3><span>Ball1594</span></ion-col>	    	
+		    <ion-col col-3><span>{{barCodes.stockCode}}</span></ion-col>	    	
 	    </ion-row>	
 	    <ion-row class="order-info-head">
 	  		<ion-col col-2></ion-col>
-		    <ion-col col-10><span>COS Retractable Ballpoint Pen Medium</span></ion-col>
+		    <ion-col col-10><span>{{barCodes.description}}</span></ion-col>
 	    </ion-row>	
 
 		<ion-row class="order-info">
 			<ion-col col-3 text-right><p>{{'BINCODE_SCREEN_PIECE_BARCODE'|translate }}:</p></ion-col>
-			<ion-col col-3><span>AAAAAA</span></ion-col>
+			<ion-col col-3><span>{{barCodes.pieceBarcode}}</span></ion-col>
 			<ion-col col-5>
-				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				<ion-input class="border"  text-center placeholder="Barcode" #pieceBarcodeInputBox type="text" [value]="pieceBarcode" [(ngModel)]="pieceBarcode"  ng-focus="focus=false" ng-blur="focus=false" name="pieceBarcode" (click)="onClickPieceBarcode()" (ionFocus)="onClickPieceBarcode()">
 				</ion-input>
 			</ion-col>
 			<ion-col col-1>
-				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad0()"> </ion-icon>
 			</ion-col>
 		</ion-row>
 
   		<ion-row class="order-info">
 			<ion-col col-3 text-right><p>{{'BINCODE_SCREEN_PACK_BARCODE'|translate }}:</p></ion-col>
-			<ion-col col-3><span>BBBBBB</span></ion-col>
+			<ion-col col-3><span>{{barCodes.packBarcode}}</span></ion-col>
 			<ion-col col-5>
-				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				<ion-input class="border"  text-center placeholder="Barcode" #packBarcodeInputBox type="text" [value]="packBarcode" [(ngModel)]="packBarcode"  ng-focus="focus=false" ng-blur="focus=false" name="packBarcode" (click)="onClickPackBarcode()" (ionFocus)="onClickPackBarcode()">
 				</ion-input>
 			</ion-col>
 			<ion-col col-1>
-				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad1()"> </ion-icon>
 			</ion-col>
 		</ion-row>
 
 		<ion-row class="order-info">
 			<ion-col col-3 text-right><p>{{'BINCODE_SCREEN_CARTON_BARCODE'|translate }}:</p></ion-col>
-			<ion-col col-3></ion-col>
+			<ion-col col-3><span>{{barCodes.cartonBarcode}}</span></ion-col>
 			<ion-col col-5>
-				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				<ion-input class="border"  text-center placeholder="Barcode" #cartonBarcodeInputBox type="text" [value]="cartonBarcode" [(ngModel)]="cartonBarcode"  ng-focus="focus=false" ng-blur="focus=false" name="cartonBarcode" (click)="onClickCartonBarcode()" (ionFocus)="onClickCartonBarcode()">
 				</ion-input>
 			</ion-col>
 			<ion-col col-1>
-				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad2()"> </ion-icon>
 			</ion-col>
 		</ion-row>
 
 		<ion-row class="order-info">
 			<ion-col col-3 text-right><p>{{'BINCODE_SCREEN_PALLET_BARCODE'|translate }}:</p></ion-col>
-			<ion-col col-3></ion-col>
+			<ion-col col-3><span>{{barCodes.palletBarcode}}</span></ion-col>
 			<ion-col col-5>
-				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				<ion-input class="border"  text-center placeholder="Barcode" #palletBarcodeInputBox type="text" [value]="palletBarcode" [(ngModel)]="palletBarcode"  ng-focus="focus=false" ng-blur="focus=false" name="palletBarcode" (click)="onClickPalletBarcode()" (ionFocus)="onClickPalletBarcode()">
 				</ion-input>
 			</ion-col>
 			<ion-col col-1>
-				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad3()"> </ion-icon>
 			</ion-col>
 		</ion-row>
 

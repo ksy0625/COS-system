@@ -78,9 +78,8 @@ export class BarcodeScanBinPage {
       return;
 
     this.mobileAppSystem.GetBinDetails(this.user.sessionInfo.userWarehouse,this.orderBarCode, function(res:any){
-      if(res==null || res.data==null)return;
-
-      if(res.statusCode!=200)
+      if(res==null)return;
+      if(res.status!=200)
       {
         svc.orderBarCode = '';
         if(res.statusMsg != null && res.statusMsg != '')
@@ -88,10 +87,9 @@ export class BarcodeScanBinPage {
         return;
       }
 
-      
-      svc.navCtrl.setRoot('BarcodeBinDetailsPage');
+      svc.user.barcodeInfo.binDetails = res.data;
+      svc.navCtrl.push('BarcodeBinDetailsPage');
     });
-
   }
 
   onChangedOrderBarcode(val:any)
@@ -103,17 +101,6 @@ export class BarcodeScanBinPage {
 
   }
 
-  onChangeZone()
-  {
-    this.selectOrderBarcodeInput();
-  }
-
-  selectOrderBarcodeInput()
-  {
-    setTimeout(() => {
-    this.orderBarCodeInput.setFocus();
-    },300); //a least 150ms.
-  }
 
   onShowKeyPad()
   {

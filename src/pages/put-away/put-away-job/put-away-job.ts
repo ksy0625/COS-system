@@ -72,7 +72,7 @@ export class PutAwayJobPage {
     let jobDetail: PutawayDetail = null;
     for(let detail of this.jobList)
     {
-      if(detail.job_id == job_id)
+      if(detail.to_bin == binCode)
       {
         jobDetail = detail;
         break;
@@ -87,7 +87,7 @@ export class PutAwayJobPage {
         if(res.result.statusCode==200)
         {
           svc.user.putwayInfo.putawayLineDetail = res.result;
-          svc.navCtrl.setRoot('PutAwaySourcePage');
+          svc.navCtrl.push('PutAwaySourcePage');
         }
         else
         {

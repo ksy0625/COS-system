@@ -10,6 +10,7 @@ import {AlertService} from '../../../providers/alert.service'
 import { Keyboard } from '@ionic-native/keyboard';
 import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboard';
 
+
 /**
  * Generated class for the PlacInTotePage page.
  *
@@ -39,6 +40,8 @@ export class PutAwayJobListPage {
   	    	private alertService:AlertService, 
           public translateService:TranslateService,
   			  public user:User) {
+
+    this.user.putwayInfo.putAwayJobStatus = new PutAwayJobStatus();
 
     CustomKeyBoard.hide();
     this.timerTick();
@@ -82,12 +85,18 @@ export class PutAwayJobListPage {
 
   onRefreshJobList(){
     let svc = this;
+    let re = /\,/gi;
     this.mobileAppSystem.putaway_getPutawayJobList(this.user.sessionInfo.userWarehouse, function(res:any){
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {
-          svc.jobList = res.result.putAwayJobs;
-          svc.user.putwayInfo.putawayJobList = res.result.putAwayJobs;
+
+          for(let i=0; i<res.result.putAwayJobs.length; i++)
+          {
+            res.result.putAwayJobs[i].scan_frompall = new Date(res.result.putAwayJobs[i].scan_frompall).toLocaleString().replace(re, " ");
+          }
+          svc.jobList = res.result.putAwayJobs;         
+          svc.user.putwayInfo.putawayJobList = svc.jobList;
         }
         else
         {
@@ -107,10 +116,25 @@ export class PutAwayJobListPage {
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {
+          //select job status
+          let job_id:string = '';
+          if(res.result.putawayListResponse.length >0)
+            job_id = res.result.putawayListResponse[0].job_id;
+          for(let status of svc.jobList)
+          {
+            if(status.job_id == job_id)
+            {
+              svc.user.putwayInfo.putAwayJobStatus = status;
+              break;
+            }  
+          }
+
+          svc.user.putwayInfo.bEnteredBarcode = true;  
           svc.user.putwayInfo.putawayDetails = res.result.putawayListResponse;
           svc.user.putwayInfo.barcode = svc.barcode;
           //svc.jobList = res.result.putAwayJobs;
-          svc.navCtrl.setRoot('PutAwayJobFoundPage');
+          svc.navCtrl.push('PutAwayJobFoundPage');
+          //svc.navCtrl.setRoot('PutAwayJobFoundPage');
         }
         else
         {
@@ -141,8 +165,9 @@ export class PutAwayJobListPage {
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {
+          svc.user.putwayInfo.bEnteredBarcode = false;
           svc.user.putwayInfo.putawayDetails1 = res.result.putawayListResponse;
-          svc.navCtrl.setRoot('PutAwayJobPage');
+          svc.navCtrl.push('PutAwayJobPage');
         }
         else
         {

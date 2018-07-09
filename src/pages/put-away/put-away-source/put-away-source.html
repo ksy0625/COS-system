@@ -11,7 +11,7 @@
 <ion-content padding >
 	<ion-grid>
 	    <ion-row class="order-info-head">
-	  		<ion-col col-2 text-right><p>{{'WH_LABEL'|translate }}:</p></ion-col>
+	  		<ion-col col-2 text-right><p>{{'WH_LABEL'|translate }}</p></ion-col>
 		    <ion-col col-2><span>{{putawayLineDetail.warehouse}}</span></ion-col>
 		    <ion-col col-4></ion-col>
 	  		<ion-col col-2 text-right><p>{{'STOCK_LABEL'|translate }}:</p></ion-col>
@@ -19,18 +19,18 @@
 	    </ion-row>
 
 		<ion-row class="order-info-head">
-			<ion-col col-2 text-right><p>{{'ZONE_LABEL'|translate }}:</p></ion-col>
+			<ion-col col-2 text-right><p>{{'ZONE_LABEL'|translate }}</p></ion-col>
 			<ion-col col-2><span>{{putawayLineDetail.zone}}</span></ion-col>
 			<ion-col col-8><p>{{putawayLineDetail.stkdescription}}</p></ion-col>
 		</ion-row>
 		
  		<ion-row>
  			<ion-col col-4>
- 				<ion-row class="order-info">
+ 				<ion-row class="order-info-head">
 					<ion-col col-6 text-right><p>{{'PUT_AWAY_PALLET_LABEL'|translate}}:</p></ion-col>
-					<ion-col col-6 >{{putawayLineDetail.from_pallet}}</ion-col>
+					<ion-col col-6 ><span>{{putawayLineDetail.from_pallet}}</span></ion-col>
 				</ion-row>
- 				<ion-row class="order-info">
+ 				<ion-row class="order-info-head">
 					<ion-col col-6 text-right><p>{{'PUT_AWAY_QTY_LABEL'|translate }}:</p></ion-col>
 					<ion-col col-6><span>{{putawayLineDetail.putaway_qty}}</span></ion-col>
 				</ion-row>
@@ -52,11 +52,11 @@
 	</ion-grid>
 </ion-content>
 
-<ion-footer style="height:36px;">
+<ion-footer style="height:36px; background-color: #0099cc;">
 <!-- 	<ion-toolbar> -->
-		<ion-row>
+		<ion-row style="">
 			<ion-col col-6></ion-col>
-			<ion-col col-6  style="padding-top: 0px;" text-right><p>Rate: 160 Lines/Hour</p></ion-col>
+<!-- 			<ion-col col-6  style="padding-top: 0px;" text-right><p></p></ion-col> -->
 		</ion-row>
 <!-- 	</ion-toolbar> -->
 </ion-footer>

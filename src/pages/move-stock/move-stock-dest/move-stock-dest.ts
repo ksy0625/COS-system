@@ -62,7 +62,7 @@ export class MoveStockDestPage{
 
     this.sourceMainWH = this.user.movestockInfo.sourceMainWH;
     this.sourceQty = this.user.movestockInfo.sourceBinQty;
-    this.imageUrl   =  this.user.movestockInfo.sourceBinImage;
+    this.imageUrl   =  this.user.movestockInfo.sourceBinImage+ '?' + new Date().toISOString();
     //this.imageUrl   =  'http://int.cos.net.au/mobileappimages/'+ this.user.movestockInfo.sourceStockCode + '.jpg';    
     this.timerTick();
   }

@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Http} from '@angular/http';
 
+import { Injectable } from '@angular/core';
+import { Headers, Http, RequestOptions, RequestMethod, RequestOptionsArgs} from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import { AlertService} from './alert.service';
@@ -53,32 +53,24 @@ export class MobileAppSystemReplenish {
 
 
 
-  private _doServerSideOp (requests:any, checkForErrors:boolean, isArrayRequest:boolean, callback:(result:any) => void): void 
+  private _doServerSideOp (command:string, requests:any, checkForErrors:boolean, isArrayRequest:boolean, callback:(result:any) => void): void 
   {
 
     this.cache.clearAll();
-    let model = {
-        requests: requests,
-        context:
-        {
-            sessionId: this.sessionId,
-            notificationConnectionId: this.notificationConnectionId
-        }
-    };
-
-    console.log(model);
-
-    let body = { id: JSON.stringify(model)}; 
-
     this.utilService.presentLoading();
 
-    // let headers = new Headers();
-    // headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    // headers.append("Accept", 'application/x-www-form-urlencoded');
-    // let options = new RequestOptions({ headers: headers });
+    console.log(this.baseUrl + command);    
+    console.log(requests);
 
-    // let res = this.http.post(this.baseUrl, body, options);
-    let res = this.http.post(this.baseUrl, body);
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let Options: RequestOptionsArgs = new RequestOptions({
+        method: RequestMethod.Post,
+        headers:headers
+    });
+
+    let res = this.http.post(this.baseUrl + command, JSON.stringify(requests), Options);
     res.map(res => res.json()).subscribe(
       res => {        
         console.log(res);
@@ -86,7 +78,7 @@ export class MobileAppSystemReplenish {
         
         this.utilService.hideLoading();
 
-        let result = res[0];
+        let result = res;
         if(checkForErrors ==true)
         {
             this.checkForErrors(result);
@@ -122,174 +114,76 @@ export class MobileAppSystemReplenish {
   }
 
 
+public getReplenList(warehouse:string, minDays:number, isle:string, success_cb:(result:any)=>void){
+    let requests = {
+                    sessionId: this.sessionId,
+                    warehouse: warehouse,                    
+                    minDaysCover:minDays,
+                    isle:isle,
+                };
 
-  public loginOPsApp(userName:string, password:string, success_cb:(result:any)=>void, isSingleSingOn:boolean):void {
-
-      if (isSingleSingOn == null) isSingleSingOn = false;
-      let requests =
-          [
-              {
-                  requestCounter: 1,
-                  command: 'MobileLogin',
-                  data: {
-                      userName: userName, password: password, isSingleSingOn: isSingleSingOn
-                  }
-              }
-          ];
-
-      let svc = this;
-      this._doServerSideOp(requests, false, false, function (res:any) {
-        if(res==null)return;
-
-        if(res.isError==true)
-        {
-          svc.alertService.doAlert('Login failed', res.errorMessage, 'OK');   
-          return;
-        }
-
-        if(res.isError==false)
-        {
-          svc.sessionId = res.result.loginResult.sessionId;
-          if(success_cb != null)  
-            success_cb(res);
-        }
-      });
-  }
-
-public putaway_getPutawayJobList(warehouse:string, success_cb:(result:any)=>void){
-
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_getPutawayJobList',
-                data: {
-                    userSessionID: this.sessionId,
-                    warehouse: warehouse,
-                }
-            }
-        ];
-    
-    this._doServerSideOp(requests, true, false, function (res:any) {        
+    this._doServerSideOp('GetReplenList', requests, true, false, function (res:any) {        
       if(res==null)
         return;
-      if(res.isError==false)
-      {
-        if(success_cb != null)  
-          success_cb(res);
-      }
+      if(success_cb != null)  
+        success_cb(res);
   });
 }
 
-
-public putaway_getPutawayLineScan (warehouse:string, barcode:string,success_cb:(result:any)=>void)
+public getStockDetailsReplScan(warehouse:string, scanBarcode:string, success_cb:(result:any)=>void)
 {
+  let requests = {
+                    sessionId: this.sessionId,
+                    warehouse: warehouse,                    
+                    scanBarcode:scanBarcode,
+                };
 
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_getPutawayLineScan',
-                data: {
-                    userSessionID: this.sessionId,
-                    barcode: barcode,
-                    warehouse:warehouse,
-                }
-            }
-        ];
-    
-    this._doServerSideOp(requests, true, false, function (res:any) {        
+    this._doServerSideOp('GetStockDetailsReplScan', requests, true, false, function (res:any) {        
       if(res==null)
         return;
-      if(res.isError==false)
-      {
-        if(success_cb != null)  
-          success_cb(res);
-      }
-  });
+      if(success_cb != null)  
+        success_cb(res);
+  });  
 }
 
-public putaway_getPutawayJobDetails(jobID:number, success_cb:(result:any)=>void){
+public replenSelectSourceBin(binClass:string, qty:number, success_cb:(result:any)=>void)
+{
+  let requests = {
+                    sessionId: this.sessionId,
+                    binClass: binClass,                    
+                    qty:qty,
+                };
 
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_getPutawayJobDetails',
-                data: {
-                    userSessionID: this.sessionId,
-                    jobId: jobID,
-                }
-            }
-        ];
-    
-    this._doServerSideOp(requests, true, false, function (res:any) {        
+    this._doServerSideOp('ReplenSelectSourceBin', requests, true, false, function (res:any) {        
       if(res==null)
         return;
-      if(res.isError==false)
-      {
-        if(success_cb != null)  
-          success_cb(res);
-      }
-  });
+      if(success_cb != null)  
+        success_cb(res);
+  });  
 }
 
-public putaway_getPutawayLineDetails(taskId :number, warehouse:string, stockCode:string, toBin:string, success_cb:(result:any)=>void){
 
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_getPutawayLineDetails',
-                data: {
-                    userSessionID: this.sessionId,
-                    taskId:taskId,
-                    warehouse:warehouse,
-                    stockCode:stockCode,
+public  completeReplenStock (warehouse:string, stockCode:string, fromBin:string, toBin:string, replenQty:number, 
+  actualQty:number, toMaxQty:number,success_cb:(result:any)=>void) 
+{
+  let requests = {
+                    sessionId: this.sessionId,
+                    warehouse: warehouse,                    
+                    stockCodey:stockCode,
+                    fromBin:fromBin,
                     toBin:toBin,
-                }
-            }
-        ];
-    
-    this._doServerSideOp(requests, true, false, function (res:any) {        
+                    replenQty:replenQty,
+                    actualQty:actualQty,
+                    toMaxQty:toMaxQty,
+                };
+
+    this._doServerSideOp('ReplenSelectSourceBin', requests, true, false, function (res:any) {        
       if(res==null)
         return;
-      if(res.isError==false)
-      {
-        if(success_cb != null)  
-          success_cb(res);
-      }
-  });
+      if(success_cb != null)  
+        success_cb(res);
+  });  
 }
-
-
-public putaway_completePutawayLine (taskId:number,warehouse:string,stockCode:string,toBin:string, 
-  quantity:number, overflowBinCode:string, overflowQty:number,success_cb:(result:any)=>void){
-
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                command: 'putaway_completePutawayLine',
-                data: {
-                    userSessionID: this.sessionId,
-                    taskId:taskId,
-                    warehouse:warehouse,
-                    stockCode:stockCode,
-                    toBin: toBin,
-                    quantity:quantity,
-                    overflowBinCode:overflowBinCode,
-                    overflowQty:overflowQty,
-                }
-            }
-        ];
-    
-    this._doServerSideOp(requests, true, false, function (res:any) {        
-        if(success_cb != null)  
-          success_cb(res);
-  });
-}
-
 
 
 }

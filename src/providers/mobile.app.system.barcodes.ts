@@ -125,11 +125,8 @@ public GetBinDetails(warehouse:string, binCode:string, success_cb:(result:any)=>
     this._doServerSideOp('GetBinDetails', requests, true, false, function (res:any) {        
       if(res==null)
         return;
-      if(res.isError==false)
-      {
-        if(success_cb != null)  
-          success_cb(res);
-      }
+      if(success_cb != null)  
+        success_cb(res);
   });
 }
 
@@ -137,57 +134,40 @@ public GetBinDetails(warehouse:string, binCode:string, success_cb:(result:any)=>
 public GetBarcodes(stockCode:string,success_cb:(result:any)=>void)
 {
 
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                data: {
-                    userSessionID: this.sessionId,
-                    stockCode:stockCode
-                }
-            }
-        ];
-    
-    this._doServerSideOp('GetBarcodes', requests, true, false, function (res:any) {        
+    let requests = {
+                    sessionId: this.sessionId,
+                    stockCode:stockCode,
+                };  
+   
+    this._doServerSideOp('GetStockBarcodes', requests, true, false, function (res:any) {        
       if(res==null)
         return;
-      if(res.isError==false)
-      {
-        if(success_cb != null)  
-          success_cb(res);
-      }
+      if(success_cb != null)  
+        success_cb(res);
   });
 }
 
 public UpdateStockBarcodes(userName:string,stockCode:string, pieceBarcode:string, packBarcode:string, 
   cartonBarcode:string, palletBarcode:string, success_cb:(result:any)=>void){
 
-    let requests =
-        [
-            {
-                requestCounter: 1, //$rootScope.requestConveyorCounter,
-                data: {
-                    userSessionID: this.sessionId,
-                    userName:userName,
-                    stockCode:stockCode,
-                    pieceBarcode:pieceBarcode,
-                    packBarcode:packBarcode,
-                    cartonBarcode:cartonBarcode,
-                    palletBarcode:palletBarcode,
-                }
-            }
-        ];
+    let requests = {
+                    sessionId: this.sessionId,
+                    Username: userName,
+                    Stockcode: stockCode,
+                    PieceBarcode:pieceBarcode,
+                    PackBarcode:packBarcode,
+                    CartonBarcode:cartonBarcode,
+                    PalletBarcode:palletBarcode,
+                }; 
     
     this._doServerSideOp('UpdateStockBarcodes', requests, true, false, function (res:any) {        
       if(res==null)
         return;
-      if(res.isError==false)
-      {
-        if(success_cb != null)  
-          success_cb(res);
-      }
+      if(success_cb != null)  
+        success_cb(res);
   });
 }
+
 
 
 }

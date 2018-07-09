@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Keyboard } from '@ionic-native/keyboard';
 import { Platform } from 'ionic-angular';
 import {MobileAppSystemBarcodes} from '../../../providers/mobile.app.system.barcodes'
-import {User,PutawayLineDetail} from '../../../providers/user'
+import {User,BarcodeBarcodes} from '../../../providers/user'
 import {AlertService} from '../../../providers/alert.service'
 import {ModalService} from '../../../providers/modal.service'
 import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboard';
@@ -23,11 +23,17 @@ import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboa
 })
 export class BarcodeScreenPage{
 
-  @ViewChild('barCodeInputBox') barCodeInput;
-  productBarCode:string = '';
-  imageUrl :string = '';
+  @ViewChild('cartonBarcodeInputBox') cartonBarcodeInput;
+  @ViewChild('packBarcodeInputBox')   packBarcodeInput;
+  @ViewChild('palletBarcodeInputBox') palletBarcodeInput;
+  @ViewChild('pieceBarcodeInputBox')  pieceBarcodeInput;
 
+  cartonBarcode:string='';
+  packBarcode:string='';
+  palletBarcode:string='';
+  pieceBarcode:string='';
 
+  barCodes:BarcodeBarcodes; 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               private keyboard:Keyboard,
@@ -35,55 +41,38 @@ export class BarcodeScreenPage{
               public mobileAppSystem:MobileAppSystemBarcodes,
               private modalService:ModalService,
               public translateService:TranslateService, public user:User, private alertService:AlertService) {
-    // this.putawayLineDetail = this.user.putwayInfo.putawayLineDetail;
-    // this.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ this.putawayLineDetail.stk_code + '.jpg';
 
+    this.barCodes = this.user.barcodeInfo.barcodes;
     CustomKeyBoard.hide();
     this.timerTick();
-
   }
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ScanProductPage');
+    console.log('ionViewDidLoad BarcodeScreenPage');
   }
+
 
   timerTick()
   {
-    // let svc = this;
-    // setTimeout(() => {
+    let svc = this;
+    setTimeout(() => {
 
-    //   if(this.navCtrl.getActive().id !="PutAwayDestPage"  || this.mobileAppSystem.isBusy()==true)
-    //   {
-    //     this.timerTick();
-    //     return;
-    //   }
+      if(this.navCtrl.getActive().id !="BarcodeScreenPage"  || this.mobileAppSystem.isBusy()==true)
+      {
+        this.timerTick();
+        return;
+      }
 
-    //   let visibleKeypad = CustomKeyBoard.isVisible();            
+      if (svc.platform.is('cordova'))        
+        svc.keyboard.close();
+      svc.timerTick();
+      
+    },100); //a least 150ms.
 
-    //   if (svc.platform.is('cordova'))
-    //    svc.keyboard.close();
-
-    //    if(svc.confirmedPickFocused ==false)
-    //    {
-    //      if(visibleKeypad==false )
-    //      {
-    //        if(svc.barCodeInput._isFocus ==false)
-    //        {
-    //          svc.barCodeInput._readonly = true;
-    //          svc.barCodeInput.setFocus(); 
-    //          setTimeout(() =>{
-    //            svc.barCodeInput._readonly = false;
-    //          }, 40);                 
-    //        }               
-    //      }
-    //   }
-    //   svc.timerTick();
-
-    // },100); //a least 150ms.
   }
 
-  onShowKeyPad()
+  onShowKeyPad0()
   {
     let svc = this;
     if(CustomKeyBoard.isVisible())
@@ -91,37 +80,90 @@ export class BarcodeScreenPage{
     else
     {
       CustomKeyBoard.show();    
-      CustomKeyBoard.setTarget(svc.barCodeInput, function(val:string){
+      CustomKeyBoard.setTarget(svc.pieceBarcodeInput, function(val:string){
       });
     }
   }
+  onShowKeyPad1()
+  {
+    let svc = this;
+    if(CustomKeyBoard.isVisible())
+       CustomKeyBoard.hide();
+    else
+    {
+      CustomKeyBoard.show();    
+      CustomKeyBoard.setTarget(svc.packBarcodeInput, function(val:string){
+      });
+    }
+  }
+  onShowKeyPad2()
+  {
+    let svc = this;
+    if(CustomKeyBoard.isVisible())
+       CustomKeyBoard.hide();
+    else
+    {
+      CustomKeyBoard.show();    
+      CustomKeyBoard.setTarget(svc.cartonBarcodeInput, function(val:string){
+      });
+    }
+  }
+  onShowKeyPad3()
+  {
+    let svc = this;
+    if(CustomKeyBoard.isVisible())
+       CustomKeyBoard.hide();
+    else
+    {
+      CustomKeyBoard.show();    
+      CustomKeyBoard.setTarget(svc.palletBarcodeInput, function(val:string){
+      });
+    }
+  }
+
+
 
   hideKeyboard()
   {    
     CustomKeyBoard.hide();
   }
 
-  onClickBarcode()
+  onClickPieceBarcode()
+  {
+  }
+  onClickPackBarcode()
+  {
+  }
+  onClickCartonBarcode()
+  {    
+  }
+  onClickPalletBarcode()
   {
   }
 
+
   openPage()
   {
-    // let svc = this;
-    // this.mobileAppSystem.putaway_completePutawayLine(svc.putawayLineDetail.task_id, svc.putawayLineDetail.warehouse,
-    //   svc.putawayLineDetail.stk_code, svc.putawayLineDetail.to_bin, svc.putawayLineDetail.putaway_qty,
-    //   svc.productBarCode, Number(svc.confirmedPick), function(res:any){
-    //     if(res==null || res.result==null)return;
-    //     if(res.result.statusCode==200)
-    //     {
-    //       svc.navCtrl.setRoot('PutAwayJobListPage');
-    //     }
-    //     else
-    //     {
-    //         svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(res:any){
-    //         });
-    //     }
-    // });    
+    if(this.cartonBarcode=='' && this.packBarcode=='' && this.palletBarcode=='' && this.pieceBarcode=='')
+      return;
+
+    let svc = this;
+    this.mobileAppSystem.UpdateStockBarcodes('', this.barCodes.stockCode, 
+      this.pieceBarcode, this.packBarcode, this.cartonBarcode, this.palletBarcode, function(res:any){
+
+      if(res==null)return;
+      if(res.status!=200)
+      {
+        if(res.statusMsg != null && res.statusMsg != '')
+          svc.alertService.doAlert('ScanOrderBarcode', res.statusMsg, 'OK');
+        return;
+      }
+
+      svc.alertService.doAlert('Barcodes updated Successfully', '', 'OK').then(function(res:any){
+        svc.navCtrl.setRoot('BarcodeScanBinPage');
+      });
+
+    });    
   }
 
   updateImageUrl(event:any)

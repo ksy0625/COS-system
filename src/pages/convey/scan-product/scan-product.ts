@@ -119,7 +119,7 @@ private setQtyInformation(res:any)
     this.productInfo.description = res.description;
     this.productInfo.img_url =   res.img_url;
     //this.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.stockCode + '.jpg';
-    this.imageUrl = res.img_url;
+    this.imageUrl = res.img_url + '?' + new Date().toISOString();
 
     //
     //res.img_url; //   'style="background-image:'  + res.img_url + ';"';

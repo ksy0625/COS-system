@@ -32,9 +32,11 @@
   "MOVESTOCK_BUTTON": "Move Stock",  
   "BININFO_BUTTON": "Bin Info",
   "BARCODES_BUTTON": "Barcodes",  
+  "REPLENISH_BUTTON": "Replenish",    
 
   "CONFIRM_BUTTON": "Confirm",
   "COMPLETE_BUTTON": "Complete",  
+  "ALLBINS_BUTTON": "All Bins",
   
   "SCANORDER_LABEL" : "To Start, Scan OR Enter Order/Tote Barcode",
   "ZONE_LABEL" : "Zone : ",
@@ -83,9 +85,11 @@
   "DATE_TIME":"Datetime",
   "PUT_AWAY_JOB_LIST_LINES":"#Lines",
   "PUT_AWAY_JOB_LIST_TITLE": "Put­away Job List",
-  "PUT_AWAY_JOB_FOUND_TITLE": "Multiple Put-­away Jobs Found",   
-  "PUT_AWAY_JOB_LIST_DESCR": "Select Job, OR Scan Job, Label or Product Barcode",
-  "PUT_AWAY_JOB_TITLE": "Put­away Job",
+  "PUT_AWAY_JOB_FOUND_TITLE": "Multiple Put-­away Jobs Found",
+  "PUT_AWAY_JOB_LIST_DESCR": "Multiple Jobs, please choose one:",
+
+  "PUT_AWAY_JOB_TITLE": "Put­-away Job",
+  "PUT_AWAY_JOB_DESCR": "Select to proceed:",
   "PUT_AWAY_PALLET_LABEL": "Pallet",  
   "PUT_AWAY_QTY_LABEL": "Putaway Qty",
   "PUT_AWAYS_LABEL": "Putaways",  
@@ -165,6 +169,15 @@
   "QTY_LBL": "To",
 
   "REPLENISH_DEST_TITLE" : "Replenish - Destination Bin",    
+
+  "REPLENISH_SOURCE_TITLE" : "Replenish - Source Bin",
+  "REPLEN_QTY":"Replen Qty",  
+  "DEST_BIN_QTY":"Dest bin Qty",    
+  "REPLENISH_CONFIRM_TITLE": "Replenish - Confirm Replen Qty",
+  "REPENISH_ALL_BIN":  "Replenish - All Bins",
+  "REPENISH_AVAIL":  "Avail",  
+  "REPENISH_SELECT_AS_SOURCE_BIN":  "Select As Source Bin",    
+  
 
   "END": "End"
 }

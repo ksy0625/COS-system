@@ -158,7 +158,7 @@ private getNextProduct()
     {
       svc.productInfo = res.result;
       svc.confirmedPick = String(svc.productInfo.pickQty);
-      svc.imageUrl = svc.productInfo.img_url;
+      svc.imageUrl = svc.productInfo.img_url+ '?' + new Date().toISOString();
       //svc.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.result.stockCode + '.jpg';
       svc.title = svc.titleDefault + " : " + svc.productInfo.countProductScanned + " of " + svc.productInfo.countTotalProducts + " done";
     }

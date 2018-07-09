@@ -133,7 +133,8 @@ export class ReplenishDestPage{
 
   openPage()
   {
-    // let svc = this;
+    let svc = this;
+    svc.navCtrl.push('ReplenishConfirmPage');
     // this.mobileAppSystem.putaway_completePutawayLine(svc.putawayLineDetail.task_id, svc.putawayLineDetail.warehouse,
     //   svc.putawayLineDetail.stk_code, svc.putawayLineDetail.to_bin, svc.putawayLineDetail.putaway_qty,
     //   svc.productBarCode, Number(svc.confirmedPick), function(res:any){

@@ -34,7 +34,7 @@ export class PutAwaySourcePage{
               public translateService:TranslateService, public user:User, private alertService:AlertService) {
 
     this.putawayLineDetail = this.user.putwayInfo.putawayLineDetail;
-    this.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ this.putawayLineDetail.stk_code + '.jpg';
+    this.imageUrl = this.putawayLineDetail.image + '?' + new Date().toISOString(); 
   }
 
   ionViewDidLoad() {
@@ -43,7 +43,7 @@ export class PutAwaySourcePage{
 
   openPage()
   {    
-    this.navCtrl.setRoot('PutAwayDestPage');
+    this.navCtrl.push('PutAwayDestPage');
   }
   updateImageUrl(event:any)
   {

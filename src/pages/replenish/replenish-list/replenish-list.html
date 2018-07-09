@@ -1,9 +1,4 @@
-<!--
-  Generated template for the PlacInTotePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar color="headerColor" >
@@ -19,7 +14,7 @@
 
 <ion-content padding>
 
-	<ion-row>
+	<ion-row >
 		<ion-col col-1 text-right><p>{{'REPENISH_LIST_ISLE_LBL'|translate}}:</p></ion-col>
 		<ion-col col-3 >
 			<ion-input class="border"  text-center placeholder="Enter Isle" #isleInputBox type="text" [value]="isleCode" [(ngModel)]="isleCode"  ng-focus="focus=false" ng-blur="focus=false" name="isleCode" (click)="onClickIsleCode()" (ionFocus)="onClickIsleCode()">
@@ -34,7 +29,7 @@
 			</ion-input>
 		</ion-col>
 
-		<ion-col col-2 text-right>
+		<ion-col col-1 text-right>
 		    <button ion-button color="secondary" (click)="onRefreshList()">
 		      	<ion-icon name="refresh" ></ion-icon>
 		    </button>			
@@ -85,7 +80,7 @@
 
 <ion-footer>
 	<ion-toolbar>
-		<ion-row>
+		<ion-row >
    		    <ion-col col-2 text-right><p>Scan:</p></ion-col>
 			<ion-col col-8 >
 				<ion-input class="border"  text-center placeholder="Barcode" #orderBarCodeInputBox type="text" [value]="barcode" [(ngModel)]="barcode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()" (change)='onChangedProductBarCode($event.target.value)'>

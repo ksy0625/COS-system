@@ -182,6 +182,7 @@ export class PutawayLineDetail{
 }
 
 export class PutawayModel{
+  bEnteredBarcode:boolean = false;
   barcode:string='';
   putawayJobList:PutAwayJobStatus[]=[];
   putawayDetails: PutawayDetail[]=[];
@@ -190,7 +191,32 @@ export class PutawayModel{
   putawayLineDetail:PutawayLineDetail = new PutawayLineDetail();
 }
 
+export class BarcodeBinDetails{
+  binCode:string='';
+  binQuantity:number=0;
+  cartonQuantity:number=0;
+  description:string='';
+  imageUrl:string='';
+  packQuantity:number=0;
+  palletQuantity:number=0;
+  stockCode:string='';
+  uom:string='';
+  warehouse:string='';
+}
 
+export class BarcodeBarcodes{
+  cartonBarcode:string='';
+  description:string='';
+  packBarcode:string='';
+  palletBarcode:string='';
+  pieceBarcode:string='';
+  stockCode:string='';
+}
+
+export class BarcodeModel{
+  binDetails:BarcodeBinDetails = new BarcodeBinDetails();
+  barcodes:BarcodeBarcodes = new BarcodeBarcodes();
+}
 
 
 @Injectable()
@@ -221,6 +247,9 @@ export class User {
   //for putaway  region
   public putwayInfo:PutawayModel;
 
+  //for barcode modul
+  public barcodeInfo: BarcodeModel;
+
   constructor(public http: Http, public api: Api) {
     this.sessionInfo = new SessionInfo();
     this.orderInfo = new OrderModel();
@@ -229,7 +258,9 @@ export class User {
     this.movestockInfo = new MoveStockModel();
     this.binInfo = new BinModel();
     this.putwayInfo = new PutawayModel();
+    this.barcodeInfo = new BarcodeModel();
     this.allowableProductsNotInTote = 0;
+
   }
 
   /**

@@ -96,6 +96,15 @@ export class MyApp {
     { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
   ];
 
+
+  ReplenishPages:PageInterface[] = [
+    { title: 'Home', component: 'HomeScreenPage', active: true},
+    { title: 'Replenish List', component: 'ReplenishListPage', active: true},
+    { title: 'Replenish Source Bin', component: 'ReplenishSourcePage', active: true},    
+    { title: 'About', component: 'AboutPage', active: false},
+    { title: 'Logout', component: 'LoginPage', active: false, logsOut: true}
+  ];
+
   constructor(
     public events: Events,
     public translate: TranslateService, 
@@ -204,6 +213,8 @@ export class MyApp {
       this.menuPages = this.MoveStockPages;
     else if(this.user.workingRegion == 'barcodes')
       this.menuPages = this.BarcodesPages;
+    else if(this.user.workingRegion == 'replenish')
+      this.menuPages = this.ReplenishPages;
   }
 
   listenToEvents() {
@@ -239,6 +250,12 @@ export class MyApp {
       this.enableMenu();
     });    
 
+    this.events.subscribe('replenish:start', () => {
+      this.user.workingRegion = 'replenish';
+      this.enableMenu();
+    });    
+
+
     this.events.subscribe('putaway:start', () => {
       this.user.workingRegion = 'putaway';
       this.enableMenu();
@@ -252,6 +269,8 @@ export class MyApp {
     this.events.subscribe('user:logout', () => {
       this.user.workingRegion = '';
     });
+
+
   
 
 

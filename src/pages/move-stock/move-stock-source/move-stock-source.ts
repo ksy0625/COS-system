@@ -126,7 +126,7 @@ export class MoveStockSourcePage{
       if(res.result.statusCode==200)
       {
         svc.moveStockSourceData = res.result;
-        svc.imageUrl = svc.moveStockSourceData.img_url;
+        svc.imageUrl = svc.moveStockSourceData.img_url+ '?' + new Date().toISOString();
         //svc.imageUrl = 'http://int.cos.net.au/mobileappimages/'+ res.result.stockCode + '.jpg';        
 
         svc.bDataChecked = true;

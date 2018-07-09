@@ -28,7 +28,6 @@ import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboa
 export class PutAwayJobFoundPage {
 
   jobList: PutawayDetail[]=[];
-  selectedBin:string = '';
   selectedJobId:string = '';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -40,6 +39,10 @@ export class PutAwayJobFoundPage {
   			  public user:User) {
 
     this.jobList = this.user.putwayInfo.putawayDetails;
+    if(this.jobList.length==1)
+    {
+      this.onClickRow(this.jobList[0].job_id);
+    }
   }
 
   ionViewDidLoad() {
@@ -50,18 +53,31 @@ export class PutAwayJobFoundPage {
   	// this.navCtrl.setRoot('P2lScan1stlabelPage');
   }
 
-  onClickRow(bincode:string, jobId:string)
+  onClickRow(jobId:string)
   {
-    this.selectedBin = bincode;
     this.selectedJobId = jobId;
-
     let svc = this;
-    this.mobileAppSystem.putaway_getPutawayJobDetails(Number(jobId), function(res:any){
+
+    let jobDetail:PutawayDetail = null;
+
+    for (let jobStatus of this.jobList) {
+      if(jobStatus.job_id == jobId)
+      {
+        jobDetail = jobStatus;
+        break;
+      }        
+    }
+
+    if(jobDetail==null)
+      return;
+
+    this.mobileAppSystem.putaway_getPutawayLineDetails(jobDetail.task_id, jobDetail.warehouse,
+      jobDetail.stk_code,jobDetail.to_bin, function(res:any){
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {
-          svc.user.putwayInfo.putawayDetails1 = res.result.putawayListResponse;
-          svc.navCtrl.setRoot('PutAwayJobPage');
+          svc.user.putwayInfo.putawayLineDetail = res.result;
+          svc.navCtrl.push('PutAwaySourcePage');
         }
         else
         {
@@ -69,6 +85,21 @@ export class PutAwayJobFoundPage {
             });
         }
     });
+    
+
+    // this.mobileAppSystem.putaway_getPutawayJobDetails(Number(jobId), function(res:any){
+    //     if(res==null || res.result==null)return;
+    //     if(res.result.statusCode==200)
+    //     {
+    //       svc.user.putwayInfo.putawayDetails1 = res.result.putawayListResponse;
+    //       svc.navCtrl.push('PutAwayJobPage');
+    //     }
+    //     else
+    //     {
+    //         svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(res:any){
+    //         });
+    //     }
+    // });
         
   }
 

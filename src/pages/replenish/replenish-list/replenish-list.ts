@@ -88,34 +88,41 @@ export class ReplenishListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReplenishListPage');
-    this.onRefreshList();
   }
 
   onRefreshList(){
 
+    let svc = this;
+    if(svc.daysVal=='' || svc.isleCode=='')
+      return;
+
+    this.mobileAppSystem.getReplenList(this.user.sessionInfo.userWarehouse, Number(svc.daysVal),
+      svc.isleCode,  function(res:any){
+        if(res==null)
+          return;
+        if(res.status==200)
+        {
+          //svc.jobList = res.result.putAwayJobs;
+        }
+        else
+        {
+            svc.alertService.doAlert('Error', res.statusMsg, 'OK').then(function(res:any){
+            });
+        }
+    });
+
+/*
     this.replenishList = [
       {stockCode:'st1', from:'AA', to:'BB', qty:80, days:10},
       {stockCode:'st2', from:'AA', to:'BB', qty:80, days:10},
       {stockCode:'st3', from:'AA', to:'BB', qty:80, days:10},
     ];
-    // let svc = this;
-    // this.mobileAppSystem.putaway_getPutawayJobList(this.user.sessionInfo.userWarehouse, function(res:any){
-    //     if(res==null || res.result==null)return;
-    //     if(res.result.statusCode==200)
-    //     {
-    //       svc.jobList = res.result.putAwayJobs;
-    //     }
-    //     else
-    //     {
-    //         svc.alertService.doAlert('Error', res.result.statusMsg, 'OK').then(function(res:any){
-    //         });
-    //     }
-    // });
+*/    
   }
 
   openPage() 
   {
-    // let svc = this;
+    let svc = this;
     // if(this.barcode=='')
     //   return;
 
@@ -134,6 +141,7 @@ export class ReplenishListPage {
     //         });
     //     }
     // });
+    svc.navCtrl.push('ReplenishSourcePage');
   }
 
   onClickRow(stockCode:string)
