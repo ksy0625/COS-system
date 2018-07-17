@@ -94,6 +94,7 @@ export class LinePickOrderPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
+    this.navCtrl.popToRoot();
   }
 
 

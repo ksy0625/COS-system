@@ -65,6 +65,7 @@ export class MoveStockSourcePage{
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MoveStockSourcePage');
+        this.navCtrl.popToRoot();
   }
 
   timerTick()

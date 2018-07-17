@@ -159,6 +159,8 @@ export class MyApp {
 
   openPage(page) {
     let svc = this;
+    let newpage:string = ''; 
+
 
     if(this.user.workingRegion =='convey')
     {
@@ -171,24 +173,31 @@ export class MyApp {
             svc.alertService.doConfirm('Error', res.result.statusMsg, 'OK', 'Cancel').then(function(yes)
             {
               if(yes)
-                svc.nav.setRoot('PlaceInTotePage');
+                newpage = 'PlaceInTotePage';
             });
           }
           else
           {
-            svc.nav.setRoot('ScanOrderPage');
+            newpage = 'ScanOrderPage';
           }
         });   
       }
       else
-        this.nav.setRoot(page.component);
+        newpage = page.component;
     }
     else if(this.user.workingRegion =='p2ljob')
     {
-      this.nav.setRoot(page.component);
+        newpage = page.component;
     }
     else
-      this.nav.setRoot(page.component);
+      newpage = page.component;
+
+    if(newpage !='')
+    {
+      svc.nav.setRoot(newpage).then(()=>{
+        svc.nav.popToRoot();
+      });
+    }
     
     if (page.logsOut === true) {
         this.events.publish('user:logout');

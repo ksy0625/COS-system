@@ -80,6 +80,7 @@ export class PutAwayJobListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Put-Away job list page');
+    this.navCtrl.popToRoot();
     this.onRefreshJobList();
   }
 

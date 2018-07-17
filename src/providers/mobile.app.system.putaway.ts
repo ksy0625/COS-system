@@ -86,7 +86,6 @@ export class MobileAppSystemPutAway {
     res.map(res => res.json()).subscribe(
       res => {        
         console.log(res);
-
         
         this.utilService.hideLoading();
 
@@ -97,7 +96,10 @@ export class MobileAppSystemPutAway {
         }
 
         if(callback != null)
+        {
           callback(result);
+        }
+
       }, 
       err => {
         this.utilService.hideLoading();

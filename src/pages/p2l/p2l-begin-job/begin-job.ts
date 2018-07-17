@@ -80,8 +80,7 @@ export class P2lBeginJobPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad P2lBeginJobPage');
-
-
+    this.navCtrl.popToRoot();
   }
 
   openPage() {

@@ -74,6 +74,7 @@ export class ScanBinPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanBinPage');
+        this.navCtrl.popToRoot();
   }
 
   openPage() {

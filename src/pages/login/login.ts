@@ -47,6 +47,7 @@ export class LoginPage{
         this.aboutData = data;
       });        
     console.log('ionViewDidLoad LoginPage');
+    this.navCtrl.popToRoot();
   }
 
   ionViewDidEnter() {
@@ -71,10 +72,12 @@ export class LoginPage{
         }
         else
         {
-          svc.navCtrl.setRoot('HomeScreenPage');
+          svc.navCtrl.setRoot('HomeScreenPage').then(() => {
+            svc.navCtrl.popToRoot();
+          });
         }
+
       }
-      //svc.navCtrl.setRoot('HomeScreenPage', {}, {animate: true, direction: 'forward'});
     }, true);
 
   }

@@ -83,13 +83,14 @@ export class ScanOrderPage {
           }
         }
       }
-
+      
       this.timerTick();
     },100); //a least 150ms.
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanOrderPage');
+        this.navCtrl.popToRoot();
   }
 
   openPage() {

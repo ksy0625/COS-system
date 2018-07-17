@@ -149,12 +149,11 @@ export class HomeScreenPage {
     this.mobileAppSystemReplenish.setSessionId(this.user.sessionInfo.sessionId); 
     this.mobileAppSystemReplenish.setBaseUrl(this.mobileAppSystem.getBaseUrlNewScheme() + 'ops/Replenish/');
 
-    //for test . init.    
-    //this.mobileAppSystemP2L.deAllocateJob(this.user.sessionInfo.userWarehouse, 151398503);
 
-//    console.log(this.input1);
     this.events.publish('home:entered'); 
     this.user.orderInfo.zone = '';
+
+    this.navCtrl.popToRoot();
   }
 
   ionViewDidEnter() {

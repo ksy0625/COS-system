@@ -70,6 +70,7 @@ export class BarcodeScanBinPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BarcodeScanBinPage');
+    this.navCtrl.popToRoot();
   }
 
   openPage() {

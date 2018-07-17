@@ -88,6 +88,7 @@ export class ReplenishListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReplenishListPage');
+        this.navCtrl.popToRoot();
   }
 
   onRefreshList(){

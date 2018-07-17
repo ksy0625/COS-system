@@ -15,8 +15,8 @@ import { CacheService } from "ionic-cache";
 export class MobileAppSystem {
 
   private requestConveyorCounter:number;  
-  //private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
-  //private baseUrlNewScheme: string = 'http://inttest.cos.net.au/';
+  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
+  private baseUrlNewScheme: string = 'http://inttest.cos.net.au/';
 
   //private baseUrl: string = 'http://int.cos.net.au/ProcessRequest';
   //private baseUrlNewScheme: string = 'http://int.cos.net.au/';
@@ -24,9 +24,8 @@ export class MobileAppSystem {
   //private baseUrl: string = 'http://staging.cos.net.au/ProcessRequest';
   //private baseUrlNewScheme: string = 'http://staging.cos.net.au/';
 
-  private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';
-  private baseUrlNewScheme: string = 'http://beta.cos.net.au/';
-  
+  //private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';
+  //private baseUrlNewScheme: string = 'http://beta.cos.net.au/';  
   
   private sessionId:string;
   private notificationConnectionId:string;
@@ -80,7 +79,6 @@ export class MobileAppSystem {
     };
 
     console.log(model);
-
     //let body = { id: JSON.stringify(model)}; 
    let bodyj = JSON.stringify(model); 
    let body = new FormData();
@@ -88,8 +86,12 @@ export class MobileAppSystem {
 
 
     this.utilService.presentLoading();
-
     let res = this.http.post(this.baseUrl, body);
+
+    model = null;
+    bodyj = null;
+    body = null;
+
     res.map(res => res.json()).subscribe(
       res => {        
         console.log(res);
@@ -105,6 +107,9 @@ export class MobileAppSystem {
 
         if(callback != null)
           callback(result);
+
+        result = null;
+        res = null;
       }, 
       err => {
         this.utilService.hideLoading();
