@@ -19,8 +19,15 @@
 		<ion-col col-1>	<p>Lines:</p></ion-col>
 		<ion-col col-1>	<span>{{jobStatus.lines}}</span></ion-col>
 	</ion-row>	
-	<ion-row class="info-head">
-		<p> {{ 'PUT_AWAY_JOB_DESCR' |  translate  }} </p>
+	<ion-row class="info-head">		
+			<ion-col col-6><p> {{ 'PUT_AWAY_JOB_DESCR' |  translate  }} </p></ion-col>
+			<ion-col col-5 >
+				<ion-input class="border"  style="margin-top:-4px; height: 30px;" text-center placeholder="Product Barcode" #productBarCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()" (change)='onChangedProductBarCode($event.target.value)'>
+				</ion-input>
+			</ion-col>
+	      	<ion-col col-1>
+				<ion-icon color="primary" name="keypad" (click)="onShowKeyPad()"> </ion-icon>
+	      	</ion-col>						
 	</ion-row>
 
 	<ion-grid>
@@ -39,7 +46,7 @@
 			</ion-col>
 		</ion-row>
 		
-		<ion-row *ngFor="let job of jobList" (click)="onClickRow(job.job_id, job.to_bin)">
+		<ion-row *ngFor="let job of jobList" (click)="onClickRow(job.to_bin)">
 			<ion-col col-3>
 				<div [class]="selectedBIN==job.to_bin? 'selectedRow':''"> {{job.stk_code}} </div>
 			</ion-col>

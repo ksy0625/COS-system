@@ -35,7 +35,7 @@ export class P2lBeginJobPage {
   //   this.p2lBarCode += event.code;
   // }
 
-
+  didUnload:boolean = false;
   public p2lBarCode:string = '';
   constructor(
     public navCtrl: NavController, 
@@ -47,12 +47,11 @@ export class P2lBeginJobPage {
   {
 
     this.p2lBarCode = '';
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
   timerTick()
   {
+    if(this.didUnload)return;
     let svc = this;
     setTimeout(() => {
       if(this.navCtrl.getActive().id =="P2lBeginJobPage" && this.mobileAppSystem.isBusy()==false)
@@ -80,8 +79,17 @@ export class P2lBeginJobPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad P2lBeginJobPage');
-    this.navCtrl.popToRoot();
   }
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }    
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }     
 
   openPage() {
 

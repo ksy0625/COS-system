@@ -30,6 +30,7 @@ import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboa
 export class LinePickJobPage {
 @ViewChild('lineBarCodeInputBox') lineBarCodeInput ;  
 
+  didUnload:boolean = false;
   // @HostListener('document:keyup', ['$event'])
   // handleKeyboardEvent(event: KeyboardEvent) { 
   //   this.p2lBarCode += event.code;
@@ -47,12 +48,13 @@ export class LinePickJobPage {
   {
 
     this.lineBarCode = '';
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
   timerTick()
   {
+    if(this.didUnload==true)
+      return;
+
     let svc = this;
     setTimeout(() => {
       if(this.navCtrl.getActive().id =="LinePickJobPage" && this.mobileAppSystem.isBusy()==false)
@@ -80,9 +82,20 @@ export class LinePickJobPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LinePickJobPage');
-
-
+    this.didUnload=false;
   }
+
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
+  
+  ionViewWillLeave()
+  {
+    this.didUnload=true;
+  }  
 
   openPage() {
 

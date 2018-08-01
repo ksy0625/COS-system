@@ -64,6 +64,8 @@ export class LinePickOrderPage {
   private surplusBins: SurplusBin[]=[];
   private imageUrl:string = '';
 
+  didUnload:boolean = false;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               private keyboard:Keyboard,
@@ -87,15 +89,23 @@ export class LinePickOrderPage {
     this.confirmedPick = String(this.productInfo.pickQty);
     this.title = this.titleDefault + " : " + this.productInfo.countOrdersPicked + " of " + svc.productInfo.countTotalOrders + " done";
 
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ScanProductPage');
-    this.navCtrl.popToRoot();
+    console.log('ionViewDidLoad LinePickOrderPage');    
   }
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }  
+
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
 
 
 private getNextOrderToPick()

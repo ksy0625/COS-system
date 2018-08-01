@@ -55,6 +55,10 @@ export class ReplenishConfirmPage{
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
+  ionViewWillLeave()
+  {
+  }     
+
 
   timerTick()
   {

@@ -29,6 +29,7 @@ export class ScanBinPage {
   public zoneCodes:string[];
   public zoneCode:string = '';
   public orderBarCode:string = '';
+  didUnload:boolean = false;
 
 
   constructor(
@@ -40,12 +41,11 @@ export class ScanBinPage {
     private alertService:AlertService) 
   {
 
-    CustomKeyBoard.hide();
-    this.timerTick();    
   }
 
   timerTick()
   {
+    if(this.didUnload)return;
     setTimeout(() => {
       if(this.navCtrl.getActive().id == "ScanBinPage" && this.mobileAppSystem.isBusy()==false)
       {
@@ -74,8 +74,20 @@ export class ScanBinPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanBinPage');
-        this.navCtrl.popToRoot();
   }
+
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
+  
+  ionViewWillLeave()
+  {
+    this.zoneCodes = [];
+    this.didUnload = true;
+  }  
 
   openPage() {
 

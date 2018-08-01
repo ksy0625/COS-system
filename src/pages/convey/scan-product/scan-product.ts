@@ -67,6 +67,8 @@ export class ScanProductPage {
   private completed:string = 'N';  
   private imageUrl:string = '';
 
+  didUnload:boolean = false;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               private keyboard:Keyboard,
@@ -88,16 +90,23 @@ export class ScanProductPage {
         svc.title = value + " : " + svc.user.orderInfo.countProductScaned + " of " + svc.user.orderInfo.countTotalProducts + " done";
       }
     ); 
-
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
-
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
+  
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }   
 
   openPage() {
     this.scanStarted = false;
@@ -554,6 +563,8 @@ startScanBarcode1(ackStr:string)
 
   timerTick()
   {
+    if(this.didUnload)return;
+    
     let svc = this;
     setTimeout(() => {
 

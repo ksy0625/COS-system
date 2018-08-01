@@ -40,6 +40,9 @@ export class BarcodeBinDetailsPage{
   ionViewDidLoad() {
     console.log('ionViewDidLoad BarcodeBinDetailsPage');
   }
+  ionViewWillLeave()
+  {
+  }  
 
   openPage()
   {    

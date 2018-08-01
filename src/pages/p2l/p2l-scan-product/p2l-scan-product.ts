@@ -61,6 +61,7 @@ export class P2lScanProductPage {
   private bValidateProductCode :boolean = false;
   private labelOfScanBarcode:string = 'Scan Product';
   private imageUrl:string = '';
+  didUnload:boolean = false;
 
 
   constructor(public navCtrl: NavController, 
@@ -84,15 +85,22 @@ export class P2lScanProductPage {
 
     //init display
     this.getNextProduct();
-
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }    
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }     
 
 
 private getNextProduct()
@@ -420,6 +428,7 @@ onChangedProductBarCode(val:any)
 
   timerTick()
   {
+    if(this.didUnload)return;
     let svc = this;
     setTimeout(() => {
 

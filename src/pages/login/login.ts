@@ -62,7 +62,7 @@ export class LoginPage{
         svc.alertService.doAlert('', res.result.statusMsg, 'OK');
       }
       else
-      {
+      {        
         svc.user.sessionInfo = res.result.loginResult;
         svc.user.sessionInfo.modules = res.result.modules;
         if(svc.user.sessionInfo.modules==null || svc.user.sessionInfo.modules.length==0 

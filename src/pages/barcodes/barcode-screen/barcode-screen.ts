@@ -32,6 +32,7 @@ export class BarcodeScreenPage{
   packBarcode:string='';
   palletBarcode:string='';
   pieceBarcode:string='';
+  didUnload:boolean = false;
 
   barCodes:BarcodeBarcodes; 
   constructor(public navCtrl: NavController, 
@@ -43,18 +44,28 @@ export class BarcodeScreenPage{
               public translateService:TranslateService, public user:User, private alertService:AlertService) {
 
     this.barCodes = this.user.barcodeInfo.barcodes;
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BarcodeScreenPage');
   }
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }    
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }  
 
 
   timerTick()
   {
+    if(this.didUnload)return;
+    
     let svc = this;
     setTimeout(() => {
 

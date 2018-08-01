@@ -15,7 +15,8 @@
 		    <ion-col col-3><span>{{putawayLineDetail.to_bin}}</span></ion-col>
 		    <ion-col col-2 text-right><p>{{'PUT_AWAY_SCAN_DEST'|translate }}:</p></ion-col>
 	      	<ion-col col-4>
-				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()">
+				<ion-input class="border"  text-center placeholder="Barcode" #barCodeInputBox type="text" [value]="productBarCode" [(ngModel)]="productBarCode"  ng-focus="focus=false" ng-blur="focus=false" name="productBarCode" (click)="onClickBarcode()" (ionFocus)="onClickBarcode()"
+				(change)='onChangedProductBarcode($event.target.value)'>
 				</ion-input>				
 	      	</ion-col>
 	      	<ion-col col-1>

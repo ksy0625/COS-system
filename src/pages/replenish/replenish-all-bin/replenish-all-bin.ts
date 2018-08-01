@@ -90,6 +90,10 @@ export class ReplenishAllBinPage {
     console.log('ionViewDidLoad ReplenishListPage');
     this.onRefreshList();
   }
+  ionViewWillLeave()
+  {
+    this.replenishList = [] ;   
+  }     
 
   onRefreshList(){
 

@@ -45,13 +45,15 @@ export class BinDetailesPage {
     this.imageUrl =    this.binDetailes.stkImage+ '?' + new Date().toISOString();
     //this.imageUrl =  'http://int.cos.net.au/mobileappimages/'+ this.binDetailes.stockCode + '.jpg';
 
-    CustomKeyBoard.hide();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
+  ionViewWillLeave()
+  {
+  }  
 
 
   openPage() {

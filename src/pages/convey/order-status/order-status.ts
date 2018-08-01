@@ -33,10 +33,9 @@ export class OrderStatusPage {
 
   orderedProducts: OrderedProduct[] = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
-  		public mobileAppSystem:MobileAppSystem,
-      
-  	    public user:User
-  	) {
+  		public mobileAppSystem:MobileAppSystem,      
+  	  public user:User) 
+  {
   }
 
   ionViewDidLoad() {
@@ -49,6 +48,12 @@ export class OrderStatusPage {
 		svc.orderedProducts = res.result.productList;
 	});
   }
+
+  ionViewWillLeave()
+  {
+    this.orderedProducts = [];
+  }  
+
 
 
   onGotoHome()

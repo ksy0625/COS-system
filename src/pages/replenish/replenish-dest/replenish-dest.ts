@@ -55,6 +55,11 @@ export class ReplenishDestPage{
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
+  ionViewWillLeave()
+  {
+
+  }     
+
 
   timerTick()
   {

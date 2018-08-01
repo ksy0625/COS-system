@@ -26,8 +26,9 @@ export class PromptModalPage {
   icon:string;
   placeholder:string;
   promptVal:string;
-
   dismissed:boolean = false;
+
+  didUnload:boolean = false;
 
   constructor(public viewCtrl: ViewController, 
         private platform: Platform,
@@ -53,6 +54,14 @@ export class PromptModalPage {
     this.m_main_cols = this.range(0, this.m_main_column_nb - 1, 1);                     
     this.timerTick();
   }
+
+
+  ionViewDidLoad() {
+  }
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }   
 
   private range(min, max, step)
   {
@@ -91,6 +100,8 @@ export class PromptModalPage {
 
   timerTick()
   {
+    if(this.didUnload)return;
+    
     let svc = this;
     setTimeout(() => {
 

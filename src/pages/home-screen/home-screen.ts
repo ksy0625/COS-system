@@ -84,8 +84,7 @@ export class HomeScreenPage {
     else
      modules =  this.user.sessionInfo.modules;
 
-     console.log(modules);
-
+    console.log(modules);
     for(let alias of modules)
     {
       let newModule:module = new module();
@@ -104,6 +103,8 @@ export class HomeScreenPage {
         row = new row_def();
       }
     }
+    modules = [];
+
 
     if(row.modules.length > 0)
     {
@@ -118,11 +119,21 @@ export class HomeScreenPage {
           row.modules.push(newModule);
         }
       }      
-      this.rows.push(row);
+      this.rows.push(row);      
     }
-
     //console.log(this.rows);
+  }
 
+  ionViewWillLeave()
+  {
+    console.log("ionViewWillLeave homePage");    
+    for(let iRow = 0; iRow < this.rows.length; iRow++)
+    {
+      for(let iModule = 0; iModule < this.rows[iRow].modules.length; iModule++)
+        delete this.rows[iRow].modules[iModule];
+      delete this.rows[iRow];
+    }
+    this.rows = [];
   }
 
   ionViewDidLoad() {
@@ -152,8 +163,16 @@ export class HomeScreenPage {
 
     this.events.publish('home:entered'); 
     this.user.orderInfo.zone = '';
-
     this.navCtrl.popToRoot();
+
+    //clear use's data
+    this.user.orderInfo.clear();
+    this.user.p2linfo.clear();
+    this.user.lineinfo.clear();
+    this.user.movestockInfo.clear();
+    this.user.binInfo.clear();
+    this.user.putwayInfo.clear();
+    this.user.barcodeInfo.clear();
   }
 
   ionViewDidEnter() {
@@ -164,16 +183,6 @@ export class HomeScreenPage {
 
   openModule(alias:string)
   {
-
-
-    let titles = {'binfo':'Bin Info', 
-              'convpick':'Conveyor Pick', 
-              'movstk':'Move Stock', 
-              'p2l':'P2L Bulk', 
-              'putway':'Put-Away', 
-              'sinlin':'1 Liner  Pick',
-              'barcode':'Barcodes',
-              'replen':'Replenish'};
 
     if(alias=='binfo')
     {

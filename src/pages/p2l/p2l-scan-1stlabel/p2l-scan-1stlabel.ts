@@ -43,6 +43,7 @@ export class P2lScan1stlabelPage {
   private titleDefault :string; 
   private title :string;
   private productInfo: ProductInfo;
+  didUnload:boolean = false;
 
 
   constructor(public navCtrl: NavController, 
@@ -65,15 +66,23 @@ export class P2lScan1stlabelPage {
 
     //init display
     this.getNext1stLabel();
-
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
+  
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }     
 
 
 private getNext1stLabel()
@@ -112,6 +121,7 @@ onChangedProductBarCode(val:any)
 
   timerTick()
   {
+    if(this.didUnload)return;
     let svc = this;
     setTimeout(() => {
 

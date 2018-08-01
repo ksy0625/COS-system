@@ -53,6 +53,11 @@ export class LineJobInProgressPage {
     );    
   }
 
+  ionViewWillLeave()
+  {
+    this.productList=[];
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad P2L Outstanding Jobs page');
     this.onRefreshJobList();

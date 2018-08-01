@@ -52,6 +52,8 @@ export class MoveStockDestPage{
   private maxQtyInputfocused:boolean = false;    
   private imageUrl:string = '';
 
+  didUnload:boolean = false;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams, 
               private keyboard:Keyboard,
@@ -64,11 +66,11 @@ export class MoveStockDestPage{
     this.sourceQty = this.user.movestockInfo.sourceBinQty;
     this.imageUrl   =  this.user.movestockInfo.sourceBinImage+ '?' + new Date().toISOString();
     //this.imageUrl   =  'http://int.cos.net.au/mobileappimages/'+ this.user.movestockInfo.sourceStockCode + '.jpg';    
-    this.timerTick();
   }
 
   timerTick()
   {
+    if(this.didUnload)return;
     let svc = this;
     setTimeout(() => {
       if(this.navCtrl.getActive().id !="MoveStockDestPage"  || this.mobileAppSystem.isBusy()==true)
@@ -186,6 +188,16 @@ export class MoveStockDestPage{
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }    
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }     
 
   openPage()
   {    

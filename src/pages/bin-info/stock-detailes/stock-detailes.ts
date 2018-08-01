@@ -88,6 +88,11 @@ export class StockDetailesPage {
     console.log('ionViewDidLoad StockDetailesPage');
   }
 
+  ionViewWillLeave()
+  {
+  }  
+
+
 
   openPage() {
     this.navCtrl.setRoot('');

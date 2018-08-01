@@ -56,6 +56,10 @@ export class P2lJobInProgressPage {
     console.log('ionViewDidLoad P2L Outstanding Jobs page');
     this.onRefreshJobList();
   }
+  ionViewWillLeave()
+  {
+    this.productList = [];
+  }     
 
   onRefreshJobList(){
     let svc = this;

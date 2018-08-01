@@ -40,7 +40,9 @@ export class PutAwaySourcePage{
   ionViewDidLoad() {
     console.log('ionViewDidLoad PutAwaySourcePage');
   }
-
+  ionViewWillLeave()
+  {
+  }   
   openPage()
   {    
     this.navCtrl.push('PutAwayDestPage');

@@ -44,6 +44,10 @@ export class ReplenishSourcePage{
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
+  ionViewWillLeave()
+  {    
+  }     
+
 
   timerTick()
   {

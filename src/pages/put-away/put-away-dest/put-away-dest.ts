@@ -32,6 +32,7 @@ export class PutAwayDestPage{
   putawayLineDetail:PutawayLineDetail;
   imageUrl :string = '';
   confirmedPickFocused:boolean = false;
+  didUnload:boolean = false;
 
   private chk0:boolean=false;
   private chk1:boolean=false;
@@ -45,18 +46,27 @@ export class PutAwayDestPage{
     this.putawayLineDetail = this.user.putwayInfo.putawayLineDetail;
     this.imageUrl = this.putawayLineDetail.image + '?' + new Date().toISOString();
 
-    CustomKeyBoard.hide();
-    this.timerTick();
-
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanProductPage');
   }
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
+  
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }   
 
   timerTick()
   {
+    if(this.didUnload)return;
     let svc = this;
     setTimeout(() => {
 
@@ -71,19 +81,19 @@ export class PutAwayDestPage{
       if (svc.platform.is('cordova'))
        svc.keyboard.close();
 
-       if(svc.confirmedPickFocused ==false)
-       {
-         if(visibleKeypad==false )
-         {
-           if(svc.barCodeInput._isFocus ==false)
-           {
+      if(svc.confirmedPickFocused ==false)
+      {
+        if(visibleKeypad==false )
+        {
+          if(svc.barCodeInput._isFocus ==false)
+          {
              svc.barCodeInput._readonly = true;
              svc.barCodeInput.setFocus(); 
              setTimeout(() =>{
                svc.barCodeInput._readonly = false;
-             }, 40);                 
-           }               
-         }
+            }, 40);                 
+          }               
+        }
       }
       svc.timerTick();
 
@@ -99,6 +109,9 @@ export class PutAwayDestPage{
     {
       CustomKeyBoard.show();    
       CustomKeyBoard.setTarget(svc.barCodeInput, function(val:string){
+        setTimeout(() =>{
+          svc.onChangedProductBarcode(svc.productBarCode);    
+        }, 200);
       });
     }
   }
@@ -119,7 +132,15 @@ export class PutAwayDestPage{
       svc.confirmedPick = val;
       svc.confirmedPickFocused = false;
     });
-  }  
+  }
+
+  onChangedProductBarcode(val:string)  
+  {
+      if(val !='' && Number(this.confirmedPick)==0)
+      {
+        this.onConfirmQtyFocused();
+      }
+  }
 
   onClickBarcode()
   {
@@ -146,7 +167,7 @@ export class PutAwayDestPage{
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {
-            svc.alertService.doAlert('', 'Putaway Successfully Completed', 'OK').then(function(res:any){
+            svc.alertService.doAlertWithtimeOut('', 'Putaway Successfully Completed', 3000).then(function(res:any){
               svc.navCtrl.setRoot('PutAwayJobListPage');
             });
         }

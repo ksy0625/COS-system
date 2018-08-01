@@ -30,6 +30,7 @@ export class ScanOrderPage {
   public zoneCodes:string[];
   public zoneCode:string = '';
   public orderBarCode:string = '';
+  didUnload:boolean = false;
 
 
   constructor(
@@ -55,13 +56,12 @@ export class ScanOrderPage {
       svc.zoneCodes = res.result.pickZonesList; 
       svc.zoneCode = svc.user.orderInfo.zone;
     });
-
-    CustomKeyBoard.hide();
-    this.timerTick();    
   }
 
   timerTick()
   {
+    if(this.didUnload)return;
+    
     setTimeout(() => {
       if(this.navCtrl.getActive().id == "ScanOrderPage" && this.mobileAppSystem.isBusy()==false)
       {
@@ -90,8 +90,20 @@ export class ScanOrderPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ScanOrderPage');
-        this.navCtrl.popToRoot();
   }
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
+  
+  ionViewWillLeave()
+  {
+    this.zoneCodes = [];
+    this.didUnload = true;
+  }   
+
 
   openPage() {
 

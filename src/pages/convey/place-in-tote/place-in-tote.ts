@@ -40,6 +40,7 @@ export class PlaceInTotePage {
 
   productOrderList:ProductOrder[] = [];
   toteBarcode:string = '';  
+  didUnload:boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
           private platform: Platform,
@@ -51,8 +52,6 @@ export class PlaceInTotePage {
     //user.hasTotes = 'Y';
     if(this.user.orderInfo.toteNumber)
   	  this.toteBarcode = this.user.orderInfo.toteNumber;
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
 
@@ -67,6 +66,19 @@ export class PlaceInTotePage {
     	svc.selectToteBarcodeInput();
     });
   }
+
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
+
+  ionViewWillLeave()
+  {
+    this.productOrderList = [];
+    this.didUnload = true;
+  }   
 
   openPage() {
 
@@ -186,6 +198,8 @@ export class PlaceInTotePage {
 
   timerTick()
   {
+    if(this.didUnload)return;
+    
     let svc = this;
     setTimeout(() => {
       if(this.navCtrl.getActive().id !="PlaceInTotePage" ||  this.mobileAppSystem.isBusy()==true)

@@ -26,7 +26,9 @@ import { CustomKeyBoard } from '../../../components/customKeyBoard/custom-keyboa
 
 export class BarcodeScanBinPage {
 @ViewChild('orderBarCodeInputBox') orderBarCodeInput ;
-@ViewChild('zoneSelector') zoneSelector;  
+@ViewChild('zoneSelector') zoneSelector; 
+
+didUnload:boolean = false; 
   
   public orderBarCode:string = '';
 
@@ -39,13 +41,12 @@ export class BarcodeScanBinPage {
     private alertService:AlertService) 
   {
 
-    this.orderBarCode = '';
-    CustomKeyBoard.hide();
-    this.timerTick();    
+    this.orderBarCode = ''; 
   }
 
   timerTick()
   {
+    if(this.didUnload)return;
     setTimeout(() => {
       if(this.navCtrl.getActive().id == "BarcodeScanBinPage" && this.mobileAppSystem.isBusy()==false)
       {
@@ -70,8 +71,19 @@ export class BarcodeScanBinPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BarcodeScanBinPage');
-    this.navCtrl.popToRoot();
   }
+
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }  
+
+  ionViewWillLeave()
+  {
+    this.didUnload = true;   
+  }  
 
   openPage() {
     let svc = this;

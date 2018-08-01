@@ -29,6 +29,8 @@ export class LineProcessJobPage {
   private productBarcode:string=''; 
   @ViewChild('productBarCodeInputBox') productBarCodeInput ;
 
+  didUnload:boolean = false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
           private platform: Platform,
   			  public mobileAppSystem:MobileAppSystem1Line,
@@ -44,10 +46,6 @@ export class LineProcessJobPage {
         svc.title = value + String(user.lineinfo.jobID);
       }
     ); 
-
-
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
 
@@ -55,6 +53,18 @@ export class LineProcessJobPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LineProcessJobPage');
   }
+
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }
+
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }  
 
 private inputBinLocationCode()
 {
@@ -124,6 +134,8 @@ private inputBinLocationCode()
   timerTick()
   {
     let svc = this;
+    if(this.didUnload) return;
+
     setTimeout(() => {
       if(this.navCtrl.getActive().id !="LineProcessJobPage" ||  this.mobileAppSystem.isBusy()==true || this.bBinLocationScaning==true)
       {

@@ -15,8 +15,8 @@ import { CacheService } from "ionic-cache";
 export class MobileAppSystem {
 
   private requestConveyorCounter:number;  
-  private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
-  private baseUrlNewScheme: string = 'http://inttest.cos.net.au/';
+  //private baseUrl: string = 'http://inttest.cos.net.au/ProcessRequest';
+  //private baseUrlNewScheme: string = 'http://inttest.cos.net.au/';
 
   //private baseUrl: string = 'http://int.cos.net.au/ProcessRequest';
   //private baseUrlNewScheme: string = 'http://int.cos.net.au/';
@@ -24,8 +24,10 @@ export class MobileAppSystem {
   //private baseUrl: string = 'http://staging.cos.net.au/ProcessRequest';
   //private baseUrlNewScheme: string = 'http://staging.cos.net.au/';
 
-  //private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';
-  //private baseUrlNewScheme: string = 'http://beta.cos.net.au/';  
+  private baseUrl: string = 'http://beta.cos.net.au/ProcessRequest';
+  private baseUrlNewScheme: string = 'http://beta.cos.net.au/';
+
+  
   
   private sessionId:string;
   private notificationConnectionId:string;

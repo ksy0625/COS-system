@@ -40,6 +40,9 @@ page-put-away-job {
 	.border{
 		border:1px solid #d0d6df; 		
  	}
+ 	.border .text-input-md {
+   		margin: 8px !important;
+ 	} 	
 
 
 	ion-grid ion-col div.highPrio-selectedRow{

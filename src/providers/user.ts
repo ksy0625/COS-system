@@ -110,6 +110,7 @@ export class LineModel{
   productBins: ProductBin[] = [];
 
   public clear():void{
+    this.productBins = [];
   }
 }
 
@@ -142,6 +143,8 @@ export class BinDetailes{
 
 export class BinModel{
   binDetailes: BinDetailes= new  BinDetailes();
+  public clear():void{
+  }  
 }
 
 
@@ -189,6 +192,11 @@ export class PutawayModel{
   putawayDetails1: PutawayDetail[]=[];
   putAwayJobStatus:PutAwayJobStatus = new PutAwayJobStatus(); 
   putawayLineDetail:PutawayLineDetail = new PutawayLineDetail();
+  public clear():void{
+    this.putawayJobList = [];
+    this.putawayDetails = [];
+    this.putawayDetails1 = [];
+  }
 }
 
 export class BarcodeBinDetails{
@@ -216,6 +224,8 @@ export class BarcodeBarcodes{
 export class BarcodeModel{
   binDetails:BarcodeBinDetails = new BarcodeBinDetails();
   barcodes:BarcodeBarcodes = new BarcodeBarcodes();
+  public clear():void{
+  }  
 }
 
 

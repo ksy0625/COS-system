@@ -48,6 +48,10 @@ export class PutAwayJobFoundPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad Put-Away job list page');
   }
+  ionViewWillLeave()
+  {
+    //this.jobList = [];
+  }     
 
   openPage() {
   	// this.navCtrl.setRoot('P2lScan1stlabelPage');

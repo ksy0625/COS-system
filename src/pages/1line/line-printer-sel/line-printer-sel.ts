@@ -19,6 +19,7 @@ export class LinePrinterSelModalPage {
 
   @ViewChild('promptInputBox') promptInput ;
 
+  didUnload:boolean = false;
   bShowKb:boolean = false;
   m_main_column_nb:number = 9;
   m_main_rows:any;
@@ -61,12 +62,25 @@ export class LinePrinterSelModalPage {
 
     this.m_main_rows = this.range(0, (this.keysTab.length - 1), this.m_main_column_nb);
     this.m_main_cols = this.range(0, this.m_main_column_nb - 1, 1);    
-
-    this.timerTick();                 
+           
   }
 
-  private range(min, max, step)
+  ionViewDidLoad() {
+  }
+
+  ionViewWillEnter()
   {
+    this.didUnload = false;
+    this.timerTick();
+  }  
+
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }    
+
+  private range(min, max, step)
+  {    
       step = step || 1;
       var tab = [];
       for (var i = min; i <= max; i += step) {
@@ -102,6 +116,8 @@ export class LinePrinterSelModalPage {
 
   timerTick()
   {
+    if(this.didUnload==true)return;
+    
     let svc = this;
     setTimeout(() => {
 

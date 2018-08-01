@@ -48,6 +48,7 @@ export class MoveStockSourcePage{
   putaways:string='';
   replens:string='';
   sos:string='';
+  didUnload:boolean = false;
 
   private imageUrl:string='';
 
@@ -58,18 +59,26 @@ export class MoveStockSourcePage{
               public mobileAppSystem:MobileAppSystemMoveStock,
               private modalService:ModalService,
               public translateService:TranslateService, public user:User, private alertService:AlertService) {
-
-    this.timerTick();
   }
 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MoveStockSourcePage');
-        this.navCtrl.popToRoot();
   }
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }    
+  ionViewWillLeave()
+  {
+    this.didUnload = true;
+  }     
 
   timerTick()
   {
+    if(this.didUnload)return;
     let svc = this;
     setTimeout(() => {
       if(this.navCtrl.getActive().id !="MoveStockSourcePage"  || this.mobileAppSystem.isBusy()==true)

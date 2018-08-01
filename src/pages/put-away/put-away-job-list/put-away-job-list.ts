@@ -31,6 +31,7 @@ export class PutAwayJobListPage {
   barcode:string='';
   jobList: PutAwayJobStatus[]=[];
   selectedJobID:string = '';
+  didUnload:boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
   			  public mobileAppSystem:MobileAppSystemPutAway,
@@ -42,13 +43,12 @@ export class PutAwayJobListPage {
   			  public user:User) {
 
     this.user.putwayInfo.putAwayJobStatus = new PutAwayJobStatus();
-
-    CustomKeyBoard.hide();
-    this.timerTick();
   }
 
   timerTick()
   {
+    if(this.didUnload)return;
+
     let svc = this;
     setTimeout(() => {
 
@@ -80,9 +80,23 @@ export class PutAwayJobListPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad Put-Away job list page');
-    this.navCtrl.popToRoot();
     this.onRefreshJobList();
   }
+
+  ionViewWillEnter()
+  {
+    this.didUnload = false;
+    CustomKeyBoard.hide();
+    this.timerTick();
+  }
+
+
+  ionViewWillLeave()
+  {
+    console.log('ionViewWillLeave Put-Away job list page');
+    //this.jobList = [];
+    this.didUnload = true;
+  }     
 
   onRefreshJobList(){
     let svc = this;
