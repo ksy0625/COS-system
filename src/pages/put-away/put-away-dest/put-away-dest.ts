@@ -162,8 +162,8 @@ export class PutAwayDestPage{
     }
 
     this.mobileAppSystem.putaway_completePutawayLine(svc.putawayLineDetail.task_id, svc.putawayLineDetail.warehouse,
-      svc.putawayLineDetail.stk_code, svc.putawayLineDetail.to_bin, svc.putawayLineDetail.putaway_qty,
-      svc.productBarCode, Number(svc.confirmedPick), function(res:any){
+      svc.putawayLineDetail.stk_code, svc.putawayLineDetail.to_bin, Number(svc.confirmedPick),
+      svc.productBarCode, 0, function(res:any){
         if(res==null || res.result==null)return;
         if(res.result.statusCode==200)
         {
