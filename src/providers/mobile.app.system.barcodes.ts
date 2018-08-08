@@ -4,7 +4,6 @@ import { Headers, Http, RequestOptions, RequestMethod, RequestOptionsArgs} from 
 import 'rxjs/add/operator/map';
 import { AlertService} from './alert.service';
 import {UtilService} from './util.service'
-import { CacheService } from "ionic-cache";
 
 /*
   Generated class for the CoreProvider provider.
@@ -22,7 +21,6 @@ export class MobileAppSystemBarcodes {
 
   public constructor(public http: Http,
     private alertService:AlertService,
-    private cache:CacheService,
     private utilService:UtilService) 
   {
     console.log('Hello CoreService Provider');
@@ -55,7 +53,6 @@ export class MobileAppSystemBarcodes {
   private _doServerSideOp (command:string, requests:any, checkForErrors:boolean, isArrayRequest:boolean, callback:(result:any) => void): void 
   {
 
-    this.cache.clearAll();
     this.utilService.presentLoading();
 
     console.log(this.baseUrl + command);    

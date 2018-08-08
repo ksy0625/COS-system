@@ -8,7 +8,6 @@ import { MODULES, PROVIDERS } from './app.imports';
 import { Http } from '@angular/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { CacheModule } from "ionic-cache";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -20,7 +19,6 @@ export function HttpLoaderFactory(http: Http) {
     MyApp,
   ],
   imports: [
-    CacheModule.forRoot(),
     MODULES,
     IonicModule.forRoot(MyApp),
     TranslateModule.forRoot({
